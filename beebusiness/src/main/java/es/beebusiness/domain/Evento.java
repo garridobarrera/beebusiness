@@ -2,7 +2,6 @@ package es.beebusiness.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -35,9 +34,9 @@ public class Evento implements Serializable {
 	private Date fechaInicio;
 	private Date fechaFin;
 	private TipoEvento tipoEvento;
-	private Empresa empresa;
+	private Set<Empresa> empresas;
 	private Direccion direccion;
-	private List<Perfil> perfiles;
+	private Set<Perfil> perfiles;
 	private Set<Sector> sectores;
 	
 	@Id
@@ -109,15 +108,14 @@ public class Evento implements Serializable {
 		this.tipoEvento = tipoEvento;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY,optional=false)
-	@JoinColumn(name="empresa")
-	@ForeignKey(name="FK_EVENTO_EMPRESA")
-	public Empresa getEmpresa() {
-		return empresa;
+	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Empresa.class)
+	@JoinTable(name="BB_EVEN_EMPRESA")
+	public Set<Empresa> getEmpresas() {
+		return empresas;
 	}
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
+	public void setEmpresas(Set<Empresa> empresas) {
+		this.empresas = empresas;
 	}
 
 	@ManyToOne(fetch=FetchType.LAZY,optional=false,cascade=CascadeType.ALL)
@@ -133,11 +131,11 @@ public class Evento implements Serializable {
 
 	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Perfil.class)
 	@JoinTable(name="BB_EVEN_PERF")
-	public List<Perfil> getPerfiles() {
+	public Set<Perfil> getPerfiles() {
 		return perfiles;
 	}
 
-	public void setPerfiles(List<Perfil> perfiles) {
+	public void setPerfiles(Set<Perfil> perfiles) {
 		this.perfiles = perfiles;
 	}
 

@@ -1,6 +1,6 @@
 package es.beebusiness.dao;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -71,10 +71,12 @@ public class EventoDAOTest {
 			idProvincia=provincia.getId();
 			Direccion direccion=new Direccion();
 			direccion.setProvincia(provincia);
-			direccion.setDireccion("C\\ Menorca nº 13");
+			direccion.setDireccion("C\\ Menorca nï¿½ 13");
 			Evento evento=new Evento();
 			evento.setNombre("Evento de prueba");
-			evento.setEmpresa(empresaBBDD);
+			Set<Empresa> empresas=new HashSet<Empresa>();
+			empresas.add(empresaBBDD);
+			evento.setEmpresas(empresas);
 			evento.setTipoEvento(tipoBBDD);
 			evento.setDireccion(direccion);
 			idEvento = eventoDAO.create(evento).getId();
@@ -99,7 +101,7 @@ public class EventoDAOTest {
 	public void crearEventoCorrecto(){
 		Provincia provincia=provinciaDAO.findById(idProvincia);
 		Direccion direccion=new Direccion();
-		direccion.setDireccion("Almería nº 48");
+		direccion.setDireccion("Almerï¿½a nï¿½ 48");
 		direccion.setProvincia(provincia);
 		Perfil perfil=perfilDAO.findById(idPerfil);
 		Empresa empresa=empresaDAO.findById(idEmpresa);
@@ -108,9 +110,11 @@ public class EventoDAOTest {
 		evento.setAsistentes(4l);
 		evento.setDescripcion("Evento con perfiles");
 		evento.setDireccion(direccion);
-		evento.setEmpresa(empresa);
+		Set<Empresa> empresas=new HashSet<Empresa>();
+		empresas.add(empresa);
+		evento.setEmpresas(empresas);
 		evento.setTipoEvento(tipoEvento);
-		List<Perfil> perfiles=new ArrayList<Perfil>();
+		Set<Perfil> perfiles=new HashSet<Perfil>();
 		perfiles.add(perfil);
 		evento.setPerfiles(perfiles);
 		evento=eventoDAO.create(evento);
