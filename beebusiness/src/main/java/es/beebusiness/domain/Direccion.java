@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ForeignKey;
+
 @Entity
 @Table(name = "BB_DIRECCION")
 public class Direccion implements Serializable{
@@ -39,6 +41,7 @@ public class Direccion implements Serializable{
 	
 	@ManyToOne(fetch=FetchType.LAZY,optional=false)
 	@JoinColumn(name="provincia")
+	@ForeignKey(name="FK_DIRECCION_PROVINCIA")
 	public Provincia getProvincia() {
 		return provincia;
 	}

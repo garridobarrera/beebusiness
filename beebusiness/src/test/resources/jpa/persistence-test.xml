@@ -13,7 +13,7 @@
 	    <class>es.beebusiness.domain.Provincia</class>
 	    <class>es.beebusiness.domain.Perfil</class>
 	    <properties>
-	            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+	            <property name="hibernate.hbm2ddl.auto" value="update"/>
 	            <property name="hibernate.archive.autodetection" value="class, hbm"/>
 	            <property name="hibernate.c3p0.min_size" value="5"/>
 	            <property name="hibernate.c3p0.max_size" value="20"/>
