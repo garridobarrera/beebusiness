@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd" start-state="inicio">
+    <view-state id="inicio" view="../pages/inicio.xhtml">
+        <transition on="ok1" to="intermedio"></transition>
+    </view-state>
+    <view-state id="intermedio" view="-medio">
+        <transition on="ok2" to="fin"></transition>
+    </view-state>
+    <end-state id="fin" view="final">
+    </end-state>
+</flow>
