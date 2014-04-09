@@ -3,6 +3,7 @@ package es.beebusiness.domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -37,6 +38,7 @@ public class Evento implements Serializable {
 	private Empresa empresa;
 	private Direccion direccion;
 	private List<Perfil> perfiles;
+	private Set<Sector> sectores;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -137,6 +139,16 @@ public class Evento implements Serializable {
 
 	public void setPerfiles(List<Perfil> perfiles) {
 		this.perfiles = perfiles;
+	}
+
+	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Sector.class)
+	@JoinTable(name="BB_EVEN_SECT")
+	public Set<Sector> getSectores() {
+		return sectores;
+	}
+
+	public void setSectores(Set<Sector> sectores) {
+		this.sectores = sectores;
 	}
 
 
