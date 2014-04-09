@@ -66,7 +66,7 @@ public class EventoDAOTest {
 			provincia=provinciaDAO.create(provincia);
 			Direccion direccion=new Direccion();
 			direccion.setProvincia(provincia);
-			direccion.setDireccion("C\\ Menorca nÂº 13");
+			direccion.setDireccion("C\\ Menorca nº 13");
 			Evento evento=new Evento();
 			evento.setNombre("Evento de prueba");
 			evento.setEmpresa(empresaBBDD);
