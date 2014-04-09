@@ -46,6 +46,12 @@ public abstract class AbstractBaseGenericDAOImpl<T, K extends Serializable> impl
     public T findById(K key) {
         return this.em.find(classType, key);
     }
+    
+    @Transactional(propagation=Propagation.SUPPORTS)
+    @Override
+    public T getReference(K key){
+    	return this.em.getReference(classType, key);
+    }
 
     private static Class<?> getParameterClass(Class<?> clazz, int index) {
         return (Class<?>)(((ParameterizedType)clazz.getGenericSuperclass()).getActualTypeArguments()[index]);

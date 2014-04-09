@@ -10,4 +10,6 @@ public interface BaseGenericDAO<T, K extends Serializable> {
     void delete(T entity);
 
     T findById(K key);
+    
+    T getReference(K key);
 }
