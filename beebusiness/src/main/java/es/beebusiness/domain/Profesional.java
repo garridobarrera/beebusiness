@@ -3,8 +3,6 @@ package es.beebusiness.domain;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
@@ -31,9 +30,9 @@ public class Profesional implements Serializable{
 	private Set<Sector> sectores;
 	private String emailPersonal;
 	private String emailProfesional;
-	private Set<String> roles;
 	private String username;
 	private String password;
+	private Set<Evento> eventos;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -61,6 +60,10 @@ public class Profesional implements Serializable{
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
 	}
+	
+	@ManyToOne(fetch=FetchType.EAGER,optional=false)
+	@JoinTable(name="BB_PROF_EMPRESA",joinColumns={@JoinColumn(name="profesional")},inverseJoinColumns={@JoinColumn(name="empresa")})
+	@ForeignKey(name="FK_PROFESIONAL_PROFESIONAL",inverseName="FK_PROFESIONAL_EMPRESA")
 	public Empresa getEmpresa() {
 		return empresa;
 	}
@@ -99,16 +102,6 @@ public class Profesional implements Serializable{
 	public void setEmailProfesional(String emailProfesional) {
 		this.emailProfesional = emailProfesional;
 	}
-	@ElementCollection
-	@JoinTable(name="BB_PROF_ROL",joinColumns={@JoinColumn(name="profesional")})
-	@Column(name="rol")
-	@ForeignKey(name="FK_PROFESIONAL_ROL")
-	public Set<String> getRoles() {
-		return roles;
-	}
-	public void setRoles(Set<String> roles) {
-		this.roles = roles;
-	}
 	public String getUsername() {
 		return username;
 	}
@@ -120,6 +113,16 @@ public class Profesional implements Serializable{
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Evento.class)
+	@JoinTable(name="BB_PROF_EVENTO",joinColumns={@JoinColumn(name="profesional")},inverseJoinColumns={@JoinColumn(name="evento")})
+	@ForeignKey(name="FK_PROFESIONAL_PROFESIONAL",inverseName="FK_PROFESIONAL_EVENTO")
+	public Set<Evento> getEventos() {
+		return eventos;
+	}
+	public void setEventos(Set<Evento> eventos) {
+		this.eventos = eventos;
 	}
 
 }
