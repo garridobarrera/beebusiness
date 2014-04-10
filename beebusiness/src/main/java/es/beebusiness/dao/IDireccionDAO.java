@@ -2,6 +2,6 @@ package es.beebusiness.dao;
 
 import es.beebusiness.domain.Direccion;
 
-public interface IDireccionDAO extends BaseGenericDAO<Direccion, Long> {
+public interface IDireccionDAO extends IBaseGenericDAO<Direccion, Long> {
 
 }
