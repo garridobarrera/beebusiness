@@ -13,6 +13,8 @@
 	    <class>es.beebusiness.domain.Provincia</class>
 	    <class>es.beebusiness.domain.Perfil</class>
 	    <class>es.beebusiness.domain.Sector</class>
+	    <class>es.beebusiness.domain.Programa</class>
+	    <class>es.beebusiness.domain.Ponente</class>
 	    <properties>
 	            <property name="hibernate.hbm2ddl.auto" value="update"/>
 	            <property name="hibernate.archive.autodetection" value="class, hbm"/>

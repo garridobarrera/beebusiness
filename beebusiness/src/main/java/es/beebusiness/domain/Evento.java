@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,6 +39,7 @@ public class Evento implements Serializable {
 	private Direccion direccion;
 	private Set<Perfil> perfiles;
 	private Set<Sector> sectores;
+	private Set<Programa> programas;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -147,6 +149,16 @@ public class Evento implements Serializable {
 
 	public void setSectores(Set<Sector> sectores) {
 		this.sectores = sectores;
+	}
+
+	@OneToMany(fetch=FetchType.LAZY,targetEntity=Programa.class)
+	@JoinTable(name="BB_EVEN_PROGRAMA")
+	public Set<Programa> getProgramas() {
+		return programas;
+	}
+
+	public void setProgramas(Set<Programa> programas) {
+		this.programas = programas;
 	}
 
 
