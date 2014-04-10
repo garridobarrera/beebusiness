@@ -9,11 +9,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "BB_PROGRAMA")
@@ -63,7 +66,8 @@ public class Programa implements Serializable{
 	}
 	
 	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Ponente.class)
-	@JoinTable(name="BB_PROG_PONENTE")
+	@JoinTable(name="BB_PROG_PONENTE",joinColumns={@JoinColumn(name="programa")},inverseJoinColumns={@JoinColumn(name="ponente")})
+	@ForeignKey(name="FK_PROGRAMA_PROGRAMA",inverseName="FK_PROGRAMA_PONENTE")
 	public Set<Ponente> getPonentes() {
 		return ponentes;
 	}

@@ -111,7 +111,8 @@ public class Evento implements Serializable {
 	}
 
 	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Empresa.class)
-	@JoinTable(name="BB_EVEN_EMPRESA")
+	@JoinTable(name="BB_EVEN_EMPRESA",joinColumns={@JoinColumn(name="evento")},inverseJoinColumns={@JoinColumn(name="empresa")})
+	@ForeignKey(name="FK_EVENTO_EVENTO",inverseName="FK_EVENTO_EMPRESA")
 	public Set<Empresa> getEmpresas() {
 		return empresas;
 	}
@@ -132,7 +133,8 @@ public class Evento implements Serializable {
 	}
 
 	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Perfil.class)
-	@JoinTable(name="BB_EVEN_PERF")
+	@JoinTable(name="BB_EVEN_PERF",joinColumns={@JoinColumn(name="evento")},inverseJoinColumns={@JoinColumn(name="perfil")})
+	@ForeignKey(name="FK_EVENTO_EVENTO",inverseName="FK_EVENTO_PERFIL")
 	public Set<Perfil> getPerfiles() {
 		return perfiles;
 	}
@@ -142,7 +144,8 @@ public class Evento implements Serializable {
 	}
 
 	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Sector.class)
-	@JoinTable(name="BB_EVEN_SECT")
+	@JoinTable(name="BB_EVEN_SECT",joinColumns={@JoinColumn(name="evento")},inverseJoinColumns={@JoinColumn(name="sector")})
+	@ForeignKey(name="FK_EVENTO_EVENTO",inverseName="FK_EVENTO_SECTOR")
 	public Set<Sector> getSectores() {
 		return sectores;
 	}
@@ -151,8 +154,9 @@ public class Evento implements Serializable {
 		this.sectores = sectores;
 	}
 
-	@OneToMany(fetch=FetchType.LAZY,targetEntity=Programa.class)
-	@JoinTable(name="BB_EVEN_PROGRAMA")
+	@OneToMany(fetch=FetchType.LAZY,targetEntity=Programa.class)	
+	@JoinTable(name="BB_EVEN_PROGRAMA",joinColumns={@JoinColumn(name="evento")},inverseJoinColumns={@JoinColumn(name="programa")})
+	@ForeignKey(name="FK_EVENTO_EVENTO",inverseName="FK_EVENTO_PROGRAMA")
 	public Set<Programa> getProgramas() {
 		return programas;
 	}
