@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
@@ -32,7 +34,7 @@ public class Profesional implements Serializable{
 	private String emailProfesional;
 	private String username;
 	private String password;
-	private Set<Evento> eventos;
+	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -115,14 +117,6 @@ public class Profesional implements Serializable{
 		this.password = password;
 	}
 	
-	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Evento.class)
-	@JoinTable(name="BB_PROF_EVENTO",joinColumns={@JoinColumn(name="profesional")},inverseJoinColumns={@JoinColumn(name="evento")})
-	@ForeignKey(name="FK_PROFESIONAL_PROFESIONAL",inverseName="FK_PROFESIONAL_EVENTO")
-	public Set<Evento> getEventos() {
-		return eventos;
-	}
-	public void setEventos(Set<Evento> eventos) {
-		this.eventos = eventos;
-	}
+	
 
 }

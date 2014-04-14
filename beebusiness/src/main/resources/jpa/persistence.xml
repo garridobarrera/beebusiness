@@ -17,6 +17,7 @@
 	    <class>es.beebusiness.domain.Ponente</class>
 	    <class>es.beebusiness.domain.Profesional</class>
 	    <class>es.beebusiness.domain.Usuario</class>
+	    <class>es.beebusiness.domain.association.Asistente</class>
 	    <properties>
 	            <property name="hibernate.hbm2ddl.auto" value="update"/>
 	            <property name="hibernate.archive.autodetection" value="class, hbm"/>
