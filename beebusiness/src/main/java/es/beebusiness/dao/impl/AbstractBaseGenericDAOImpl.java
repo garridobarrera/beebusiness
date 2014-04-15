@@ -40,7 +40,7 @@ public abstract class AbstractBaseGenericDAOImpl<T, K extends Serializable> impl
 
     @Override
     public void delete(T entity) {
-        this.em.remove(entity);
+    	this.em.remove(em.contains(entity) ? entity : em.merge(entity));
     }
 
     @Transactional(readOnly=true)

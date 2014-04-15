@@ -1,0 +1,3 @@
+.hide-column-names table thead tr {
+    display: none;
+}

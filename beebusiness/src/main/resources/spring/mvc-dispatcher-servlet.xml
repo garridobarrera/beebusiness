@@ -39,6 +39,7 @@ http://www.springframework.org/schema/context
 	<webflow:flow-executor id="flowExecutor">
 		<webflow:flow-execution-listeners>
 			<webflow:listener ref="facesContextListener" />
+			<webflow:listener ref="securityFlowExecutionListener" />
 		</webflow:flow-execution-listeners>
 	</webflow:flow-executor>
 
@@ -76,6 +77,10 @@ http://www.springframework.org/schema/context
 	<bean id="facesContextListener"
 		class="org.springframework.faces.webflow.FlowFacesContextLifecycleListener">
 	</bean>
+	
+	<!-- Installs a listener to apply Spring Security authorities -->
+    <bean id="securityFlowExecutionListener"
+          class="org.springframework.webflow.security.SecurityFlowExecutionListener" />
 
 	<!-- ***************** -->
 	<!-- Configuración JPA -->

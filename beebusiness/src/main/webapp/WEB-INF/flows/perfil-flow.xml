@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="inicio">
+	<secured attributes="ROLE_USER" />
+	<var name="perfilNuevo" class="es.beebusiness.domain.Perfil" />
+	<on-start>
+		<evaluate expression="new es.beebusiness.domain.Perfil()"
+			result="perfilNuevo" />
+		<evaluate expression="perfilController.obtenerPerfiles()"
+			result="flowScope.perfiles"></evaluate>
+	</on-start>
+	<view-state id="inicio" view="../pages/perfil/listado.xhtml">
+		<transition on="ok1" to="intermedio"></transition>
+		<transition on="altaPerfil">
+			<evaluate expression="perfilController.altaPerfil(perfilNuevo)" />
+			<evaluate expression="new es.beebusiness.domain.Perfil()"
+			result="perfilNuevo" />
+			<evaluate expression="perfilController.obtenerPerfiles()"
+				result="flowScope.perfiles"></evaluate>
+		</transition>
+		
+		
+		<transition on="eliminarPefil">
+			<evaluate expression="perfilController.eliminarPerfil(requestParameters.id)"></evaluate>
+			<evaluate expression="perfilController.obtenerPerfiles()"
+				result="flowScope.perfiles"></evaluate>
+		</transition>
+	</view-state>
+
+
+	<view-state id="intermedio" view="-medio">
+		<transition on="ok2" to="fin"></transition>
+	</view-state>
+	<end-state id="fin" view="final">
+	</end-state>
+</flow>

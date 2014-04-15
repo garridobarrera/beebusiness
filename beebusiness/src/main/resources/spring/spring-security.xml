@@ -8,12 +8,20 @@
 
 	<http auto-config="true">
 		<intercept-url pattern="/app/**" access="ROLE_USER" />
+		<form-login 
+		    login-page="/login.xhtml" 
+		    default-target-url="/app/perfil-flow" 
+			authentication-failure-url="/login.xhtml?error" 
+			username-parameter="username"
+			password-parameter="password" />
+		<logout logout-success-url="/login?logout" />
+		
 	</http>
 
 	<authentication-manager>
 		<authentication-provider>
 			<user-service>
-				<user name="beebusiness" password="admin" authorities="ROLE_USER" />
+				<user name="admin@beebusiness.biz" password="admin" authorities="ROLE_USER" />
 			</user-service>
 		</authentication-provider>
 	</authentication-manager>
