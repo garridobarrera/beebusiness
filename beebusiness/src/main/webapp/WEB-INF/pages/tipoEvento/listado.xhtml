@@ -13,7 +13,7 @@
 			<div class="col-lg-12">
 				<ol class="breadcrumb">
 					<li><a href="perfil-flow">Inicio</a></li>
-					<li class="active">Sectores profesionales</li>
+					<li class="active">Tipos de eventos</li>
 				</ol>
 			</div>
 		</div>
@@ -22,7 +22,7 @@
 	<ui:define name="contenido">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Mantenimiento de sectores profesionales</h1>
+				<h1 class="page-header">Mantenimiento de tipos de eventos</h1>
 			</div>
 			<div class="col-lg-12">
 				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
@@ -46,7 +46,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="panel panel-default">
-					<div class="panel-heading">Registrar nuevo sector</div>
+					<div class="panel-heading">Registrar nuevo tipo de evento</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
@@ -62,7 +62,7 @@
 										<div class="col-lg-10">
 											<p:inputText styleClass="form-control" id="nombre"
 												requiredMessage="Campo nombre: Es necesario establecer un valor"
-												required="true" value="#{sectorNuevo.nombre}" />
+												required="true" value="#{tipoEventoNuevo.nombre}" />
 										</div>
 										<div class="col-lg-offset-2 col-lg-7">
 											<p class="help-block">Nombre del sector.</p>
@@ -71,9 +71,9 @@
 									</div>
 									<div class="form-group">
 										<div class="col-sm-offset-7 col-sm-5 divider">
-											<p:commandButton action="altaSector" value="Alta"
+											<p:commandButton action="altaTipoEvento" value="Alta"
 												id="saveBtn"
-												update=":listado:sectores :registro:nombre :growl"
+												update=":listado:tipoEventos :registro:nombre :growl"
 												styleClass="btn btn-default btn-sm btn-block"></p:commandButton>
 											<p:blockUI block=":registro:saveBtn"
 												trigger=":registro:saveBtn" />
@@ -93,27 +93,28 @@
 			</div>
 			<div class="col-lg-6">
 				<div class="panel panel-default">
-					<div class="panel-heading">Listado de sectores</div>
+					<div class="panel-heading">Listado de tipo de eventos</div>
 					<div class="panel-body">
 						<h:form id="listado">
-							<p:dataTable var="sector" value="#{sectoreslazy}"
-								paginator="true" dynamic="true" rows="#{sectoreslazy.pageSize}"
+							<p:dataTable var="tipoEvento" value="#{tipoEventoslazy}"
+								paginator="true" dynamic="true"
+								rows="#{tipoEventoslazy.pageSize}"
 								page="#{sectoreslazy.currentPage}" lazy="true" editable="true"
-								id="sectores" paginatorAlwaysVisible="false"
+								id="tipoEventos" paginatorAlwaysVisible="false"
 								styleClass="hide-column-names" emptyMessage="No hay registros"
 								paginatorPosition="bottom"
 								currentPageReportTemplate="total {totalRecords}"
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								rowsPerPageTemplate="5,10,15">
-								<p:ajax event="rowEdit" listener="#{sectorController.onEdit}"
-									update=":growl" />
-								<p:column sortBy="#{sector.nombre}">
+								<p:ajax event="rowEdit"
+									listener="#{tipoEventoController.onEdit}" update=":growl" />
+								<p:column sortBy="#{tipoEvento.nombre}">
 									<p:cellEditor>
 										<f:facet name="output">
-											<h:outputText value="#{sector.nombre}" />
+											<h:outputText value="#{tipoEvento.nombre}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{sector.nombre}" style="width:100%" />
+											<p:inputText value="#{tipoEvento.nombre}" style="width:100%" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
@@ -126,8 +127,9 @@
 									<div class="ui-row-editor">
 										<span> <p:commandLink
 												styleClass="ui-icon ui-icon-trash"
-												update=":listado:sectores :growl" action="eliminarSector">
-												<f:param name="id" value="#{sector.id}" />
+												update=":listado:tipoEventos :growl"
+												action="eliminarTipoEvento">
+												<f:param name="id" value="#{tipoEvento.id}" />
 											</p:commandLink>
 										</span>
 									</div>

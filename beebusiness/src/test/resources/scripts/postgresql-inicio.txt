@@ -1,0 +1,11 @@
+INSERT INTO bb_usuario(
+            id, apellidos, emailpersonal, emailprofesional, nombre, "password", 
+            username)
+    VALUES ('1', 'admin', 'admin@beebusiness.biz', 'admin@beebusiness.biz', 'Administrador', 'admin', 'admin@beebusiness.biz');
+
+INSERT INTO BB_USUARIO_ROL (usuario, rol)
+VALUES
+    ('1','ROLE_USER');
+INSERT INTO BB_USUARIO_ROL (usuario, rol)
+VALUES
+    ('1','ROLE_ADMIN');

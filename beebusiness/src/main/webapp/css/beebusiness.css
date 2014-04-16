@@ -1,3 +1,7 @@
 .hide-column-names table thead tr {
     display: none;
 }
+
+.breadcrumb{
+	margin-top: 20px;
+}
