@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "BB_SECTOR")
 @NamedQueries(value = {
 		@NamedQuery(name = "getSectorByNombre", query = "SELECT s FROM Sector s WHERE s.nombre=?"),
-		@NamedQuery(name = "getSectorSizeByNombre", query = "SELECT COUNT(s) FROM Sector s WHERE s.nombre=? ORDER BY s.nombre ASC"),
+		@NamedQuery(name = "getSectorSizeByNombre", query = "SELECT COUNT(s) FROM Sector s WHERE s.nombre=? GROUP BY s.nombre ORDER BY s.nombre ASC"),
 		@NamedQuery(name = "getSectorAll", query = "SELECT s FROM Sector s ORDER BY s.nombre ASC"),
 		@NamedQuery(name = "getSectorSize", query = "SELECT COUNT(s) FROM Sector s")
 		})

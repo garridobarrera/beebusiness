@@ -23,7 +23,7 @@ import org.hibernate.annotations.ForeignKey;
 @Table(name = "BB_USUARIO")
 @NamedQueries(value = {
 		@NamedQuery(name = "getUsuarioByUsername", query = "SELECT u FROM Usuario u WHERE u.username=?"),
-		@NamedQuery(name = "getUsuarioSizeByUsername", query = "SELECT COUNT(u) FROM Usuario u WHERE u.username=? ORDER BY u.username ASC"),
+		@NamedQuery(name = "getUsuarioSizeByUsername", query = "SELECT COUNT(u) FROM Usuario u WHERE u.username=? GROUP BY u.username ORDER BY u.username ASC"),
 		@NamedQuery(name = "getUsuarioAll", query = "SELECT u FROM Usuario u ORDER BY u.username ASC"),
 		@NamedQuery(name = "getUsuarioSize", query = "SELECT COUNT(u) FROM Perfil u")
 		})

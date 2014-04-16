@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Table(name = "BB_PERFIL")
 @NamedQueries(value = {
 		@NamedQuery(name = "getPerfilByNombre", query = "SELECT p FROM Perfil p WHERE p.nombre=?"),
-		@NamedQuery(name = "getPerfilSizeByNombre", query = "SELECT COUNT(p) FROM Perfil p WHERE p.nombre=? ORDER BY p.nombre ASC"),
+		@NamedQuery(name = "getPerfilSizeByNombre", query = "SELECT COUNT(p) FROM Perfil p WHERE p.nombre=? GROUP BY p.nombre ORDER BY p.nombre ASC"),
 		@NamedQuery(name = "getPerfilAll", query = "SELECT p FROM Perfil p ORDER BY p.nombre ASC"),
 		@NamedQuery(name = "getPerfilSize", query = "SELECT COUNT(p) FROM Perfil p")
 		})
