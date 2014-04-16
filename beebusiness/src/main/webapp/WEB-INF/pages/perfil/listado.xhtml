@@ -61,10 +61,12 @@
 									</div>
 									<div class="form-group">
 										<div class="col-sm-offset-7 col-sm-5 divider">
-											<p:commandButton action="altaPerfil" value="Alta" id="saveBtn"
+											<p:commandButton action="altaPerfil" value="Alta"
+												id="saveBtn"
 												update=":listado:perfiles :registro:nombre :growl"
 												styleClass="btn btn-default btn-sm btn-block"></p:commandButton>
-												<p:blockUI block=":registro:saveBtn" trigger=":registro:saveBtn" />  
+											<p:blockUI block=":registro:saveBtn"
+												trigger=":registro:saveBtn" />
 										</div>
 									</div>
 								</h:form>
@@ -84,10 +86,12 @@
 					<div class="panel-heading">Listado de perfiles</div>
 					<div class="panel-body">
 						<h:form id="listado">
-							<p:dataTable var="perfil" value="#{flowScope.perfiles}"
-								editable="true" id="perfiles" paginatorAlwaysVisible="false"
+							<p:dataTable var="perfil" value="#{perfileslazy}"
+								paginator="true" dynamic="true" rows="#{perfileslazy.pageSize}"
+								page="#{perfileslazy.currentPage}" lazy="true" editable="true"
+								id="perfiles" paginatorAlwaysVisible="false"
 								styleClass="hide-column-names" emptyMessage="No hay registros"
-								paginator="true" rows="10" paginatorPosition="bottom"
+								paginatorPosition="bottom"
 								currentPageReportTemplate="total {totalRecords}"
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								rowsPerPageTemplate="5,10,15">
@@ -126,7 +130,6 @@
 			</div>
 		</div>
 		<!-- /.row -->
-
 	</ui:define>
 </ui:composition>
 </html>

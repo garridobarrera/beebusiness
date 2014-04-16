@@ -12,9 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import es.beebusiness.dao.IBaseGenericDAO;
 
 @Transactional(propagation=Propagation.REQUIRED)
-public abstract class AbstractBaseGenericDAOImpl<T, K extends Serializable> implements IBaseGenericDAO<T, K> {
+public abstract class AbstractBaseGenericDAOImpl<T, K extends Serializable> implements IBaseGenericDAO<T, K>,Serializable {
 
-    @PersistenceContext
+  
+	private static final long serialVersionUID = 8146388573151290793L;
+
+	@PersistenceContext
     protected EntityManager em;
 
     protected Class<T> classType;

@@ -19,7 +19,7 @@
 		<jsf.version>2.0.9</jsf.version>
 		<servlet.api.version>3.0.1</servlet.api.version>
 		<jstl.version>1.2</jstl.version>
-		<primefaces.version>3.5</primefaces.version>
+		<primefaces.version>4.0</primefaces.version>
 		<primefaces.bootstrap.version>1.0.9</primefaces.bootstrap.version>
 		<commons.fileupload.version>1.3</commons.fileupload.version>
 		<slf4j.version>1.7.6</slf4j.version>
