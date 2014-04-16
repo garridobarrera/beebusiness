@@ -11,19 +11,25 @@
 		<form-login 
 		    login-page="/login.xhtml" 
 		    default-target-url="/app/perfil-flow" 
-			authentication-failure-url="/login.xhtml?error" 
+			authentication-failure-url="/login.xhtml?error=1" 
 			username-parameter="username"
 			password-parameter="password" />
 		<logout logout-success-url="/login?logout" />
 		
 	</http>
 
-	<authentication-manager>
+	<!-- MOCK DE AUTENTICACION -->
+	<!-- <authentication-manager>
 		<authentication-provider>
 			<user-service>
 				<user name="admin@beebusiness.biz" password="admin" authorities="ROLE_USER" />
 			</user-service>
 		</authentication-provider>
+	</authentication-manager> -->
+	
+	<!-- AUTENTICACION BASE DE DATOS -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="customAuthenticationProvider" />
 	</authentication-manager>
 
 </beans:beans>

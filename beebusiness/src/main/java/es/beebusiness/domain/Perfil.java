@@ -14,18 +14,18 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "BB_PERFIL")
 @NamedQueries(value = {
-		@NamedQuery(name = "getByNombre", query = "SELECT p FROM Perfil p WHERE p.nombre=?"),
-		@NamedQuery(name = "getSizeByNombre", query = "SELECT COUNT(p) FROM Perfil p WHERE p.nombre=? ORDER BY p.nombre ASC"),
-		@NamedQuery(name = "getAll", query = "SELECT p FROM Perfil p ORDER BY p.nombre ASC"),
-		@NamedQuery(name = "getSize", query = "SELECT COUNT(p) FROM Perfil p")
+		@NamedQuery(name = "getPerfilByNombre", query = "SELECT p FROM Perfil p WHERE p.nombre=?"),
+		@NamedQuery(name = "getPerfilSizeByNombre", query = "SELECT COUNT(p) FROM Perfil p WHERE p.nombre=? ORDER BY p.nombre ASC"),
+		@NamedQuery(name = "getPerfilAll", query = "SELECT p FROM Perfil p ORDER BY p.nombre ASC"),
+		@NamedQuery(name = "getPerfilSize", query = "SELECT COUNT(p) FROM Perfil p")
 		})
 public class Perfil implements Serializable{
 
 	private static final long serialVersionUID = 4462145394243600871L;
-	public static final String QUERY_GETBYNOMBRE="getByNombre";
-	public static final String QUERY_GETTOTALBYNOMBRE="getSizeByNombre";
-	public static final String QUERY_GETTOTAL="getSize";
-	public static final String QUERY_GETALL="getAll";
+	public static final String QUERY_GETBYNOMBRE="getPerfilByNombre";
+	public static final String QUERY_GETTOTALBYNOMBRE="getPerfilSizeByNombre";
+	public static final String QUERY_GETTOTAL="getPerfilSize";
+	public static final String QUERY_GETALL="getPerfilAll";
 	private Long id;
 	private String nombre;
 	@Id

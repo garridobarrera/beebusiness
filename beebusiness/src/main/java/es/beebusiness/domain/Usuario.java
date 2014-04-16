@@ -13,15 +13,28 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "BB_USUARIO")
+@NamedQueries(value = {
+		@NamedQuery(name = "getUsuarioByUsername", query = "SELECT u FROM Usuario u WHERE u.username=?"),
+		@NamedQuery(name = "getUsuarioSizeByUsername", query = "SELECT COUNT(u) FROM Usuario u WHERE u.username=? ORDER BY u.username ASC"),
+		@NamedQuery(name = "getUsuarioAll", query = "SELECT u FROM Usuario u ORDER BY u.username ASC"),
+		@NamedQuery(name = "getUsuarioSize", query = "SELECT COUNT(u) FROM Perfil u")
+		})
 public class Usuario implements Serializable{
 
 	private static final long serialVersionUID = -4410070469854677050L;
+	public static final String QUERY_GETBYUSERNAME="getUsuarioByUsername";
+	public static final String QUERY_GETTOTALBYUSERNAME="getUsuarioSizeByUsername";
+	public static final String QUERY_GETTOTAL="getUsuarioSize";
+	public static final String QUERY_GETALL="getUsuarioAll";
+	
 	private Long id;
 	private String nombre;
 	private String apellidos;

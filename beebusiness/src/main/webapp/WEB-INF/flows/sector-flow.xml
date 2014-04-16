@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="listado">
+	<secured attributes="ROLE_USER" />
+	<var name="sectorNuevo" class="es.beebusiness.domain.Sector" />
+	<on-start>
+		<evaluate expression="new es.beebusiness.domain.Sector()"
+			result="sectorNuevo" />
+	</on-start>
+	<view-state id="listado" view="../pages/sector/listado.xhtml">
+	    <var name="sectoreslazy" class="es.beebusiness.controller.lazy.SectorLazyDataModel"/>
+		
+		
+		<transition on="altaSector">
+			<evaluate expression="sectorController.altaSector(sectorNuevo)" />
+			<evaluate expression="new es.beebusiness.domain.Sector()"
+			result="sectorNuevo" />
+		</transition>
+		
+		
+		<transition on="eliminarSector">
+			<evaluate expression="sectorController.eliminarSector(requestParameters.id)"></evaluate>
+		</transition>
+	</view-state>
+
+
+	<end-state id="fin" view="final">
+	</end-state>
+</flow>
