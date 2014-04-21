@@ -3,58 +3,100 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 
 <head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content=""/>
+<meta name="author" content=""/>
 
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Landing Page Template for Bootstrap</title>
 
-<title>beeBusiness - Gestión de eventos online (BETA)</title>
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.css" rel="stylesheet"/>
 
-<!-- Core CSS - Include with every page -->
-<link href="css/bootstrap.min.css" rel="stylesheet" />
-<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<!-- Custom Google Web Font -->
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
 
-<!-- SB Admin CSS - Include with every page -->
-<link href="css/sb-admin.css" rel="stylesheet" />
+<!-- Add custom CSS here -->
+<link href="css/landing-page.css" rel="stylesheet"/>
 
 </head>
 
 <body>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
-				<div class="login-panel panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Introduzca credenciales</h3>
+
+
+	<div class="intro-header">
+
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<div class="intro-message">
+					<div class="row">
+					<div class="col-md-2">
+					<img alt="logo" src="img/logo.png" />
 					</div>
-					<div class="panel-body">
-						<h:panelGrid rendered="#{param['error'] == '1' ? true : false}" width="100%">
-							<div class="alert alert-danger">
-								<a class="close" data-dismiss="alert">×</a> Credenciales incorrectas
-							</div>
-						</h:panelGrid>
-						<form role="form" action="j_spring_security_check" method="post">
-							<fieldset>
-								<div class="form-group">
-									<input class="form-control" placeholder="E-mail"
-										name="username" type="email" value="" required="true" />
+					<div class="col-md-8">
+					<h1>beeBusiness</h1>
+					</div>
+					</div>
+						
+						<h3>Formulario de acceso</h3>
+						<div class="panel-body">
+							<h:panelGrid rendered="#{param['error'] == '1' ? true : false}"
+								width="100%">
+								<div class="alert alert-danger">
+									<a class="close" data-dismiss="alert">×</a> Credenciales
+									incorrectas
 								</div>
-								<div class="form-group">
-									<input class="form-control" placeholder="Password"
-										name="password" type="password" value="" required="true" />
-								</div>
-								<!-- Change this to a button or input when using this as a form -->
-								<input type="submit" class="btn btn-lg btn-success btn-block"
-									value="Acceder"></input>
-							</fieldset>
-						</form>
+							</h:panelGrid>
+							<form role="form" action="j_spring_security_check" method="post">
+								<fieldset>
+									<div class="form-group">
+										<input class="form-control" placeholder="E-mail"
+											name="username" type="email" value="" required="true" />
+									</div>
+									<div class="form-group">
+										<input class="form-control" placeholder="Password"
+											name="password" type="password" value="" required="true" />
+									</div>
+									<!-- Change this to a button or input when using this as a form -->
+									<input type="submit" class="btn btn-lg btn-success btn-block"
+										value="Acceder"></input>
+								</fieldset>
+							</form>
+						</div>
+						<hr class="intro-divider"/>
+						<ul class="list-inline intro-social-buttons">
+							<li><a href="#" class="btn btn-default btn-lg"><i
+									class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
+
 		</div>
+		<!-- /.container -->
+
 	</div>
 
-	<!-- Core Scripts - Include with every page -->
+
+
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+
+					<p class="copyright text-muted small">Copyright 
+						beeBusiness 2014. All Rights Reserved</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+		<!-- Core Scripts - Include with every page -->
 	<script src="js/jquery-1.10.2.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
