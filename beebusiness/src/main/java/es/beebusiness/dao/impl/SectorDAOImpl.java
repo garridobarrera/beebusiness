@@ -11,6 +11,9 @@ import es.beebusiness.domain.Sector;
 
 @Repository
 public class SectorDAOImpl extends AbstractBaseGenericDAOImpl<Sector, Long> implements ISectorDAO{
+
+	private static final long serialVersionUID = -2258430640831149302L;
+
 	@Override
 	public Sector findByCodigo(String codigo) {
 		TypedQuery<Sector> query=em.createNamedQuery(Sector.QUERY_GETBYNOMBRE, Sector.class);

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="listado">
+	<secured attributes="ROLE_USER" />
+	<var name="empresaNueva" class="es.beebusiness.domain.Empresa" />
+	<on-start>
+		<evaluate expression="new es.beebusiness.domain.Empresa()"
+			result="empresaNueva" />
+	</on-start>
+	<view-state id="listado" view="../pages/empresa/listado.xhtml">
+	    <var name="empresaslazy" class="es.beebusiness.controller.lazy.EmpresaLazyDataModel"/>
+		
+		
+		<transition on="altaEmpresa">
+			<evaluate expression="empresaController.altaEmpresa(empresaNueva)" />
+			<evaluate expression="new es.beebusiness.domain.Empresa()"
+			result="empresaNueva" />
+		</transition>
+		
+		
+		<transition on="eliminarEmpresa">
+			<evaluate expression="empresaController.eliminarEmpresa(requestParameters.id)"></evaluate>
+		</transition>
+		
+		<transition on="obtenerEmpresa">
+			<evaluate expression="empresaController.obtenerEmpresa(requestParameters.id)" result="empresaNueva"></evaluate>
+		</transition>
+	</view-state>
+
+
+	<end-state id="fin" view="final">
+	</end-state>
+</flow>

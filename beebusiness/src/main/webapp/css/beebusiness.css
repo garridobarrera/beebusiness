@@ -5,3 +5,7 @@
 .breadcrumb{
 	margin-top: 20px;
 }
+
+.ui-inputfield.ui-state-error{
+	border: 1px solid red;
+}

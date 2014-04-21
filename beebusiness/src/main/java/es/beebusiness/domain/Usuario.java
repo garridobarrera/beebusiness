@@ -66,7 +66,7 @@ public class Usuario implements Serializable{
 		this.apellidos = apellidos;
 	}
 	
-	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Empresa.class)
+	@ManyToMany(fetch=FetchType.EAGER,targetEntity=Empresa.class)
 	@JoinTable(name="BB_USUARIO_EMPRESA",joinColumns={@JoinColumn(name="usuario")},inverseJoinColumns={@JoinColumn(name="empresa")})
 	@ForeignKey(name="FK_USUARIO_USUARIO",inverseName="FK_USUARIO_EMPRESA")
 	public Set<Empresa> getEmpresas() {
@@ -88,7 +88,7 @@ public class Usuario implements Serializable{
 		this.emailProfesional = emailProfesional;
 	}
 	
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
 	@JoinTable(name="BB_USUARIO_ROL",joinColumns={@JoinColumn(name="usuario")})
 	@Column(name="rol")
 	@ForeignKey(name="FK_USUARIO_ROL")

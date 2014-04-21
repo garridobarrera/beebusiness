@@ -12,6 +12,9 @@ import es.beebusiness.domain.TipoEvento;
 @Repository
 public class TipoEventoDAOImpl extends AbstractBaseGenericDAOImpl<TipoEvento, Long> implements ITipoEventoDAO{
 
+
+	private static final long serialVersionUID = 5450171554350233685L;
+
 	@Override
 	public TipoEvento findByCodigo(String codigo) {
 		TypedQuery<TipoEvento> query=em.createNamedQuery(TipoEvento.QUERY_GETBYNOMBRE, TipoEvento.class);

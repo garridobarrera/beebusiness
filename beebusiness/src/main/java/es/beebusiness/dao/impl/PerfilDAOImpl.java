@@ -12,6 +12,11 @@ import es.beebusiness.domain.Perfil;
 @Repository
 public class PerfilDAOImpl extends AbstractBaseGenericDAOImpl<Perfil, Long> implements IPerfilDAO{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5583882049911268889L;
+
 	@Override
 	public Perfil findByCodigo(String codigo) {
 		TypedQuery<Perfil> query=em.createNamedQuery(Perfil.QUERY_GETBYNOMBRE, Perfil.class);

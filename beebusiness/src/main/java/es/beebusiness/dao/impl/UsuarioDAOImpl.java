@@ -11,6 +11,9 @@ import es.beebusiness.domain.Usuario;
 
 @Repository
 public class UsuarioDAOImpl extends AbstractBaseGenericDAOImpl<Usuario, Long> implements IUsuarioDAO{
+
+	private static final long serialVersionUID = 7781154947735130926L;
+
 	@Override
 	public Usuario findByCodigo(String username) {
 		TypedQuery<Usuario> query=em.createNamedQuery(Usuario.QUERY_GETBYUSERNAME, Usuario.class);
