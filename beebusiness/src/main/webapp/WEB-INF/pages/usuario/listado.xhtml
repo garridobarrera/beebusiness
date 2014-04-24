@@ -63,7 +63,7 @@
 										<div class="col-lg-10">
 											<p:inputText styleClass="form-control" id="nombre"
 												requiredMessage="Campo nombre: Es necesario establecer un valor"
-												required="true" value="#{usuarioNuevo.nombre}" />
+												required="true" value="#{usuarioBean.usuario.nombre}" />
 										</div>
 										<div class="col-lg-offset-2 col-lg-10">
 											<p class="help-block">Nombre del usuario.</p>
@@ -75,7 +75,7 @@
 										<label class="col-lg-2 control-label">Apellidos</label>
 										<div class="col-lg-10">
 											<p:inputText styleClass="form-control" id="apellidos"
-												value="#{usuarioNuevo.apellidos}" />
+												value="#{usuarioBean.usuario.apellidos}" />
 										</div>
 										<div class="col-lg-offset-2 col-lg-10">
 											<p class="help-block">Apellidos del usuario.</p>
@@ -87,7 +87,7 @@
 										<label class="col-lg-2 control-label">Email personal</label>
 										<div class="col-lg-10">
 											<p:inputText styleClass="form-control" id="emailpersonal"
-												value="#{usuarioNuevo.emailPersonal}" />
+												value="#{usuarioBean.usuario.emailPersonal}" />
 										</div>
 										<div class="col-lg-offset-2 col-lg-10">
 											<p class="help-block">Email personal.</p>
@@ -99,7 +99,7 @@
 										<label class="col-lg-2 control-label">Email de empresa</label>
 										<div class="col-lg-10">
 											<p:inputText styleClass="form-control" id="emailempresa"
-												value="#{usuarioNuevo.emailProfesional}" />
+												value="#{usuarioBean.usuario.emailProfesional}" />
 										</div>
 										<div class="col-lg-offset-2 col-lg-10">
 											<p class="help-block">Email de empresa.</p>
@@ -111,14 +111,15 @@
 										<label class="col-lg-2 control-label">Roles</label>
 										<div class="col-lg-10">
 											<p:selectManyMenu id="roles"  style="width:100%"
-												value="#{usuarioNuevo.roles}">
+												value="#{usuarioBean.usuario.roles}">
 												<f:selectItem itemLabel="Administrador" itemValue="ROLE_ADMIN" />
 												<f:selectItem itemLabel="Usuario" itemValue="ROLE_USER" />
 												<f:selectItem itemLabel="Gestor" itemValue="ROLE_GESTOR" />
+												<f:attribute name="collectionType" value="java.util.HashSet" />
 											</p:selectManyMenu>
 										</div>
 										<div class="col-lg-offset-2 col-lg-10">
-											<p class="help-block">Email de empresa.</p>
+											<p class="help-block">Roles del usuario.</p>
 										</div>
 
 									</div>
@@ -127,7 +128,7 @@
 										<label class="col-lg-2 control-label">Username</label>
 										<div class="col-lg-10">
 											<p:inputText styleClass="form-control" id="username"
-												value="#{usuarioNuevo.username}" />
+												value="#{usuarioBean.usuario.username}" />
 										</div>
 										<div class="col-lg-offset-2 col-lg-10">
 											<p class="help-block">Username.</p>
@@ -139,7 +140,7 @@
 
 										<label class="col-lg-2 control-label">Password</label>
 										<div class="col-lg-10">
-											<p:password id="pwd1" value="#{usuarioNuevo.password}"
+											<p:password id="pwd1" value="#{usuarioBean.usuario.password}"
 												styleClass="form-control" match="pwd2" required="true" />
 										</div>
 										<div class="col-lg-offset-2 col-lg-10">
@@ -152,7 +153,7 @@
 
 										<label class="col-lg-2 control-label">Repite Password</label>
 										<div class="col-lg-10">
-											<p:password id="pwd2" value="#{usuarioNuevo.password}"
+											<p:password id="pwd2" value="#{usuarioBean.usuario.password}"
 												styleClass="form-control" match="pwd2" required="true" />
 										</div>
 										<div class="col-lg-offset-2 col-lg-10">
@@ -187,9 +188,9 @@
 					<div class="panel-heading">Listado de usuarios</div>
 					<div class="panel-body">
 						<h:form id="listado">
-							<p:dataTable var="usuario" value="#{usuarioslazy}"
-								paginator="true" dynamic="true" rows="#{usuarioslazy.pageSize}"
-								page="#{usuarioslazy.currentPage}" lazy="true" id="usuarios"
+							<p:dataTable var="usuario" value="#{usuarioBean.lazy}"
+								paginator="true" dynamic="true" rows="#{usuarioBean.lazy.pageSize}"
+								page="#{usuarioBean.lazy.currentPage}" lazy="true" id="usuarios"
 								paginatorAlwaysVisible="false" styleClass="hide-column-names"
 								emptyMessage="No hay registros" paginatorPosition="bottom"
 								currentPageReportTemplate="total {totalRecords}"
@@ -199,7 +200,16 @@
 									<h:outputText value="#{usuario.nombre}" />
 								</p:column>
 
-						
+								<p:column style="width: 6%;">
+									<div class="ui-row-editor">
+										<span> <p:commandLink
+												styleClass="ui-icon ui-icon-pencil"
+												update=":registro" action="obtenerUsuario">
+												<f:param name="id" value="#{usuario.id}" />
+											</p:commandLink>
+										</span>
+									</div>
+								</p:column>
 
 								<p:column style="width: 6%;">
 									<div class="ui-row-editor">

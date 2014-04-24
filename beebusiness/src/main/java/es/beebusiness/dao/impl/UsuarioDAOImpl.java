@@ -1,6 +1,8 @@
 package es.beebusiness.dao.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.TypedQuery;
 
@@ -54,4 +56,6 @@ public class UsuarioDAOImpl extends AbstractBaseGenericDAOImpl<Usuario, Long> im
 		query.setParameter(1, u.getUsername());
 		return query.getResultList();
 	}
+
+	
 }

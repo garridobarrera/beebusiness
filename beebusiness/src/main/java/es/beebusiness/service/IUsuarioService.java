@@ -2,6 +2,7 @@ package es.beebusiness.service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import es.beebusiness.dao.IUsuarioDAO;
 import es.beebusiness.domain.Usuario;

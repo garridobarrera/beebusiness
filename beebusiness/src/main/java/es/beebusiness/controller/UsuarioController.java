@@ -2,6 +2,7 @@ package es.beebusiness.controller;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -55,8 +56,6 @@ public class UsuarioController implements Serializable{
 	}
 	
 	public Usuario obtenerUsuario(String id){
-		Usuario usuario=new Usuario();
-		usuario.setId(new Long(id));
 		return usuarioService.get(new Long(id));
 	}
 

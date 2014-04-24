@@ -5,19 +5,19 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="listado">
 	<secured attributes="ROLE_USER" />
-	<var name="usuarioNuevo" class="es.beebusiness.domain.Usuario" />
+	<var name="usuarioBean" class="es.beebusiness.beans.UserBean"/>
+	<var name="lazy" class="es.beebusiness.controller.lazy.UsuarioLazyDataModel"/>
+	
 	<on-start>
 		<evaluate expression="new es.beebusiness.domain.Usuario()"
-			result="usuarioNuevo" />
+		result="usuarioBean.usuario" />
+		<evaluate expression="usuarioBean.setLazy(lazy)"/>
 	</on-start>
 	<view-state id="listado" view="../pages/usuario/listado.xhtml">
-	    <var name="usuarioslazy" class="es.beebusiness.controller.lazy.UsuarioLazyDataModel"/>
-		
-		
 		<transition on="altaUsuario">
-			<evaluate expression="usuarioController.altaUsuario(usuarioNuevo)" />
+			<evaluate expression="usuarioController.altaUsuario(usuarioBean.usuario)" />
 			<evaluate expression="new es.beebusiness.domain.Usuario()"
-			result="usuarioNuevo" />
+			result="usuarioBean.usuario" />
 		</transition>
 		
 		
@@ -26,7 +26,7 @@
 		</transition>
 		
 		<transition on="obtenerUsuario">
-			<evaluate expression="usuarioController.obtenerUsuario(requestParameters.id)" result="usuarioNuevo"></evaluate>
+			<evaluate expression="usuarioController.obtenerUsuario(requestParameters.id)" result="usuarioBean.usuario"></evaluate>
 		</transition>
 	</view-state>
 
