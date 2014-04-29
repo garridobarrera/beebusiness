@@ -1,7 +1,7 @@
 package es.beebusiness.rest.profesional;
 
 import java.security.Principal;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,7 +56,7 @@ public class ProfesionalRESTController {
 		
 	}
 	
-	@RequestMapping(value="/detalle",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Profesional> get(Principal principal){
 		Profesional profesional =null;
@@ -69,35 +68,23 @@ public class ProfesionalRESTController {
 		return new ResponseEntity<Profesional>(profesional,HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/detalle/sectores",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/sectores",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@Transactional
-	public ResponseEntity<Set<Sector>> getSectores(Principal principal){
-		Profesional profesional =null;
-		Set<Sector> sectores=null;
+	public ResponseEntity<List<Sector>> getSectores(Principal principal){
 		try{
-			profesional = profesionalService.get(principal.getName());
-			sectores=profesional.getSectores();
-			sectores.size();
+			return new ResponseEntity<List<Sector>>(profesionalService.getSectores(principal.getName()),HttpStatus.OK);
 			}catch (BusinessException e) {
-				return new ResponseEntity<Set<Sector>>(HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity<List<Sector>>(HttpStatus.UNAUTHORIZED);
 			}
-		return new ResponseEntity<Set<Sector>>(sectores,HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/detalle/perfiles",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/perfiles",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@Transactional
-	public ResponseEntity<Set<Perfil>> getPerfiles(Principal principal){
-		Profesional profesional =null;
-		Set<Perfil> perfiles=null;
+	public ResponseEntity<List<Perfil>> getPerfiles(Principal principal){
 		try{
-			profesional = profesionalService.get(principal.getName());
-			perfiles=profesional.getPerfiles();
-			perfiles.size();
+			return new ResponseEntity<List<Perfil>>(profesionalService.getPerfiles(principal.getName()),HttpStatus.OK);
 			}catch (BusinessException e) {
-				return new ResponseEntity<Set<Perfil>>(HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity<List<Perfil>>(HttpStatus.UNAUTHORIZED);
 			}
-		return new ResponseEntity<Set<Perfil>>(perfiles,HttpStatus.OK);
 	}
 }

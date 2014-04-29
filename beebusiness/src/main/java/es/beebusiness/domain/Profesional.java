@@ -25,7 +25,9 @@ import org.hibernate.annotations.ForeignKey;
 		@NamedQuery(name = "getProfesionalByUsername", query = "SELECT u FROM Profesional u WHERE u.username=?"),
 		@NamedQuery(name = "getProfesionalSizeByUsername", query = "SELECT COUNT(u) FROM Profesional u WHERE u.username=? GROUP BY u.username ORDER BY u.username ASC"),
 		@NamedQuery(name = "getProfesionalAll", query = "SELECT u FROM Profesional u ORDER BY u.username ASC"),
-		@NamedQuery(name = "getProfesionalSize", query = "SELECT COUNT(u) FROM Profesional u")
+		@NamedQuery(name = "getProfesionalSize", query = "SELECT COUNT(u) FROM Profesional u"),
+		@NamedQuery(name = "getPerfilesByUsername", query = "SELECT u.perfiles FROM Profesional u WHERE u.username=?"),
+		@NamedQuery(name = "getSectoresByUsername", query = "SELECT u.sectores FROM Profesional u WHERE u.username=?")
 		})
 public class Profesional implements Serializable{
 
@@ -34,6 +36,8 @@ public class Profesional implements Serializable{
 	public static final String QUERY_GETTOTALBYUSERNAME="getProfesionalSizeByUsername";
 	public static final String QUERY_GETTOTAL="getProfesionalSize";
 	public static final String QUERY_GETALL="getProfesionalAll";
+	public static final String QUERY_GETPERFILESBYUSERNAME="getPerfilesByUsername";
+	public static final String QUERY_GETSECTORESBYUSERNAME="getSectoresByUsername";
 	
 	private Long id;
 	private String nombre;

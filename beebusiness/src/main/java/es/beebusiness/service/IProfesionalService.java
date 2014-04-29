@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import es.beebusiness.dao.IProfesionalDAO;
+import es.beebusiness.domain.Perfil;
 import es.beebusiness.domain.Profesional;
+import es.beebusiness.domain.Sector;
 import es.beebusiness.exception.BusinessException;
 
 public interface IProfesionalService extends Serializable{
@@ -20,4 +22,6 @@ public interface IProfesionalService extends Serializable{
 	public List<Profesional> getAll();
 	public int getTotalFilter(Profesional profesional);
 	public List<Profesional> getAllFilter(Profesional profesional, Integer inicio, Integer total);
+	public List<Perfil> getPerfiles(String username);
+	public List<Sector> getSectores(String username);
 }

@@ -2,12 +2,15 @@ package es.beebusiness.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
 import es.beebusiness.dao.IProfesionalDAO;
+import es.beebusiness.domain.Perfil;
 import es.beebusiness.domain.Profesional;
+import es.beebusiness.domain.Sector;
 
 @Repository
 public class ProfesionalDAOImpl extends AbstractBaseGenericDAOImpl<Profesional, Long> implements IProfesionalDAO{
@@ -52,6 +55,22 @@ public class ProfesionalDAOImpl extends AbstractBaseGenericDAOImpl<Profesional, 
 			query.setMaxResults(total);
 		}
 		query.setParameter(1, profesional.getUsername());
+		return query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Perfil> getPerfiles(String username) {
+		Query query=em.createNamedQuery(Profesional.QUERY_GETPERFILESBYUSERNAME);
+		query.setParameter(1, username);
+		return query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Sector> getSectores(String username) {
+		Query query=em.createNamedQuery(Profesional.QUERY_GETSECTORESBYUSERNAME);
+		query.setParameter(1, username);
 		return query.getResultList();
 	}
 }

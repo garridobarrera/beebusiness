@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.beebusiness.dao.IProfesionalDAO;
+import es.beebusiness.domain.Perfil;
 import es.beebusiness.domain.Profesional;
+import es.beebusiness.domain.Sector;
 import es.beebusiness.exception.BusinessException;
 import es.beebusiness.service.IProfesionalService;
 
@@ -86,6 +88,16 @@ public class ProfesionalServiceImpl implements IProfesionalService {
 	@Override
 	public List<Profesional> getAllFilter(Profesional profesional, Integer inicio, Integer total) {
 		return dao.getAllFilter(profesional, inicio, total);
+	}
+
+	@Override
+	public List<Perfil> getPerfiles(String username) {
+		return dao.getPerfiles(username);
+	}
+
+	@Override
+	public List<Sector> getSectores(String username) {
+		return dao.getSectores(username);
 	}
 
 	
