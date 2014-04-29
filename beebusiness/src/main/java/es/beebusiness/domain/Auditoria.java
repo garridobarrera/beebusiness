@@ -34,9 +34,7 @@ public void setFechaAuditoria(Date fechaAuditoria) {
 @PrePersist
 @PreUpdate
 public void generarAuditoria(){
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	String usuario=auth.getName();
-	this.usuarioAuditoria=usuario;
+	this.usuarioAuditoria=SecurityContextHolder.getContext().getAuthentication().getName();
 	this.fechaAuditoria=Calendar.getInstance().getTime();
 }
 
