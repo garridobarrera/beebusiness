@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="listado">
+	<var name="profesionalBean" class="es.beebusiness.beans.ProfesionalBean"/>
+	<var name="lazy" class="es.beebusiness.controller.lazy.ProfesionalLazyDataModel"/>
+	<var name="searchEmpresa" class="es.beebusiness.controller.lazy.EmpresaLazyDataModel"/>
+	<var name="searchPerfil" class="es.beebusiness.controller.lazy.PerfilLazyDataModel"/>
+	<var name="searchSector" class="es.beebusiness.controller.lazy.SectorLazyDataModel"/>
+	
+	<on-start>
+		<evaluate expression="new es.beebusiness.domain.Profesional()"
+		result="profesionalBean.profesional" />
+		<evaluate expression="profesionalBean.setLazy(lazy)"/>
+		<evaluate expression="profesionalBean.setSearchEmpresa(searchEmpresa)"/>
+		<evaluate expression="profesionalBean.setSearchPerfil(searchPerfil)"/>
+		<evaluate expression="profesionalBean.setSearchSector(searchSector)"/>
+	</on-start>
+	<view-state id="listado" view="../pages/profesional/listado.xhtml">
+		<transition on="altaProfesional">
+			<evaluate expression="profesionalController.altaProfesional(profesionalBean.profesional)" />
+			<evaluate expression="new es.beebusiness.beans.ProfesionalBean()"
+			result="profesionalBean" />
+			<evaluate expression="profesionalBean.setLazy(lazy)"/>
+		<evaluate expression="profesionalBean.setSearchEmpresa(searchEmpresa)"/>
+		<evaluate expression="profesionalBean.setSearchPerfil(searchPerfil)"/>
+		<evaluate expression="profesionalBean.setSearchSector(searchSector)"/>
+		</transition>
+		
+		
+		<transition on="eliminarProfesional">
+			<evaluate expression="profesionalController.eliminarProfesional(requestParameters.id)"></evaluate>
+		</transition>
+		
+		<transition on="obtenerProfesional">
+			<evaluate expression="profesionalController.obtenerProfesional(requestParameters.id)" result="profesionalBean.profesional"></evaluate>
+		</transition>
+		
+
+		<transition on="buscarEmpresa" to="seleccionarEmpresa"/>
+		
+		<transition on="buscarPerfil" to="seleccionarPerfil"/>
+		
+		<transition on="buscarSector" to="seleccionarSector"/>
+	</view-state>
+	
+	<view-state id="seleccionarEmpresa" view="../pages/profesional/seleccionarEmpresa.xhtml">
+	    <transition on="seleccionar" to="listado"/>
+	</view-state>
+	
+	<view-state id="seleccionarPerfil" view="../pages/profesional/seleccionarPerfil.xhtml">
+	    <transition on="seleccionar" to="listado"/>
+	</view-state>
+	
+	<view-state id="seleccionarSector" view="../pages/profesional/seleccionarSector.xhtml">
+	    <transition on="seleccionar" to="listado"/>
+	</view-state>
+
+
+	<end-state id="fin" view="final">
+	</end-state>
+</flow>

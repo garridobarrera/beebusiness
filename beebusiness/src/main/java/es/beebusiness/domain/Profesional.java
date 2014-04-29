@@ -12,21 +12,37 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "BB_PROFESIONAL")
+@NamedQueries(value = {
+		@NamedQuery(name = "getProfesionalByUsername", query = "SELECT u FROM Profesional u WHERE u.username=?"),
+		@NamedQuery(name = "getProfesionalSizeByUsername", query = "SELECT COUNT(u) FROM Profesional u WHERE u.username=? GROUP BY u.username ORDER BY u.username ASC"),
+		@NamedQuery(name = "getProfesionalAll", query = "SELECT u FROM Profesional u ORDER BY u.username ASC"),
+		@NamedQuery(name = "getProfesionalSize", query = "SELECT COUNT(u) FROM Profesional u")
+		})
 public class Profesional implements Serializable{
 
 	private static final long serialVersionUID = -3968634184295910348L;
+	public static final String QUERY_GETBYUSERNAME="getProfesionalByUsername";
+	public static final String QUERY_GETTOTALBYUSERNAME="getProfesionalSizeByUsername";
+	public static final String QUERY_GETTOTAL="getProfesionalSize";
+	public static final String QUERY_GETALL="getProfesionalAll";
+	
 	private Long id;
 	private String nombre;
 	private String apellidos;
 	private String cargo;
 	private Empresa empresa;
+	@JsonIgnore
 	private Set<Perfil> perfiles;
+	@JsonIgnore
 	private Set<Sector> sectores;
 	private String emailPersonal;
 	private String emailProfesional;
@@ -61,7 +77,7 @@ public class Profesional implements Serializable{
 		this.cargo = cargo;
 	}
 	
-	@ManyToOne(fetch=FetchType.EAGER,optional=false)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinTable(name="BB_PROF_EMPRESA",joinColumns={@JoinColumn(name="profesional")},inverseJoinColumns={@JoinColumn(name="empresa")})
 	@ForeignKey(name="FK_PROFESIONAL_PROFESIONAL",inverseName="FK_PROFESIONAL_EMPRESA")
 	public Empresa getEmpresa() {

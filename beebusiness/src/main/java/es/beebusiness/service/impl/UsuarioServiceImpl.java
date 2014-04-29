@@ -1,7 +1,6 @@
 package es.beebusiness.service.impl;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
@@ -22,6 +21,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	private static final long serialVersionUID = -3043786790669364026L;
 	@Autowired
 	private IUsuarioDAO dao;
+
 
 	public void setDao(IUsuarioDAO dao) {
 		this.dao = dao;
@@ -85,6 +85,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	public List<Usuario> getAllFilter(Usuario u, Integer inicio, Integer total) {
 		return dao.getAllFilter(u, inicio, total);
 	}
+
+	
 
 
 }

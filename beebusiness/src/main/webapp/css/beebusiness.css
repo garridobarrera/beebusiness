@@ -1,11 +1,28 @@
-.hide-column-names table thead tr {
-    display: none;
-}
-
 .breadcrumb{
 	margin-top: 20px;
 }
 
+/* PARA QUE NO SE MUESTREN LAS CABECERAS EN LAS TABLAS */
+.hide-column-names table thead tr {
+    display: none;
+}
+
+
+/* PARA EL BORDE ROJO DE LOS ERRORES */
 .ui-inputfield.ui-state-error{
 	border: 1px solid red;
+}
+
+/* PARA LOS DATALIST */ 
+.form-control .ui-widget-content{
+	border: none;
+	color: #555;
+}
+
+.form-control .ui-widget-content .ui-datalist-empty-message{
+	padding: 0;
+}
+
+.textarea{
+	height: auto;
 }
