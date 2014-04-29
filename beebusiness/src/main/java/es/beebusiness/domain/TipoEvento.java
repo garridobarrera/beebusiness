@@ -19,7 +19,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "getTipoEventoAll", query = "SELECT tev FROM TipoEvento tev ORDER BY tev.nombre ASC"),
 		@NamedQuery(name = "getTipoEventoSize", query = "SELECT COUNT(tev) FROM TipoEvento tev")
 		})
-public class TipoEvento implements Serializable{
+public class TipoEvento extends Auditoria implements Serializable{
 
 	private static final long serialVersionUID = -1481635638584438985L;
 	public static final String QUERY_GETBYNOMBRE="getTipoEventoByNombre";

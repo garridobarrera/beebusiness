@@ -16,7 +16,7 @@ import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "BB_DIRECCION")
-public class Direccion implements Serializable{
+public class Direccion extends Auditoria implements Serializable{
 
 	private static final long serialVersionUID = -4426701227379495354L;
 	private Long id;

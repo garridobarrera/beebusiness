@@ -19,7 +19,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "getPerfilAll", query = "SELECT p FROM Perfil p ORDER BY p.nombre ASC"),
 		@NamedQuery(name = "getPerfilSize", query = "SELECT COUNT(p) FROM Perfil p")
 		})
-public class Perfil implements Serializable{
+public class Perfil extends Auditoria implements Serializable{
 
 	private static final long serialVersionUID = 4462145394243600871L;
 	public static final String QUERY_GETBYNOMBRE="getPerfilByNombre";

@@ -29,7 +29,7 @@ import org.hibernate.annotations.ForeignKey;
 		@NamedQuery(name = "getPerfilesByUsername", query = "SELECT u.perfiles FROM Profesional u WHERE u.username=?"),
 		@NamedQuery(name = "getSectoresByUsername", query = "SELECT u.sectores FROM Profesional u WHERE u.username=?")
 		})
-public class Profesional implements Serializable{
+public class Profesional extends Auditoria implements Serializable{
 
 	private static final long serialVersionUID = -3968634184295910348L;
 	public static final String QUERY_GETBYUSERNAME="getProfesionalByUsername";

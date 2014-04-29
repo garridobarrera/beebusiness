@@ -27,7 +27,7 @@ import org.hibernate.annotations.ForeignKey;
 		@NamedQuery(name = "getUsuarioAll", query = "SELECT u FROM Usuario u ORDER BY u.username ASC"),
 		@NamedQuery(name = "getUsuarioSize", query = "SELECT COUNT(u) FROM Usuario u")
 		})
-public class Usuario implements Serializable{
+public class Usuario extends Auditoria implements Serializable{
 
 	private static final long serialVersionUID = -4410070469854677050L;
 	public static final String QUERY_GETBYUSERNAME="getUsuarioByUsername";

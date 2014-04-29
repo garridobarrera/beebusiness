@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "BB_PONENTE")
-public class Ponente implements Serializable{
+public class Ponente extends Auditoria implements Serializable{
 
 	private static final long serialVersionUID = -3489987100425132231L;
 	private Long id;

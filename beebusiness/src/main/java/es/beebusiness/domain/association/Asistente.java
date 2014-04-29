@@ -14,6 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import es.beebusiness.domain.Auditoria;
 import es.beebusiness.domain.Evento;
 import es.beebusiness.domain.Profesional;
 
@@ -24,7 +25,7 @@ import es.beebusiness.domain.Profesional;
 		@NamedQuery(name = "getEventosByProfesional", query = "SELECT a.evento FROM Asistente a WHERE a.profesional.id=?"),
 		@NamedQuery(name = "getTotalAsistentesByEvento", query = "SELECT count(a.profesional) FROM Asistente a WHERE a.evento.id=?"),
 		@NamedQuery(name = "getAsistentesByEvento", query = "SELECT a.profesional FROM Asistente a WHERE a.evento.id=?")})
-public class Asistente implements Serializable {
+public class Asistente extends Auditoria implements Serializable {
 
 	private static final long serialVersionUID = -3009456277998445318L;
 	@Id

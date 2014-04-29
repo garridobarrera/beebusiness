@@ -17,7 +17,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "getEmpresaSizeByNombre", query = "SELECT COUNT(emp) FROM Empresa emp WHERE emp.nombre=? GROUP BY emp.nombre ORDER BY emp.nombre ASC"),
 		@NamedQuery(name = "getEmpresaAll", query = "SELECT emp FROM Empresa emp ORDER BY emp.nombre ASC"),
 		@NamedQuery(name = "getEmpresaSize", query = "SELECT COUNT(emp) FROM Empresa emp") })
-public class Empresa implements Serializable {
+public class Empresa extends Auditoria implements Serializable {
 
 	private static final long serialVersionUID = -4767358454536511177L;
 	public static final String QUERY_GETBYNOMBRE = "getEmpresaByNombre";

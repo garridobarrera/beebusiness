@@ -23,7 +23,7 @@ import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "BB_EVENTO")
-public class Evento implements Serializable {
+public class Evento extends Auditoria implements Serializable {
 
 
 	private static final long serialVersionUID = 6657727355936858994L;

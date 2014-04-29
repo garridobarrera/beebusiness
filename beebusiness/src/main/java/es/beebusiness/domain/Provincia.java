@@ -19,7 +19,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "getProvinciaAll", query = "SELECT p FROM Provincia p ORDER BY p.nombre ASC"),
 		@NamedQuery(name = "getProvinciaSize", query = "SELECT COUNT(p) FROM Provincia p")
 		})
-public class Provincia implements Serializable{
+public class Provincia extends Auditoria implements Serializable{
 
 
 	private static final long serialVersionUID = -1634145769640074151L;

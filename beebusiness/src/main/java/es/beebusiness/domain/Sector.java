@@ -19,7 +19,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "getSectorAll", query = "SELECT s FROM Sector s ORDER BY s.nombre ASC"),
 		@NamedQuery(name = "getSectorSize", query = "SELECT COUNT(s) FROM Sector s")
 		})
-public class Sector implements Serializable{
+public class Sector extends Auditoria implements Serializable{
 	
 	public static final String QUERY_GETBYNOMBRE="getSectorByNombre";
 	public static final String QUERY_GETTOTALBYNOMBRE="getSectorSizeByNombre";

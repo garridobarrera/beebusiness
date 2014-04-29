@@ -20,7 +20,7 @@ import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "BB_PROGRAMA")
-public class Programa implements Serializable{
+public class Programa extends Auditoria implements Serializable{
 
 	private static final long serialVersionUID = -3489987100425132231L;
 	private Long id;
