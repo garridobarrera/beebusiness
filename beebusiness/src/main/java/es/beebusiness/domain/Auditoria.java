@@ -9,11 +9,14 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @MappedSuperclass
 public class Auditoria {
+@JsonIgnore
 private String usuarioAuditoria;
+@JsonIgnore
 private Date fechaAuditoria;
 public String getUsuarioAuditoria() {
 	return usuarioAuditoria;
