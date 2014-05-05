@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/api-doc/template-rest-doc.xhtml">
+
+	<ui:define name="miga">
+		<div class="row">
+			<div class="col-lg-12">
+				<ol class="breadcrumb">
+					<li><a href="index.xhtml">Índice</a></li>
+					<li class="active">Administración - Servicios</li>
+				</ol>
+			</div>
+		</div>
+	</ui:define>
+
+	<ui:define name="contenido">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Servicios REST para administradores</h1>
+			</div>
+			<div class="col-lg-12">
+				<p>Catálogo de servicios disponibles para
+					realizar operaciones de administración</p>
+			</div>
+			<div class="col-lg-12">
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Recurso</th>
+							<th>Descripción</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td><b><a href="admin-login-detalle.xhtml">[POST] /rest/admin/authenticate</a></b></td>
+							<td>Obtiene el token de autenticación a partir de las credenciales de acceso (username/password).</td>
+						</tr>
+					</tbody>
+
+
+				</table>
+				</div>
+			</div>
+
+		</div>
+		<!-- /.row -->
+
+	</ui:define>
+</ui:composition>
+</html>

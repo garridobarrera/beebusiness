@@ -26,3 +26,7 @@
 .textarea{
 	height: auto;
 }
+
+code{
+	white-space: normal;
+}
