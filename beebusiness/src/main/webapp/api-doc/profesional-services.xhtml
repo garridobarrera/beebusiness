@@ -36,6 +36,7 @@
 							<th>#</th>
 							<th>Recurso</th>
 							<th>Descripción</th>
+							<th title="Indica si requiere autenticación.">¿Autenticación?</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -43,41 +44,37 @@
 							<td>1</td>
 							<td><b><a href="profesional-login-detalle.xhtml">[POST] /rest/profesional/authenticate</a></b></td>
 							<td>Obtiene el token de autenticación a partir de las credenciales de acceso (username/password).</td>
+							<td>NO</td>
 						</tr>
 						<tr>
 							<td>2</td>
 							<td><b><a href="profesional-consulta-detalle.xhtml">[GET] /rest/profesional</a></b></td>
 							<td>Obtiene la información personal del profesional autenticado.</td>
+							<td>SI</td>
 						</tr>
 						<tr>
 							<td>3</td>
-							<td><b><a href="profesional-consulta-sectores.xhtml">[GET] /rest/profesional/sectores</a></b></td>
-							<td>Obtiene los sectores del profesional autenticado.</td>
+							<td><b><a href="profesional-consulta-topics.xhtml">[GET] /rest/profesional/topics/{tipo}</a></b></td>
+							<td>Obtiene los sectores/topics del profesional autenticado.</td>
+							<td>SI</td>
 						</tr>
 						<tr>
 							<td>4</td>
 							<td><b><a href="profesional-consulta-perfiles.xhtml">[GET] /rest/profesional/perfiles</a></b></td>
 							<td>Obtiene los perfiles del profesional autenticado.</td>
+							<td>SI</td>
 						</tr>
 						<tr>
 							<td>5</td>
-							<td><b><a href="sectores.xhtml">[GET] /rest/sectores</a></b></td>
-							<td>Obtiene los sectores disponibles. FALTA XHTML</td>
+							<td><b><a href="topics.xhtml">[GET] /rest/topics?tipo=value</a></b></td>
+							<td>Obtiene los sectores/topics disponibles.</td>
+							<td>NO</td>
 						</tr>
 						<tr>
 							<td>6</td>
-							<td><b><a href="sectores-detalle.xhtml">[GET] /rest/sectores/{nombre}</a></b></td>
-							<td>Obtiene el detalle del sector indicado en el path. FALTA XHTML</td>
-						</tr>
-						<tr>
-							<td>7</td>
-							<td><b><a href="perfiles">[GET] /rest/perfiles</a></b></td>
-							<td>Obtiene los perfiles disponibles. FALTA XHTML</td>
-						</tr>
-						<tr>
-							<td>8</td>
-							<td><b><a href="perfiles-detalle.xhtml">[GET] /rest/perfiles/{nombre}</a></b></td>
-							<td>Obtiene el detalle del perfil indicado en el path. FALTA XHTML</td>
+							<td><b><a href="perfiles.xhtml">[GET] /rest/perfiles</a></b></td>
+							<td>Obtiene los perfiles disponibles.</td>
+							<td>NO</td>
 						</tr>
 					</tbody>
 

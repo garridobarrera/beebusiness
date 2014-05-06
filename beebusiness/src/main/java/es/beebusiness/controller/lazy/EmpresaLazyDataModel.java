@@ -21,7 +21,7 @@ public class EmpresaLazyDataModel extends LazyDataModel<Empresa>{
 	}
 	
 	
-	private IEmpresaService service;
+	private transient IEmpresaService service;
 	
 	
 	private int currentPage=1;

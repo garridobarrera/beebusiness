@@ -14,4 +14,5 @@ public interface IProfesionalDAO extends IBaseGenericDAO<Profesional, Long> {
 	public List<Profesional> getAllFilter(Profesional profesional,Integer inicio,Integer total);
 	public List<Perfil> getPerfiles(String username);
 	public List<Sector> getSectores(String username);
+	public List<Sector> getTematicas(String username);
 }

@@ -79,4 +79,19 @@ public class SectorServiceImpl implements ISectorService {
 		return dao.getAllFilter(s, inicio, total);
 	}
 
+	@Override
+	public int getSizeAll(String tipo) {
+		return dao.getTotal(tipo);
+	}
+
+	@Override
+	public List<Sector> getAll(Integer inicio, Integer total, String tipo) {
+		return dao.getAll(inicio, total,tipo);
+	}
+
+	@Override
+	public List<Sector> getAll(String tipo) {
+		return dao.getAll(null,null, tipo);
+	}
+
 }

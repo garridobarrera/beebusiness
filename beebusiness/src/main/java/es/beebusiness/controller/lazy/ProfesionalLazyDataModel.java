@@ -21,7 +21,7 @@ public class ProfesionalLazyDataModel extends LazyDataModel<Profesional>{
 	}
 	
 	
-	private IProfesionalService service;
+	private transient IProfesionalService service;
 	
 	
 	private int currentPage=1;

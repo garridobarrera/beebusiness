@@ -8,7 +8,9 @@
 	<var name="lazy" class="es.beebusiness.controller.lazy.ProfesionalLazyDataModel"/>
 	<var name="searchEmpresa" class="es.beebusiness.controller.lazy.EmpresaLazyDataModel"/>
 	<var name="searchPerfil" class="es.beebusiness.controller.lazy.PerfilLazyDataModel"/>
-	<var name="searchSector" class="es.beebusiness.controller.lazy.SectorLazyDataModel"/>
+	<var name="searchSector" class="es.beebusiness.controller.lazy.TopicSectorLazyDataModel"/>
+	<var name="searchTematica" class="es.beebusiness.controller.lazy.TopicTematicaLazyDataModel"/>
+	<var name="searchProvincia" class="es.beebusiness.controller.lazy.ProvinciaLazyDataModel"/>
 	
 	<on-start>
 		<evaluate expression="new es.beebusiness.domain.Profesional()"
@@ -17,6 +19,8 @@
 		<evaluate expression="profesionalBean.setSearchEmpresa(searchEmpresa)"/>
 		<evaluate expression="profesionalBean.setSearchPerfil(searchPerfil)"/>
 		<evaluate expression="profesionalBean.setSearchSector(searchSector)"/>
+		<evaluate expression="profesionalBean.setSearchTematica(searchTematica)"/>
+		<evaluate expression="profesionalBean.setSearchProvincia(searchProvincia)"/>
 	</on-start>
 	<view-state id="listado" view="../pages/profesional/listado.xhtml">
 		<transition on="altaProfesional">
@@ -27,6 +31,8 @@
 		<evaluate expression="profesionalBean.setSearchEmpresa(searchEmpresa)"/>
 		<evaluate expression="profesionalBean.setSearchPerfil(searchPerfil)"/>
 		<evaluate expression="profesionalBean.setSearchSector(searchSector)"/>
+		<evaluate expression="profesionalBean.setSearchTematica(searchTematica)"/>
+		<evaluate expression="profesionalBean.setSearchProvincia(searchProvincia)"/>
 		</transition>
 		
 		
@@ -44,6 +50,10 @@
 		<transition on="buscarPerfil" to="seleccionarPerfil"/>
 		
 		<transition on="buscarSector" to="seleccionarSector"/>
+		
+		<transition on="buscarTematica" to="seleccionarTematica"/>
+		
+		<transition on="buscarProvincia" to="seleccionarProvincia"/>
 	</view-state>
 	
 	<view-state id="seleccionarEmpresa" view="../pages/profesional/seleccionarEmpresa.xhtml">
@@ -55,6 +65,14 @@
 	</view-state>
 	
 	<view-state id="seleccionarSector" view="../pages/profesional/seleccionarSector.xhtml">
+	    <transition on="seleccionar" to="listado"/>
+	</view-state>
+	
+	<view-state id="seleccionarTematica" view="../pages/profesional/seleccionarTematica.xhtml">
+	    <transition on="seleccionar" to="listado"/>
+	</view-state>
+	
+	<view-state id="seleccionarProvincia" view="../pages/profesional/seleccionarProvincia.xhtml">
 	    <transition on="seleccionar" to="listado"/>
 	</view-state>
 

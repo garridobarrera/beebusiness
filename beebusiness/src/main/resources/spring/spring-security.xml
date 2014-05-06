@@ -13,6 +13,7 @@
     	<custom-filter ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER" />
     	<intercept-url pattern="/rest/admin/authenticate" access="permitAll"/>
     	<intercept-url pattern="/rest/profesional/authenticate" access="permitAll"/>
+    	<intercept-url pattern="/rest/topics" access="permitAll"/>
     	<intercept-url pattern="/rest/**" access="isAuthenticated()" />
 	</http>
 	

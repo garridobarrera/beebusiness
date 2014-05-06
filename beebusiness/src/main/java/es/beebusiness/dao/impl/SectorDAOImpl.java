@@ -54,4 +54,30 @@ public class SectorDAOImpl extends AbstractBaseGenericDAOImpl<Sector, Long> impl
 		query.setParameter(1, s.getNombre());
 		return query.getResultList();
 	}
+
+	@Override
+	public int getTotal(String tipo) {
+		if(!"".equals(tipo)){
+			TypedQuery<Long> query=em.createNamedQuery(Sector.QUERY_GETTOTALBYTIPO, Long.class);
+			query.setParameter(1, tipo);
+			return query.getSingleResult().intValue();
+		}else{
+			return getTotal();
+		}
+	}
+
+	@Override
+	public List<Sector> getAll(Integer inicio, Integer total, String tipo) {
+		if(tipo!=null && !"".equals(tipo)){
+			TypedQuery<Sector> query=em.createNamedQuery(Sector.QUERY_GETALLBYTIPO, Sector.class);
+			if(inicio!=null && total!=null){
+				query.setFirstResult(inicio);
+				query.setMaxResults(total);
+			}
+			query.setParameter(1, tipo);
+			return query.getResultList();
+		}else{
+			return getAll(inicio, total);
+		}
+	}
 }

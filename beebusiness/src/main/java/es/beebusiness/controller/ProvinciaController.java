@@ -59,5 +59,9 @@ public class ProvinciaController implements Serializable{
 		p.setId(new Long(id));
 		return provinciaService.get(new Long(id));
 	}
+	
+	public List<Provincia> obtenerProvincias(){
+		return provinciaService.getAll();
+	}
 
 }

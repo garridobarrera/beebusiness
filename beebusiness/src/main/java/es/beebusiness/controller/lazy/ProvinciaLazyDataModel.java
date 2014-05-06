@@ -21,7 +21,7 @@ public class ProvinciaLazyDataModel extends LazyDataModel<Provincia>{
 	}
 	
 	
-	private IProvinciaService service;
+	private transient IProvinciaService service;
 	
 	
 	private int currentPage=1;

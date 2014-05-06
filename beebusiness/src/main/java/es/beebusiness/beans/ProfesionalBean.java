@@ -7,10 +7,13 @@ import java.util.List;
 import es.beebusiness.controller.lazy.EmpresaLazyDataModel;
 import es.beebusiness.controller.lazy.PerfilLazyDataModel;
 import es.beebusiness.controller.lazy.ProfesionalLazyDataModel;
-import es.beebusiness.controller.lazy.SectorLazyDataModel;
+import es.beebusiness.controller.lazy.ProvinciaLazyDataModel;
+import es.beebusiness.controller.lazy.TopicSectorLazyDataModel;
+import es.beebusiness.controller.lazy.TopicTematicaLazyDataModel;
 import es.beebusiness.domain.Empresa;
 import es.beebusiness.domain.Perfil;
 import es.beebusiness.domain.Profesional;
+import es.beebusiness.domain.Provincia;
 import es.beebusiness.domain.Sector;
 
 public class ProfesionalBean implements Serializable{
@@ -25,8 +28,12 @@ public class ProfesionalBean implements Serializable{
 	private List<Empresa> empresasSeleccionadas;
 	private PerfilLazyDataModel searchPerfil;
 	private List<Perfil> perfilesSeleccionados;
-	private SectorLazyDataModel searchSector;
+	private TopicSectorLazyDataModel searchSector;
 	private List<Sector> sectoresSeleccionados;
+	private TopicTematicaLazyDataModel searchTematica;
+	private List<Sector> tematicasSeleccionadas;
+	private ProvinciaLazyDataModel searchProvincia;
+	private Provincia provinciaSeleccionada;
 	
 	
 	public Profesional getProfesional() {
@@ -66,10 +73,10 @@ public class ProfesionalBean implements Serializable{
 	public void setPerfilesSeleccionados(List<Perfil> perfilesSeleccionados) {
 		this.perfilesSeleccionados = perfilesSeleccionados;
 	}
-	public SectorLazyDataModel getSearchSector() {
+	public TopicSectorLazyDataModel getSearchSector() {
 		return searchSector;
 	}
-	public void setSearchSector(SectorLazyDataModel searchSector) {
+	public void setSearchSector(TopicSectorLazyDataModel searchSector) {
 		this.searchSector = searchSector;
 	}
 	public List<Sector> getSectoresSeleccionados() {
@@ -79,6 +86,31 @@ public class ProfesionalBean implements Serializable{
 		this.sectoresSeleccionados = sectoresSeleccionados;
 	}
 	
+	public TopicTematicaLazyDataModel getSearchTematica() {
+		return searchTematica;
+	}
+	public void setSearchTematica(TopicTematicaLazyDataModel searchTematica) {
+		this.searchTematica = searchTematica;
+	}
+	public List<Sector> getTematicasSeleccionadas() {
+		return tematicasSeleccionadas;
+	}
+	public void setTematicasSeleccionadas(List<Sector> tematicasSeleccionadas) {
+		this.tematicasSeleccionadas = tematicasSeleccionadas;
+	}
+
+	public ProvinciaLazyDataModel getSearchProvincia() {
+		return searchProvincia;
+	}
+	public void setSearchProvincia(ProvinciaLazyDataModel searchProvincia) {
+		this.searchProvincia = searchProvincia;
+	}
+	public Provincia getProvinciaSeleccionada() {
+		return provinciaSeleccionada;
+	}
+	public void setProvinciaSeleccionada(Provincia provinciaSeleccionada) {
+		this.provinciaSeleccionada = provinciaSeleccionada;
+	}
 	public void componer(){
 		if(perfilesSeleccionados!=null)
 			profesional.setPerfiles(new HashSet<Perfil>(perfilesSeleccionados));
@@ -86,6 +118,9 @@ public class ProfesionalBean implements Serializable{
 			profesional.setSectores(new HashSet<Sector>(sectoresSeleccionados));
 		if(empresasSeleccionadas!=null && empresasSeleccionadas.size()>0)
 			profesional.setEmpresa(empresasSeleccionadas.get(0));
+		if(tematicasSeleccionadas!=null && tematicasSeleccionadas.size()>0)
+			profesional.setTematicas(new HashSet<Sector>(tematicasSeleccionadas));
+		profesional.setProvincia(provinciaSeleccionada);
 	}
 
 

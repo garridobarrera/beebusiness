@@ -22,7 +22,7 @@ public class TipoEventoLazyDataModel extends LazyDataModel<TipoEvento>{
 	}
 	
 	
-	private ITipoEventoService service;
+	private transient ITipoEventoService service;
 	
 	
 	private int currentPage=1;

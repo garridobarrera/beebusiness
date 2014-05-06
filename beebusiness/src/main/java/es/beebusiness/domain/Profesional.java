@@ -27,7 +27,8 @@ import org.hibernate.annotations.ForeignKey;
 		@NamedQuery(name = "getProfesionalAll", query = "SELECT u FROM Profesional u ORDER BY u.username ASC"),
 		@NamedQuery(name = "getProfesionalSize", query = "SELECT COUNT(u) FROM Profesional u"),
 		@NamedQuery(name = "getPerfilesByUsername", query = "SELECT u.perfiles FROM Profesional u WHERE u.username=?"),
-		@NamedQuery(name = "getSectoresByUsername", query = "SELECT u.sectores FROM Profesional u WHERE u.username=?")
+		@NamedQuery(name = "getSectoresByUsername", query = "SELECT u.sectores FROM Profesional u WHERE u.username=?"),
+		@NamedQuery(name = "getTematicasByUsername", query = "SELECT u.tematicas FROM Profesional u WHERE u.username=?")
 		})
 public class Profesional extends Auditoria implements Serializable{
 
@@ -38,6 +39,7 @@ public class Profesional extends Auditoria implements Serializable{
 	public static final String QUERY_GETALL="getProfesionalAll";
 	public static final String QUERY_GETPERFILESBYUSERNAME="getPerfilesByUsername";
 	public static final String QUERY_GETSECTORESBYUSERNAME="getSectoresByUsername";
+	public static final String QUERY_GETTEMATICASBYUSERNAME="getTematicasByUsername";
 	
 	private Long id;
 	private String nombre;
@@ -48,10 +50,14 @@ public class Profesional extends Auditoria implements Serializable{
 	private Set<Perfil> perfiles;
 	@JsonIgnore
 	private Set<Sector> sectores;
+	@JsonIgnore
+	private Set<Sector> tematicas;
 	private String emailPersonal;
 	private String emailProfesional;
 	private String username;
 	private String password;
+	private String direccion;
+	private Provincia provincia;
 	
 	
 	@Id
@@ -110,6 +116,27 @@ public class Profesional extends Auditoria implements Serializable{
 	public void setSectores(Set<Sector> sectores) {
 		this.sectores = sectores;
 	}
+	
+	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Sector.class)
+	@JoinTable(name="BB_PROF_TEMATICA",joinColumns={@JoinColumn(name="profesional")},inverseJoinColumns={@JoinColumn(name="tematica")})
+	@ForeignKey(name="FK_PROFESIONAL_PROFESIONAL",inverseName="FK_PROFESIONAL_TEMATICA")
+	public Set<Sector> getTematicas() {
+		return tematicas;
+	}
+	public void setTematicas(Set<Sector> tematicas) {
+		this.tematicas = tematicas;
+	}
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinTable(name="BB_PROF_PROVINCIA",joinColumns={@JoinColumn(name="profesional")},inverseJoinColumns={@JoinColumn(name="provincia")})
+	@ForeignKey(name="FK_PROFESIONAL_PROFESIONAL",inverseName="FK_PROFESIONAL_PROVINCIA")
+	public Provincia getProvincia() {
+		return provincia;
+	}
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
+	}
+	
 	public String getEmailPersonal() {
 		return emailPersonal;
 	}
@@ -134,6 +161,14 @@ public class Profesional extends Auditoria implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	
+	
 	
 	
 

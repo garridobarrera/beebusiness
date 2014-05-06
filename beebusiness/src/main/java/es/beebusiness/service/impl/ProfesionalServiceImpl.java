@@ -99,6 +99,11 @@ public class ProfesionalServiceImpl implements IProfesionalService {
 	public List<Sector> getSectores(String username) {
 		return dao.getSectores(username);
 	}
+	
+	@Override
+	public List<Sector> getTematicas(String username) {
+		return dao.getTematicas(username);
+	}
 
 	
 

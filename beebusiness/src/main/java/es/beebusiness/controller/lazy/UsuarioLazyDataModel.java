@@ -21,7 +21,7 @@ public class UsuarioLazyDataModel extends LazyDataModel<Usuario>{
 	}
 	
 	
-	private IUsuarioService service;
+	private transient IUsuarioService service;
 	
 	
 	private int currentPage=1;

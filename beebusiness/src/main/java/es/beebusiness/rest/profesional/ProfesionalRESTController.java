@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,7 @@ import es.beebusiness.domain.Profesional;
 import es.beebusiness.domain.Sector;
 import es.beebusiness.exception.BusinessException;
 import es.beebusiness.service.IProfesionalService;
+import es.beebusiness.util.Constantes;
 
 @Controller
 @RequestMapping("/profesional")
@@ -68,15 +70,21 @@ public class ProfesionalRESTController {
 		return new ResponseEntity<Profesional>(profesional,HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/sectores",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/topics/{tipo}",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<Sector>> getSectores(Principal principal){
+	public ResponseEntity<List<Sector>> getSectores(@PathVariable String tipo,Principal principal){
 		try{
-			return new ResponseEntity<List<Sector>>(profesionalService.getSectores(principal.getName()),HttpStatus.OK);
+			if(Constantes.TOPIC_SECTOR.equalsIgnoreCase(tipo))
+				return new ResponseEntity<List<Sector>>(profesionalService.getSectores(principal.getName()),HttpStatus.OK);
+			else if(Constantes.TOPIC_TEMATICA.equalsIgnoreCase(tipo))
+				return new ResponseEntity<List<Sector>>(profesionalService.getTematicas(principal.getName()),HttpStatus.OK);
+			else
+				return new ResponseEntity<List<Sector>>(HttpStatus.BAD_GATEWAY);
 			}catch (BusinessException e) {
 				return new ResponseEntity<List<Sector>>(HttpStatus.UNAUTHORIZED);
 			}
 	}
+	
 	
 	@RequestMapping(value="/perfiles",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody

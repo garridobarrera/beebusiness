@@ -64,11 +64,27 @@
 												requiredMessage="Campo nombre: Es necesario establecer un valor"
 												required="true" value="#{sectorNuevo.nombre}" />
 										</div>
-										<div class="col-lg-offset-2 col-lg-7">
+										<div class="col-lg-offset-2 col-lg-10">
 											<p class="help-block">Nombre del sector.</p>
 										</div>
 
 									</div>
+
+									<div class="form-group">
+
+										<label class="col-lg-2 control-label">Tipo</label>
+										<div class="col-lg-10">
+											<h:selectOneMenu value="#{sectorNuevo.tipo}" style="width:100%" styleClass="form-control">
+												<f:selectItem itemLabel="Sector" itemValue="SECTOR" />
+												<f:selectItem itemLabel="Temática" itemValue="TEMATICA" />
+											</h:selectOneMenu>
+										</div>
+										<div class="col-lg-offset-2 col-lg-10">
+											<p class="help-block">tipo de sector.</p>
+										</div>
+
+									</div>
+
 									<div class="form-group">
 										<div class="col-sm-offset-7 col-sm-5 divider">
 											<p:commandButton action="altaSector" value="Alta"

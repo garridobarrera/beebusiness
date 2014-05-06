@@ -21,7 +21,7 @@ public class PerfilLazyDataModel extends LazyDataModel<Perfil>{
 	}
 	
 	
-	private IPerfilService service;
+	private transient IPerfilService service;
 	
 	
 	private int currentPage=1;

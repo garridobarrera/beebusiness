@@ -13,7 +13,7 @@
 			<div class="col-lg-12">
 				<ol class="breadcrumb">
 					<li><a href="perfil-flow">Inicio</a></li>
-					<li class="active">Seleccionar Sector</li>
+					<li class="active">Seleccionar Empresa</li>
 				</ol>
 			</div>
 		</div>
@@ -22,7 +22,7 @@
 	<ui:define name="contenido">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Seleccionar Sector</h1>
+				<h1 class="page-header">Seleccionar provincia</h1>
 			</div>
 			<div class="col-lg-12">
 				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
@@ -42,27 +42,27 @@
 			</div>
 			<div class="col-lg-12">
 				<div class="panel panel-default">
-					<div class="panel-heading">Sectores disponibles</div>
+					<div class="panel-heading">Provincias disponibles</div>
 					<div class="panel-body">
 						<h:form id="listado">
 							<div class="form-group">
 								<div class="row">
 									<div class="col-lg-12">
-										<p:dataTable var="sector"
-											value="#{profesionalBean.searchSector}"
-											selectionMode="multiple"
-											selection="#{profesionalBean.sectoresSeleccionados}"
-											rowKey="#{sector.id}" paginator="true" dynamic="true"
-											rows="#{profesionalBean.searchSector.pageSize}"
-											page="#{profesionalBean.searchSector.currentPage}"
-											lazy="true" id="sectores" paginatorAlwaysVisible="false"
+										<p:dataTable var="provincia"
+											value="#{profesionalBean.searchProvincia}"
+											selectionMode="single"
+											selection="#{profesionalBean.provinciaSeleccionada}"
+											rowKey="#{provincia.id}" paginator="true" dynamic="true"
+											rows="#{profesionalBean.searchProvincia.pageSize}"
+											page="#{profesionalBean.searchProvincia.currentPage}"
+											lazy="true" id="provincias" paginatorAlwaysVisible="false"
 											styleClass="hide-column-names"
 											emptyMessage="No hay registros" paginatorPosition="bottom"
 											currentPageReportTemplate="total {totalRecords}"
 											paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 											rowsPerPageTemplate="5,10,15">
 											<p:column>
-												<h:outputText value="#{sector.nombre}" />
+												<h:outputText value="#{provincia}" />
 											</p:column>
 										</p:dataTable>
 									</div>

@@ -15,7 +15,7 @@
 					<li><a href="index.xhtml">Índice</a></li>
 					<li><a href="profesional-services.xhtml">Profesional -
 							Servicios</a></li>
-					<li class="active">Sectores del profesional</li>
+					<li class="active">Sectores/Topics</li>
 				</ol>
 			</div>
 		</div>
@@ -24,52 +24,74 @@
 	<ui:define name="contenido">
 		<div class="row">
 			<div class="col-md-12">
-				<h4>[GET] /rest/profesional/sectores</h4>
-				<p>Obtiene los sectores del profesional autenticado para el
-					token indicado.</p>
+				<h4>[GET] /rest/topics?tipo=value</h4>
+				<p>Obtiene los sectores/topics.</p>
 				<div class="row">
 					<div class="col-md-12">
 						<b>Información.</b>
 						<ul>
 							<li>HTTP Method: GET</li>
 							<li>Formato salida: JSON</li>
-							<li>Autenticación requerida: Sí</li>
+							<li>Autenticación requerida: No</li>
 						</ul>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<b>URL del recurso.</b>
-						<code>http://IP:PORT/beebusiness/rest/profesional/sectores</code>
+						<code>http://IP:PORT/beebusiness/rest/topics?tipo=value</code>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<b>Parámetros headers.</b>
+						<b>Parámetros Request.</b>
 						<table>
 							<tbody>
 								<tr>
-									<td><code>token (*)</code></td>
-									<td>token de autenticación.</td>
+									<td><code>tipo</code></td>
+									<td>tipo de topic a consultar (posibles valores: "TEMATICA", "SECTOR")</td>
 								</tr>
+							
 							</tbody>
 						</table>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<b>Ejemplo de petición.</b>
+						<b>Ejemplo de petición (1).</b>
 						<p>
 							<code>[GET]
-								http://IP:PORT/beebusiness/rest/profesional/sectores</code>
-						</p>
-						<p>
-							HEADER:
-							<code>"token":"tcj4e69TclbQrmP4C6jR3N+WFKxbUvmSXl+NJw1A//B1AyYlLb5E771noIHRUdv6dak1lmotlnswoFtQqQSWJ4zWNnHr1htB"</code>
+								http://IP:PORT/beebusiness/rest/topics?tipo=SECTOR</code> obtiene los topics por tipología SECTOR.
 						</p>
 						<p>
 							OUTPUT:
-							<code>{{ id: 1 nombre: "Consultoría" }}</code>
+							<code>{{ id: 1 , nombre: "Administración Pública", tipo:"SECTOR" }}</code>
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<b>Ejemplo de petición (2).</b>
+						<p>
+							<code>[GET]
+								http://IP:PORT/beebusiness/rest/topics?tipo=TEMATICA</code> obtiene los topics por tipología TEMATICA.
+						</p>
+						<p>
+							OUTPUT:
+							<code>{{ id: 2 , nombre: "Formación", tipo:"TEMATICA" }}</code>
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<b>Ejemplo de petición (3).</b>
+						<p>
+							<code>[GET]
+								http://IP:PORT/beebusiness/rest/topics</code> obtiene los topics sin filtrar por tipología.
+						</p>
+						<p>
+							OUTPUT:
+							<code>{{ id: 1 , nombre: "Administración Pública", tipo:"SECTOR" },{ id: 2 , nombre: "Formación", tipo:"TEMATICA" }}</code>
 						</p>
 					</div>
 				</div>
@@ -81,10 +103,6 @@
 								<tr>
 									<td><code>200 OK</code></td>
 									<td>Operación realizada correctamente</td>
-								</tr>
-								<tr>
-									<td><code>401 Unauthorized</code></td>
-									<td>Credenciales incorrectas</td>
 								</tr>
 							</tbody>
 						</table>

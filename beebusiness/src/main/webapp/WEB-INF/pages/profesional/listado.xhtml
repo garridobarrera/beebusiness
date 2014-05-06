@@ -84,6 +84,36 @@
 									</div>
 									<div class="form-group">
 
+										<label class="col-lg-2 control-label">Dirección</label>
+										<div class="col-lg-10">
+											<p:inputTextarea styleClass="form-control" id="direccion"
+												value="#{profesionalBean.profesional.direccion}" />
+										</div>
+										<div class="col-lg-offset-2 col-lg-10">
+											<p class="help-block">Dirección del profesional.</p>
+										</div>
+
+									</div>
+									<div class="form-group">
+
+										<label class="col-lg-2 control-label">Provincia</label>
+										<div class="col-lg-9">
+											<p:dataList value="#{profesionalBean.provinciaSeleccionada}" var="provincia" emptyMessage="No hay provincia" type="ordered" itemType="1" styleClass="form-control textarea">  
+    											#{provincia}  
+											</p:dataList>
+										</div>
+										<div class="col-lg-1">
+											<p:commandLink action="buscarProvincia" 
+												id="buscarProvincia"
+												styleClass="ui-icon ui-icon-search" process="@this"></p:commandLink>
+										</div>
+										<div class="col-lg-offset-2 col-lg-10">
+											<p class="help-block">Provincia.</p>
+										</div>
+
+									</div>
+									<div class="form-group">
+
 										<label class="col-lg-2 control-label">Empresas</label>
 										<div class="col-lg-9">
 											<p:dataList value="#{profesionalBean.empresasSeleccionadas}" var="empresa" emptyMessage="No hay empresas" type="ordered" itemType="1" styleClass="form-control textarea">  
@@ -133,6 +163,24 @@
 										</div>
 										<div class="col-lg-offset-2 col-lg-10">
 											<p class="help-block">Sectores.</p>
+										</div>
+
+									</div>
+									<div class="form-group">
+
+										<label class="col-lg-2 control-label">Temáticas</label>
+										<div class="col-lg-9">
+											<p:dataList value="#{profesionalBean.tematicasSeleccionadas}" var="sector" emptyMessage="No hay tematicas" type="ordered" itemType="1" styleClass="form-control textarea">  
+    											#{sector.nombre}
+											</p:dataList>
+										</div>
+										<div class="col-lg-1">
+											<p:commandLink action="buscarTematica" 
+												id="buscarTematica"
+												styleClass="ui-icon ui-icon-search" process="@this"></p:commandLink>
+										</div>
+										<div class="col-lg-offset-2 col-lg-10">
+											<p class="help-block">Temáticas.</p>
 										</div>
 
 									</div>

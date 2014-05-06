@@ -9,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import es.beebusiness.domain.Sector;
 import es.beebusiness.service.ISectorService;
+import es.beebusiness.util.Constantes;
 
 
-public class SectorLazyDataModel extends LazyDataModel<Sector>{
+public class TopicTematicaLazyDataModel extends LazyDataModel<Sector>{
 
 	
 	/**
@@ -19,7 +20,7 @@ public class SectorLazyDataModel extends LazyDataModel<Sector>{
 	 */
 	private static final long serialVersionUID = -6093577599793669469L;
 
-	public SectorLazyDataModel(){
+	public TopicTematicaLazyDataModel(){
 		super();
 		super.setPageSize(5);
 	}
@@ -62,7 +63,7 @@ public class SectorLazyDataModel extends LazyDataModel<Sector>{
 	@Override
 	public List<Sector> load(int first, int pageSize, String sortField,
 			SortOrder sortOrder, Map<String, String> filters) {
-		    sectores= service.getAll(first, pageSize);
+		    sectores= service.getAll(first, pageSize,Constantes.TOPIC_TEMATICA);
 		    return sectores;
 	}
 	
@@ -73,7 +74,7 @@ public class SectorLazyDataModel extends LazyDataModel<Sector>{
 	
 	@Override
 	public int getRowCount() {
-		return service.getSizeAll();
+		return service.getSizeAll(Constantes.TOPIC_TEMATICA);
 	}
 	
 

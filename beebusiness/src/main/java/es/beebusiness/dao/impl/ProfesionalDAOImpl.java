@@ -73,4 +73,12 @@ public class ProfesionalDAOImpl extends AbstractBaseGenericDAOImpl<Profesional, 
 		query.setParameter(1, username);
 		return query.getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Sector> getTematicas(String username) {
+		Query query=em.createNamedQuery(Profesional.QUERY_GETTEMATICASBYUSERNAME);
+		query.setParameter(1, username);
+		return query.getResultList();
+	}
 }
