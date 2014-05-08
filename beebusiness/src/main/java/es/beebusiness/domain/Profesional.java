@@ -1,8 +1,10 @@
 package es.beebusiness.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -58,6 +60,8 @@ public class Profesional extends Auditoria implements Serializable{
 	private String password;
 	private String direccion;
 	private Provincia provincia;
+	private Date fechaNacimiento;
+	private String formacion;
 	
 	
 	@Id
@@ -68,6 +72,7 @@ public class Profesional extends Auditoria implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
+	@Column(nullable=false)
 	public String getNombre() {
 		return nombre;
 	}
@@ -149,6 +154,7 @@ public class Profesional extends Auditoria implements Serializable{
 	public void setEmailProfesional(String emailProfesional) {
 		this.emailProfesional = emailProfesional;
 	}
+	@Column(nullable=false,unique=true)
 	public String getUsername() {
 		return username;
 	}
@@ -168,7 +174,31 @@ public class Profesional extends Auditoria implements Serializable{
 		this.direccion = direccion;
 	}
 	
-	
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+	public String getFormacion() {
+		return formacion;
+	}
+	public void setFormacion(String formacion) {
+		this.formacion = formacion;
+	}
+	@Override
+	public String toString() {
+		StringBuffer sf = new StringBuffer();
+		sf.append(nombre).append(" ");
+		if(apellidos!=null && !"".equals(apellidos))
+			sf.append(apellidos).append(" ");
+		sf.append("(").append(username).append(")").append(" ");
+		if(emailPersonal!=null && !"".equals(emailPersonal))
+			sf.append(" - ").append(emailPersonal).append(" ");
+		if(emailProfesional!=null && !"".equals(emailProfesional))
+			sf.append(" - ").append(emailProfesional);
+		return sf.toString();
+	}
 	
 	
 

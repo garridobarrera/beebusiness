@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="listado">
+	<var name="profesionalBean" class="es.beebusiness.beans.ProfesionalBean" />
+	<var name="lazy" class="es.beebusiness.controller.lazy.ProfesionalLazyDataModel" />
+	<var name="id" class="string"/>
+	<on-start>
+		<evaluate expression="profesionalBean.setLazy(lazy)" />
+	</on-start>
+	<view-state id="listado" view="../pages/profesional-new/listado.xhtml">
+	    <transition on="visualizarProfesional" to="view">
+	        <evaluate expression="profesionalController.obtenerProfesional(requestParameters.id)" result="profesionalBean.profesional"></evaluate>
+	        <evaluate
+				expression="profesionalController.componerProfesional(profesionalBean)"
+				result="profesionalBean" />
+	    </transition>
+	    <transition on="editarProfesional" to="fin"/>
+	        <transition on="registrar" to="registrar"/>
+	   
+	    <transition on="confirmacion" to="borrar">
+	       <set name="id" value="requestParameters.id" type="string" />
+		</transition>
+	</view-state>
+	
+	<view-state id="view" view="../pages/profesional-new/view-profesional.xhtml">
+		<transition on="volver" to="listado"></transition>
+	</view-state>
+	
+	<view-state id="borrar" view="../pages/comun/borrar-entidad.xhtml">
+	    <transition on="confirmar" to="listado">
+	        <evaluate expression="profesionalController.eliminarProfesional(id)"></evaluate>
+	    </transition>
+	     <transition on="deshacer" to="listado"/>
+	</view-state>
+	
+	<end-state id="fin" view="flowRedirect:profesional-actualizar-flow?id=#{requestParameters.id}">
+	</end-state>
+	
+	<end-state id="registrar" view="flowRedirect:profesional-new-flow">
+	</end-state>
+</flow>

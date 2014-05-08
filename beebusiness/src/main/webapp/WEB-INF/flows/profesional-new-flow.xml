@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="paso1">
+	<var name="profesionalBean" class="es.beebusiness.beans.ProfesionalBean"/>
+	<var name="lazy" class="es.beebusiness.controller.lazy.ProfesionalLazyDataModel"/>
+	<var name="searchEmpresa" class="es.beebusiness.controller.lazy.EmpresaLazyDataModel"/>
+	<var name="searchPerfil" class="es.beebusiness.controller.lazy.PerfilLazyDataModel"/>
+	<var name="searchSector" class="es.beebusiness.controller.lazy.TopicSectorLazyDataModel"/>
+	<var name="searchTematica" class="es.beebusiness.controller.lazy.TopicTematicaLazyDataModel"/>
+	<var name="searchProvincia" class="es.beebusiness.controller.lazy.ProvinciaLazyDataModel"/>
+	
+	
+	
+	<on-start>
+		<evaluate expression="new es.beebusiness.domain.Profesional()"
+		result="profesionalBean.profesional" />
+		<evaluate expression="profesionalBean.setLazy(lazy)"/>
+		<evaluate expression="profesionalBean.setSearchEmpresa(searchEmpresa)"/>
+		<evaluate expression="profesionalBean.setSearchPerfil(searchPerfil)"/>
+		<evaluate expression="profesionalBean.setSearchSector(searchSector)"/>
+		<evaluate expression="profesionalBean.setSearchTematica(searchTematica)"/>
+		<evaluate expression="profesionalBean.setSearchProvincia(searchProvincia)"/>
+	</on-start>
+	<view-state id="paso1" view="../pages/profesional-new/registro-paso1.xhtml">
+	    <transition on="siguiente" to="paso2">
+	        <evaluate expression="profesionalController.validacionPaso1(profesionalBean.profesional)"></evaluate>
+	    </transition>
+	    <transition on="buscarEmpresa" to="seleccionarEmpresa"/>
+	    <transition on="buscarProvincia" to="seleccionarProvincia"/>
+	    <transition on="listado" to="listado"/>
+	</view-state>
+	<view-state id="paso2" view="../pages/profesional-new/registro-paso2.xhtml">
+	     <transition on="anterior" to="paso1"/>
+	    <transition on="siguiente" to="paso3"/>
+	    <transition on="buscarPerfil" to="seleccionarPerfil"/>
+		<transition on="buscarSector" to="seleccionarSector"/>
+		<transition on="buscarTematica" to="seleccionarTematica"/>
+		<transition on="listado" to="listado"/>
+	</view-state>
+	<view-state id="paso3" view="../pages/profesional-new/registro-paso3.xhtml">
+	     <transition on="anterior" to="paso2"/>
+	    <transition on="alta" to="paso4">
+			<evaluate expression="profesionalController.altaProfesional(profesionalBean.profesional)" />
+	    </transition>
+	    <transition on="listado" to="listado"/>
+	</view-state>
+	
+	
+	<view-state id="paso4" view="../pages/profesional-new/registro-paso4.xhtml">
+	    <transition on="listado" to="listado"/>
+	    <transition to="fin"/>
+	</view-state>
+	
+	
+	<view-state id="seleccionarEmpresa" view="../pages/profesional-new/seleccionarEmpresa.xhtml">
+	    <transition on="seleccionar" to="paso1"/>
+	</view-state>
+	
+	<view-state id="seleccionarPerfil" view="../pages/profesional-new/seleccionarPerfil.xhtml">
+	    <transition on="seleccionar" to="paso2"/>
+	</view-state>
+	
+	<view-state id="seleccionarSector" view="../pages/profesional-new/seleccionarSector.xhtml">
+	    <transition on="seleccionar" to="paso2"/>
+	</view-state>
+	
+	<view-state id="seleccionarTematica" view="../pages/profesional-new/seleccionarTematica.xhtml">
+	    <transition on="seleccionar" to="paso2"/>
+	</view-state>
+	
+	<view-state id="seleccionarProvincia" view="../pages/profesional-new/seleccionarProvincia.xhtml">
+	    <transition on="seleccionar" to="paso1"/>
+	</view-state>
+
+	
+	<end-state id="listado" view="flowRedirect:profesional-listado-flow"/>
+
+	<end-state id="fin">
+	</end-state>
+</flow>

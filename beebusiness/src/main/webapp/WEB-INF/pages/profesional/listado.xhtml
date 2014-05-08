@@ -114,6 +114,18 @@
 									</div>
 									<div class="form-group">
 
+										<label class="col-lg-2 control-label">Cargo</label>
+										<div class="col-lg-10">
+											<p:inputTextarea styleClass="form-control" id="cargo"
+												value="#{profesionalBean.profesional.cargo}" />
+										</div>
+										<div class="col-lg-offset-2 col-lg-10">
+											<p class="help-block">Cargo.</p>
+										</div>
+
+									</div>
+									<div class="form-group">
+
 										<label class="col-lg-2 control-label">Empresas</label>
 										<div class="col-lg-9">
 											<p:dataList value="#{profesionalBean.empresasSeleccionadas}" var="empresa" emptyMessage="No hay empresas" type="ordered" itemType="1" styleClass="form-control textarea">  

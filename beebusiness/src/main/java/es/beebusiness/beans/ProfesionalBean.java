@@ -122,6 +122,23 @@ public class ProfesionalBean implements Serializable{
 			profesional.setTematicas(new HashSet<Sector>(tematicasSeleccionadas));
 		profesional.setProvincia(provinciaSeleccionada);
 	}
+	
+	public void componerActualizarInformacion(){
+		if(empresasSeleccionadas!=null && empresasSeleccionadas.size()>0)
+			profesional.setEmpresa(empresasSeleccionadas.get(0));
+		else
+			profesional.setEmpresa(null);
+		profesional.setProvincia(provinciaSeleccionada);
+	}
+	
+	public void componerActualizarPreferencias(){
+		if(perfilesSeleccionados!=null)
+			profesional.setPerfiles(new HashSet<Perfil>(perfilesSeleccionados));
+		if(sectoresSeleccionados!=null)
+			profesional.setSectores(new HashSet<Sector>(sectoresSeleccionados));
+		if(tematicasSeleccionadas!=null && tematicasSeleccionadas.size()>0)
+			profesional.setTematicas(new HashSet<Sector>(tematicasSeleccionadas));
+	}
 
 
 }

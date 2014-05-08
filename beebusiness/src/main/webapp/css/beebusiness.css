@@ -1,32 +1,94 @@
-.breadcrumb{
+.breadcrumb {
 	margin-top: 20px;
 }
 
 /* PARA QUE NO SE MUESTREN LAS CABECERAS EN LAS TABLAS */
 .hide-column-names table thead tr {
-    display: none;
+	display: none;
 }
 
-
 /* PARA EL BORDE ROJO DE LOS ERRORES */
-.ui-inputfield.ui-state-error{
+.ui-inputfield.ui-state-error {
 	border: 1px solid red;
 }
 
-/* PARA LOS DATALIST */ 
-.form-control .ui-widget-content{
+/* PARA LOS DATALIST */
+.form-control .ui-widget-content {
 	border: none;
 	color: #555;
 }
 
-.form-control .ui-widget-content .ui-datalist-empty-message{
+.form-control .ui-widget-content .ui-datalist-empty-message {
 	padding: 0;
 }
 
-.textarea{
+.textarea {
 	height: auto;
 }
 
-code{
+code {
 	white-space: normal;
+}
+
+.required:after {
+	content: "* ";
+	color: red;
+	padding-left: 2px;
+}
+
+.leyenda-obligatorio {
+	font-weight: normal;
+	font-style: oblique;
+}
+
+.resumen {
+	font-weight: normal;
+}
+
+.resumen .ui-widget-content {
+	border: none;
+}
+
+.resumen .ui-datalist {
+	padding-top: 0px;
+}
+
+.resumen .ui-datalist-empty-message {
+	padding-top: 0px;
+}
+
+.leyenda-obligatorio:before {
+	content: "* ";
+	color: red;
+}
+
+.panel-heading {
+	letter-spacing: 2px;
+}
+
+.padding-top {
+	padding-top: 15px;
+}
+
+.padding-bottom{
+	padding-bottom: 15px;
+}
+
+.confirmation-header {
+	padding-bottom: 9px;
+	margin: 40px 0 20px;
+}
+
+.ui-paginator {
+	font-size: 1em;
+	font-weight: normal;
+}
+
+.detalle-progreso {
+	margin-top: 14px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	margin: 0px;
+	margin-bottom: 12px;
+	border: 1px solid #ddd;
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.beebusiness.authenticator.ConstantesAutenticator;
@@ -56,6 +57,24 @@ public class ProfesionalRESTController {
 		Token t=new Token(encrypt,true);
 		return new ResponseEntity<Token>(t,HttpStatus.OK);
 		
+	}
+	
+	@RequestMapping(value="/registro",method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<Token> crearProfesional(@RequestBody Profesional profesional){
+		profesional.setPassword(encode.encode(profesional.getPassword()));
+		try{
+		profesionalService.crear(profesional);
+		}catch(BusinessException e){
+			return new ResponseEntity<Token>(HttpStatus.BAD_GATEWAY);
+		}
+		String key = UUID.randomUUID().toString().toUpperCase() +
+		        "&&" + profesional.getUsername()+"&&"+System.currentTimeMillis();
+		StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
+		jasypt.setPassword(ConstantesAutenticator.PASS);
+		String encrypt=jasypt.encrypt(key);
+		Token t=new Token(encrypt,true);
+		return new ResponseEntity<Token>(t,HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
