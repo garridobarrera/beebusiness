@@ -13,6 +13,8 @@ import es.beebusiness.service.IProfesionalService;
 
 public class ProfesionalLazyDataModel extends LazyDataModel<Profesional>{
 
+	private String busqueda;
+	
 	private static final long serialVersionUID = -8117874649477106123L;
 	
 	public ProfesionalLazyDataModel(){
@@ -55,10 +57,18 @@ public class ProfesionalLazyDataModel extends LazyDataModel<Profesional>{
 	}
 
 	
+	public String getBusqueda() {
+		return busqueda;
+	}
+
+	public void setBusqueda(String busqueda) {
+		this.busqueda = busqueda;
+	}
+
 	@Override
 	public List<Profesional> load(int first, int pageSize, String sortField,
 			SortOrder sortOrder, Map<String, String> filters) {
-		    profesionales= service.getAll(first, pageSize);
+		    profesionales= service.getAll(first, pageSize,busqueda);
 		    return profesionales;
 	}
 	
@@ -69,7 +79,7 @@ public class ProfesionalLazyDataModel extends LazyDataModel<Profesional>{
 	
 	@Override
 	public int getRowCount() {
-		return service.getSizeAll();
+		return service.getSizeAll(busqueda);
 	}
 	
 

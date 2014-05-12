@@ -55,59 +55,80 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Listado de profesionales</div>
 					<div class="panel-body">
-						<div class="row">
+						<div class="row padding-bottom">
 							<div class="col-lg-12">
 								<p:growl id="growl" showDetail="false" sticky="true" />
 							</div>
+							<div class="col-lg-offset-6 col-lg-6">
+								<h:form id="buscador">
+									<div class="input-group">
+										<p:inputText styleClass="form-control" id="busqueda"
+													value="#{profesionalBean.lazy.busqueda}" /> 
+										<span
+											class="input-group-btn" title="Filtrar"> <h:commandLink
+												action="filtrar" styleClass="btn btn-default"><i class="fa fa-search"></i><p:ajax process="@form" update=":listado"/></h:commandLink>
+										</span>
+										<span
+											class="input-group-btn" title="Limpiar"> <h:commandLink
+												action="limpiar" styleClass="btn btn-default"><i class="fa fa-eraser"></i><p:ajax process="@this" update=":listado :buscador"/></h:commandLink>
+										</span>
+									</div>
+								</h:form>
+							</div>
 						</div>
-						<h:form id="listado">
-							<p:dataTable var="profesional" value="#{profesionalBean.lazy}"
-								paginator="true" dynamic="true"
-								rows="#{profesionalBean.lazy.pageSize}"
-								page="#{profesionalBean.lazy.currentPage}" lazy="true"
-								id="profesionales" paginatorAlwaysVisible="false"
-								styleClass="hide-column-names" emptyMessage="No hay registros"
-								paginatorPosition="bottom"
-								currentPageReportTemplate="total {totalRecords}"
-								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-								rowsPerPageTemplate="5,10,15">
-								<p:column>
-									<h:outputText value="#{profesional}" />
-								</p:column>
+						<div class="row">
+							<div class="col-lg-12">
+								<h:form id="listado">
+									<p:dataTable var="profesional" value="#{profesionalBean.lazy}"
+										paginator="true" dynamic="true"
+										rows="#{profesionalBean.lazy.pageSize}"
+										page="#{profesionalBean.lazy.currentPage}" lazy="true"
+										id="profesionales" paginatorAlwaysVisible="false"
+										styleClass="hide-column-names" emptyMessage="No hay registros"
+										paginatorPosition="bottom"
+										currentPageReportTemplate="total {totalRecords}"
+										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										rowsPerPageTemplate="5,10,15">
+										<p:column>
+											<h:outputText value="#{profesional}" />
+										</p:column>
 
-								<p:column style="width: 2%;">
-									<div class="ui-row-editor">
-										<span> <p:commandLink styleClass="fa fa-info"
-												title="Consultar" action="visualizarProfesional">
-												<f:param name="id" value="#{profesional.id}" />
-											</p:commandLink>
-										</span>
-									</div>
-								</p:column>
+										<p:column style="width: 2%;">
+											<div class="ui-row-editor">
+												<span> <p:commandLink styleClass="fa fa-info"
+														title="Consultar" action="visualizarProfesional">
+														<f:param name="id" value="#{profesional.id}" />
+													</p:commandLink>
+												</span>
+											</div>
+										</p:column>
 
-								<p:column style="width: 2%;">
-									<div class="ui-row-editor">
-										<span> <p:commandLink title="Editar"
-												styleClass="fa fa-pencil" action="editarProfesional">
-												<f:param name="id" value="#{profesional.id}" />
-											</p:commandLink>
-										</span>
-									</div>
-								</p:column>
+										<p:column style="width: 2%;">
+											<div class="ui-row-editor">
+												<span> <p:commandLink title="Editar"
+														styleClass="fa fa-pencil" action="editarProfesional">
+														<f:param name="id" value="#{profesional.id}" />
+													</p:commandLink>
+												</span>
+											</div>
+										</p:column>
 
-								<p:column style="width: 2%;">
-									<div class="ui-row-editor">
-										<span> <p:commandLink title="Eliminar"
-												styleClass="fa fa-trash-o"
-												update=":listado:profesionales :growl" action="confirmacion">
-												<f:param name="id" value="#{profesional.id}" />
-											</p:commandLink>
-										</span>
-									</div>
+										<p:column style="width: 2%;">
+											<div class="ui-row-editor">
+												<span> <p:commandLink title="Eliminar"
+														styleClass="fa fa-trash-o"
+														update=":listado:profesionales :growl"
+														action="confirmacion">
+														<f:param name="id" value="#{profesional.id}" />
+													</p:commandLink>
+												</span>
+											</div>
 
-								</p:column>
-							</p:dataTable>
-						</h:form>
+										</p:column>
+									</p:dataTable>
+								</h:form>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

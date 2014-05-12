@@ -9,7 +9,9 @@ import es.beebusiness.domain.Sector;
 public interface IProfesionalDAO extends IBaseGenericDAO<Profesional, Long> {
 	public Profesional findByCodigo(String username);
 	public int getTotal();
+	public int getTotal(String filtro);
 	public List<Profesional> getAll(Integer inicio,Integer total);
+	public List<Profesional> getAll(Integer inicio,Integer total,String filtro);
 	public int getTotalFilter(Profesional profesional);
 	public List<Profesional> getAllFilter(Profesional profesional,Integer inicio,Integer total);
 	public List<Perfil> getPerfiles(String username);

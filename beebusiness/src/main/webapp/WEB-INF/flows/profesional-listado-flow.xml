@@ -11,6 +11,10 @@
 		<evaluate expression="profesionalBean.setLazy(lazy)" />
 	</on-start>
 	<view-state id="listado" view="../pages/profesional-new/listado.xhtml">
+	    <transition on="filtrar"/>
+	    <transition on="limpiar">
+	        <evaluate expression="profesionalBean.getLazy().setBusqueda(null)"/>
+	    </transition>
 	    <transition on="visualizarProfesional" to="view">
 	        <evaluate expression="profesionalController.obtenerProfesional(requestParameters.id)" result="profesionalBean.profesional"></evaluate>
 	        <evaluate

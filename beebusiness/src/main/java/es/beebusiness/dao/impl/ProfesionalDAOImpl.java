@@ -4,6 +4,11 @@ import java.util.List;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
@@ -80,5 +85,38 @@ public class ProfesionalDAOImpl extends AbstractBaseGenericDAOImpl<Profesional, 
 		Query query=em.createNamedQuery(Profesional.QUERY_GETTEMATICASBYUSERNAME);
 		query.setParameter(1, username);
 		return query.getResultList();
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public List<Profesional> getAll(Integer inicio, Integer total, String filtro) {
+		 CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		 CriteriaQuery<Profesional> criteriaQuery = criteriaBuilder.createQuery(Profesional.class);
+		 Root<Profesional> root=criteriaQuery.from(Profesional.class);
+		 Predicate predicadoUsername=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("username")), "%"+filtro.toUpperCase()+"%");
+		 Predicate predicadoNombre=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("nombre")), "%"+filtro.toUpperCase()+"%");
+		 Predicate predicadoApellidos=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("apellidos")), "%"+filtro.toUpperCase()+"%");
+		 Predicate predicadoEmailPersonal=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("emailPersonal")), "%"+filtro.toUpperCase()+"%");
+		 Predicate predicadoEmailProfesional=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("emailProfesional")), "%"+filtro.toUpperCase()+"%");
+		 criteriaQuery.where(criteriaBuilder.or(predicadoUsername,predicadoNombre,predicadoApellidos,predicadoEmailPersonal,predicadoEmailProfesional));
+		 TypedQuery<Profesional> query = em.createQuery(criteriaQuery);
+		return query.getResultList();
+	}
+
+	@Override
+	public int getTotal(String filtro) {
+		 CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		 CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);		 
+		 Root<Profesional> root=criteriaQuery.from(Profesional.class);
+		 criteriaQuery.select(criteriaBuilder.count((Expression)root.get("id")));
+		 Predicate predicadoUsername=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("username")), "%"+filtro.toUpperCase()+"%");
+		 Predicate predicadoNombre=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("nombre")), "%"+filtro.toUpperCase()+"%");
+		 Predicate predicadoApellidos=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("apellidos")), "%"+filtro.toUpperCase()+"%");
+		 Predicate predicadoEmailPersonal=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("emailPersonal")), "%"+filtro.toUpperCase()+"%");
+		 Predicate predicadoEmailProfesional=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("emailProfesional")), "%"+filtro.toUpperCase()+"%");
+		 criteriaQuery.where(criteriaBuilder.or(predicadoUsername,predicadoNombre,predicadoApellidos,predicadoEmailPersonal,predicadoEmailProfesional));
+		 TypedQuery<Long> query = em.createQuery(criteriaQuery);
+		 Long tam=query.getSingleResult();
+		 return tam.intValue();
 	}
 }

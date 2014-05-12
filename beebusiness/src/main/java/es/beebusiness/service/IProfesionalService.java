@@ -18,6 +18,7 @@ public interface IProfesionalService extends Serializable{
 	public Profesional get(Long id);
 	public Profesional get(String username) throws BusinessException;
 	public int getSizeAll();
+	public int getSizeAll(String filtro);
 	public List<Profesional> getAll(Integer inicio,Integer total);
 	public List<Profesional> getAll();
 	public int getTotalFilter(Profesional profesional);
@@ -25,4 +26,5 @@ public interface IProfesionalService extends Serializable{
 	public List<Perfil> getPerfiles(String username);
 	public List<Sector> getSectores(String username);
 	public List<Sector> getTematicas(String username);
+	public List<Profesional> getAll(Integer inicio, Integer total, String busqueda);
 }
