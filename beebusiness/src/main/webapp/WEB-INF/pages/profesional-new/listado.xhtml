@@ -41,7 +41,7 @@
 					ultricies nisi. Nam eget dui. Etiam rhoncus.</p>
 				<div class="padding-bottom">
 					<h:form>
-						<span>Para registrar nuevos profesionales pulse <h:commandLink
+						<span>Para registrar nuevos profesionales pulse <h:commandLink styleClass="link-texto"
 								action="registrar">aquí</h:commandLink>.
 						</span>
 					</h:form>
@@ -62,16 +62,22 @@
 							<div class="col-lg-offset-6 col-lg-6">
 								<h:form id="buscador">
 									<div class="input-group">
+										<span class="input-group-btn" title="Limpiar"> <h:commandLink
+												action="limpiar" styleClass="btn btn-default">
+												<i class="fa fa-eraser"></i>
+												<p:ajax process="@this" update=":listado :buscador" />
+											</h:commandLink>
+										</span>
 										<p:inputText styleClass="form-control" id="busqueda"
-													value="#{profesionalBean.lazy.busqueda}" /> 
-										<span
-											class="input-group-btn" title="Filtrar"> <h:commandLink
-												action="filtrar" styleClass="btn btn-default"><i class="fa fa-search"></i><p:ajax process="@form" update=":listado"/></h:commandLink>
+											value="#{profesionalBean.lazy.busqueda}" />
+											<p:watermark for="busqueda" value="Refina tu búsqueda" />
+										<span class="input-group-btn" title="Filtrar"> <h:commandLink
+												action="filtrar" styleClass="btn btn-default">
+												<i class="fa fa-search"></i>
+												<p:ajax process="@form" update=":listado" />
+											</h:commandLink>
 										</span>
-										<span
-											class="input-group-btn" title="Limpiar"> <h:commandLink
-												action="limpiar" styleClass="btn btn-default"><i class="fa fa-eraser"></i><p:ajax process="@this" update=":listado :buscador"/></h:commandLink>
-										</span>
+
 									</div>
 								</h:form>
 							</div>

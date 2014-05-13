@@ -15,6 +15,8 @@ public class ProfesionalLazyDataModel extends LazyDataModel<Profesional>{
 
 	private String busqueda;
 	
+	private int total=Integer.MIN_VALUE;
+	
 	private static final long serialVersionUID = -8117874649477106123L;
 	
 	public ProfesionalLazyDataModel(){
@@ -68,6 +70,7 @@ public class ProfesionalLazyDataModel extends LazyDataModel<Profesional>{
 	@Override
 	public List<Profesional> load(int first, int pageSize, String sortField,
 			SortOrder sortOrder, Map<String, String> filters) {
+			total=Integer.MIN_VALUE;
 		    profesionales= service.getAll(first, pageSize,busqueda);
 		    return profesionales;
 	}
@@ -79,7 +82,9 @@ public class ProfesionalLazyDataModel extends LazyDataModel<Profesional>{
 	
 	@Override
 	public int getRowCount() {
-		return service.getSizeAll(busqueda);
+		if(total==Integer.MIN_VALUE)
+			total=service.getSizeAll(busqueda);
+		return total;
 	}
 	
 

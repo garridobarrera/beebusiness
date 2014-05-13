@@ -17,6 +17,9 @@ COPY fonts\* bootstrap\fonts
 CALL lessc less\bootstrap.less > bootstrap\css\bootstrap.css
 CALL lessc -x less\bootstrap.less > bootstrap\css\bootstrap.min.css
 
+CALL lessc less\beebusiness.less > bootstrap\css\beebusiness.css
+CALL lessc -x less\beebusiness.less > bootstrap\css\beebusiness.min.css
+
 COPY /B ^
 js\transition.js+ ^
 js\alert.js+ ^

@@ -1,143 +1,180 @@
+@import "variables.less";
+@import "mixins.less";
+
 /**********************************************/
 /*****************Variables *******************/
 /**********************************************/
+@link-texto:         #8C1418;
+@gradiente-inicio: #dddddd;
+@gradiente-fin: #ddccdc;
+
+
 /**********************************************/
 /*************Estilos generales****************/
 /**********************************************/
+
 /* Padding superior */
 .padding-top {
-  padding-top: 15px;
+	padding-top: 15px;
 }
 /* Padding inferior */
-.padding-bottom {
-  padding-bottom: 15px;
+.padding-bottom{
+	padding-bottom: 15px;
 }
+
 /* Visualizacion de cadenas largas en los tags code, se usa para la documentacion de los servicios REST*/
 code {
-  white-space: normal;
+	white-space: normal;
 }
-.ui-state-focus:focus {
-  border-color: #cccccc;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(204, 204, 204, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(204, 204, 204, 0.6);
+
+.ui-state-focus{
+	.form-control-focus();
 }
-.ui-state-highlight,
-.ui-widget-content .ui-state-highlight,
-.ui-widget-header .ui-state-highlight {
-  text-decoration: none;
-  background-color: #333333;
-  color: #333333;
-  background-position: 0px;
-  background-image: -moz-linear-gradient(top, #dddddd, #ddccdc);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#dddddd), to(#ddccdc));
-  background-image: -webkit-linear-gradient(top, #dddddd, #ddccdc);
-  background-image: -o-linear-gradient(top, #dddddd, #ddccdc);
-  background-image: linear-gradient(to bottom, #dddddd, #ddccdc);
-  background-repeat: repeat-x;
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='@gradiente-inicio', endColorstr='@gradiente-fin', GradientType=0);
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{
+	text-decoration: none;
+	background-color: @link-color;
+	color:@link-color;
+	background-position: 0px;
+	background-image: -moz-linear-gradient(top, @gradiente-inicio, #ddccdc);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@gradiente-inicio), to(@gradiente-fin));
+	background-image: -webkit-linear-gradient(top, @gradiente-inicio, @gradiente-fin);
+	background-image: -o-linear-gradient(top, @gradiente-inicio, @gradiente-fin);
+	background-image: linear-gradient(to bottom, @gradiente-inicio, @gradiente-fin);
+	background-repeat: repeat-x;
+	filter: progid:dximagetransform.microsoft.gradient(startColorstr='@gradiente-inicio', endColorstr='@gradiente-fin', GradientType=0);
 }
-.link-texto {
-  color: #8c1418;
-  text-decoration: underline;
+
+.link-texto{
+	color: @link-texto;
+	text-decoration: underline;
 }
+
+
 /**********************************************/
 /******************Menu superior***************/
 /**********************************************/
+
 /* Formato para el menu superior izquierda */
-ul.ui-widget-content {
-  border: none;
-  background: none;
+ul.ui-widget-content{
+	border:none;
+	background: none;
 }
+
+
 /**********************************************/
 /**********************Paneles*****************/
 /**********************************************/
+
 /*Formato de texto para los titulos de paneles*/
 .panel-heading {
-  letter-spacing: 2px;
+	letter-spacing: 2px;
 }
+
 /**********************************************/
 /*******************Miga de pan****************/
 /**********************************************/
+
 /* Margen superior para la miga de pan*/
 .breadcrumb {
-  margin-top: 20px;
-  border: 1px solid #dddddd;
+	margin-top: 20px;
+	border: 1px solid @panel-default-border;
 }
+
 /**********************************************/
 /************************Tablas****************/
 /**********************************************/
+
 /* Oculta las cabeceras de las tablas */
 .hide-column-names table thead tr {
-  display: none;
+	display: none;
 }
+
 /*Formato del elemento paginador de tablas*/
 .ui-paginator {
-  font-size: 1em;
-  font-weight: normal;
+	font-size: 1em;
+	font-weight: normal;
 }
+
+
 /**********************************************/
 /*************Barra de progreso****************/
 /**********************************************/
 /* Formato para el cuadro de progreso en los registros de varios pasos*/
 .detalle-progreso {
-  margin-top: 14px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  margin: 0px;
-  margin-bottom: 12px;
-  border: 1px solid #dddddd;
+	margin-top: 14px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	margin: 0px;
+	margin-bottom: 12px;
+	border: 1px solid @panel-default-border;
 }
+
 /**********************************************/
 /************************Formularios***********/
 /**********************************************/
+
 /* Formato borde rojo sobre los campos que tienen error */
 .ui-inputfield.ui-state-error {
-  border: 1px solid red;
+	border: 1px solid red;
 }
+
 /* Formato de los datalist */
 .form-control .ui-widget-content {
-  border: none;
-  color: #555555;
+	border: none;
+	color: @list-group-link-color;
 }
+
 /* Formato para el mensaje de los datalist vacios */
 .form-control .ui-widget-content .ui-datalist-empty-message {
-  padding: 0;
+	padding: 0;
 }
+
 /* Altura automatica para los textareas*/
 .textarea {
-  height: auto;
+	height: auto;
 }
+
+
 /* Visualiza automaticamente un asterisco en rojo en cada label requerido*/
 .required:after {
-  content: "* ";
-  color: red;
-  padding-left: 2px;
+	content: "* ";
+	color: red;
+	padding-left: 2px;
 }
+
 /* Formato del texto que referencia a que es necesario introducir campos obligatorios en el pie de formularios */
 .leyenda-obligatorio {
-  font-weight: normal;
-  font-style: oblique;
+	font-weight: normal;
+	font-style: oblique;
 }
 .leyenda-obligatorio:before {
-  content: "* ";
-  color: red;
+	content: "* ";
+	color: red;
 }
+
 /* Formato para los campos de resumen */
 .resumen {
-  font-weight: normal;
+	font-weight: normal;
 }
 .resumen .ui-widget-content {
-  border: none;
+	border: none;
 }
 .resumen .ui-datalist {
-  padding-top: 0px;
+	padding-top: 0px;
 }
 .resumen .ui-datalist-empty-message {
-  padding-top: 0px;
+	padding-top: 0px;
 }
+
 /*Formato del mensaje de confirmacion para eliminar entidades*/
 .confirmation-header {
-  padding-bottom: 9px;
-  margin: 40px 0 20px;
+	padding-bottom: 9px;
+	margin: 40px 0 20px;
 }
+
+
+
+
+
+
