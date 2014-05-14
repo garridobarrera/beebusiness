@@ -20,4 +20,6 @@ public interface IPerfilService extends Serializable{
 	public List<Perfil> getAll();
 	public int getTotalFilter(Perfil p);
 	public List<Perfil> getAllFilter(Perfil p, Integer inicio, Integer total);
+	List<Perfil> getAll(Integer inicio, Integer total, String busqueda);
+	int getSizeAll(String filtro);
 }

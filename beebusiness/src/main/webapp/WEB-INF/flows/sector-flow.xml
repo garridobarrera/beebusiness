@@ -5,25 +5,43 @@
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="listado">
 	<secured attributes="ROLE_USER" />
-	<var name="sectorNuevo" class="es.beebusiness.domain.Sector" />
+	<var name="sectorBean" class="es.beebusiness.beans.SectorBean" />
+	<var name="lazy" class="es.beebusiness.controller.lazy.SectorLazyDataModel" />
+	<var name="id" class="string" />
 	<on-start>
 		<evaluate expression="new es.beebusiness.domain.Sector()"
-			result="sectorNuevo" />
+			result="sectorBean.sector" />
+		<evaluate expression="sectorBean.setLazy(lazy)" />
 	</on-start>
 	<view-state id="listado" view="../pages/sector/listado.xhtml">
-	    <var name="sectoreslazy" class="es.beebusiness.controller.lazy.SectorLazyDataModel"/>
-		
-		
 		<transition on="altaSector">
-			<evaluate expression="sectorController.altaSector(sectorNuevo)" />
+			<evaluate expression="sectorController.altaSector(sectorBean.sector)" />
 			<evaluate expression="new es.beebusiness.domain.Sector()"
-			result="sectorNuevo" />
+				result="sectorBean.sector" />
 		</transition>
 		
-		
-		<transition on="eliminarSector">
-			<evaluate expression="sectorController.eliminarSector(requestParameters.id)"></evaluate>
+		<transition on="editarSector">
+	       <evaluate expression="sectorController.obtenerSector(requestParameters.id)"
+			result="sectorBean.sector"/>
 		</transition>
+		
+		 <transition on="confirmacion" to="borrar">
+	       <set name="id" value="requestParameters.id" type="string" />
+		</transition>
+		
+		  <transition on="filtrar"/>
+		  <transition on="limpiar">
+	        <evaluate expression="sectorBean.getLazy().setBusqueda(null)"/>
+	    </transition>
+
+
+	</view-state>
+	
+	<view-state id="borrar" view="../pages/comun/borrar-entidad.xhtml">
+	    <transition on="confirmar" to="listado">
+	        <evaluate expression="sectorController.eliminarSector(id)"></evaluate>
+	    </transition>
+	     <transition on="deshacer" to="listado"/>
 	</view-state>
 
 

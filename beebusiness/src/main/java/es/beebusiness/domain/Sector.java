@@ -55,4 +55,12 @@ public class Sector extends Auditoria implements Serializable{
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuffer sf = new StringBuffer();
+		sf.append(nombre).append(" ");
+		sf.append("(").append(tipo).append(")");
+		return sf.toString();
+	}
 }

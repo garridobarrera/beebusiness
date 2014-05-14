@@ -12,4 +12,6 @@ public interface ISectorDAO extends IBaseGenericDAO<Sector, Long> {
 	public List<Sector> getAll(Integer inicio,Integer total,String tipo);
 	public int getTotalFilter(Sector p);
 	public List<Sector> getAllFilter(Sector p,Integer inicio,Integer total);
+	List<Sector> getAllFilter(Integer inicio, Integer total, String filtro);
+	int getsize(String filtro);
 }

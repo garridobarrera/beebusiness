@@ -46,7 +46,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="panel panel-default">
-					<div class="panel-heading">Registrar nuevo perfil</div>
+					<div class="panel-heading">Registro de perfiles</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
@@ -58,11 +58,11 @@
 								<h:form id="registro">
 									<div class="form-group">
 
-										<label class="col-lg-2 control-label">Nombre</label>
+										<label class="col-lg-2 required control-label">Nombre</label>
 										<div class="col-lg-10">
 											<p:inputText styleClass="form-control" id="nombre"
 												requiredMessage="Campo nombre: Es necesario establecer un valor"
-												required="true" value="#{perfilNuevo.nombre}" />
+												required="true" value="#{perfilBean.perfil.nombre}" />
 										</div>
 										<div class="col-lg-offset-2 col-lg-7">
 											<p class="help-block">Nombre del perfil.</p>
@@ -70,8 +70,12 @@
 
 									</div>
 									<div class="form-group">
+										<label class="col-lg-12 leyenda-obligatorio">Campos
+											obligatorios</label>
+									</div>
+									<div class="form-group">
 										<div class="col-sm-offset-7 col-sm-5 divider">
-											<p:commandButton action="altaPerfil" value="Alta"
+											<p:commandButton action="altaPerfil" value="Enviar"
 												id="saveBtn"
 												update=":listado:perfiles :registro:nombre :growl"
 												styleClass="btn btn-default btn-sm btn-block"></p:commandButton>
@@ -95,46 +99,81 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Listado de perfiles</div>
 					<div class="panel-body">
-						<h:form id="listado">
-							<p:dataTable var="perfil" value="#{perfileslazy}"
-								paginator="true" dynamic="true" rows="#{perfileslazy.pageSize}"
-								page="#{perfileslazy.currentPage}" lazy="true" editable="true"
-								id="perfiles" paginatorAlwaysVisible="false"
-								styleClass="hide-column-names" emptyMessage="No hay registros"
-								paginatorPosition="bottom"
-								currentPageReportTemplate="total {totalRecords}"
-								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-								rowsPerPageTemplate="5,10,15">
-								<p:ajax event="rowEdit" listener="#{perfilController.onEdit}"
-									update=":growl" />
-								<p:column sortBy="#{perfil.nombre}">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{perfil.nombre}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{perfil.nombre}" style="width:100%" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-								<p:column style="width: 6%;">
-									<p:rowEditor />
-								</p:column>
-
-								<p:column style="width: 6%;">
-									<div class="ui-row-editor">
-										<span> <p:commandLink
-												styleClass="ui-icon ui-icon-trash"
-												update=":listado:perfiles :growl" action="eliminarPefil">
-												<f:param name="id" value="#{perfil.id}" />
-											</p:commandLink>
+						<div class="row padding-bottom">
+							<div class="col-lg-12">
+								<h:form id="buscador">
+									<div class="input-group">
+										<span class="input-group-btn" title="Limpiar"> <h:commandLink
+												action="limpiar" styleClass="btn btn-default">
+												<i class="fa fa-eraser"></i>
+												<p:ajax process="@this" update=":listado :buscador" />
+											</h:commandLink>
 										</span>
-									</div>
+										<p:inputText styleClass="form-control" id="busqueda"
+											value="#{perfilBean.lazy.busqueda}" />
+										<p:watermark for="busqueda" value="Refina tu búsqueda" />
+										<span class="input-group-btn" title="Filtrar"> <h:commandLink
+												action="filtrar" styleClass="btn btn-default">
+												<i class="fa fa-search"></i>
+												<p:ajax process="@form" update=":listado" />
+											</h:commandLink>
+										</span>
 
-								</p:column>
-							</p:dataTable>
-						</h:form>
+									</div>
+								</h:form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<h:form id="listado">
+									<p:dataTable var="perfil" value="#{perfilBean.lazy}"
+										paginator="true" dynamic="true"
+										rows="#{perfilBean.lazy.pageSize}"
+										page="#{perfilBean.lazy.currentPage}" lazy="true"
+										editable="false" id="perfiles" paginatorAlwaysVisible="false"
+										styleClass="hide-column-names" emptyMessage="No hay registros"
+										paginatorPosition="bottom"
+										currentPageReportTemplate="total {totalRecords}"
+										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										rowsPerPageTemplate="5,10,15">
+										<p:column sortBy="#{perfil.nombre}">
+											<p:cellEditor>
+												<f:facet name="output">
+													<h:outputText value="#{perfil.nombre}" />
+												</f:facet>
+												<f:facet name="input">
+													<p:inputText value="#{perfil.nombre}" style="width:100%" />
+												</f:facet>
+											</p:cellEditor>
+										</p:column>
+
+										<p:column style="width: 6%;">
+											<div class="ui-row-editor">
+												<span> <p:commandLink title="Editar"
+														styleClass="fa fa-pencil" action="editarPerfil"
+														update=":registro">
+														<f:param name="id" value="#{perfil.id}" />
+													</p:commandLink>
+												</span>
+											</div>
+										</p:column>
+
+										<p:column style="width: 6%;">
+
+											<div class="ui-row-editor">
+												<span> <p:commandLink title="Eliminar"
+														styleClass="fa fa-trash-o"
+														update=":listado:perfiles :growl" action="confirmacion">
+														<f:param name="id" value="#{perfil.id}" />
+													</p:commandLink>
+												</span>
+											</div>
+
+										</p:column>
+									</p:dataTable>
+								</h:form>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

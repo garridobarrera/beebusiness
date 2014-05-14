@@ -10,4 +10,6 @@ public interface IPerfilDAO extends IBaseGenericDAO<Perfil, Long> {
 	public List<Perfil> getAll(Integer inicio,Integer total);
 	public int getTotalFilter(Perfil p);
 	public List<Perfil> getAllFilter(Perfil p,Integer inicio,Integer total);
+	List<Perfil> getAll(Integer inicio, Integer total, String filtro);
+	int getTotal(String filtro);
 }

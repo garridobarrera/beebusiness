@@ -3,6 +3,11 @@ package es.beebusiness.dao.impl;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
@@ -56,6 +61,32 @@ public class PerfilDAOImpl extends AbstractBaseGenericDAOImpl<Perfil, Long> impl
 		}
 		query.setParameter(1, p.getNombre());
 		return query.getResultList();
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public List<Perfil> getAll(Integer inicio, Integer total, String filtro) {
+		 CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		 CriteriaQuery<Perfil> criteriaQuery = criteriaBuilder.createQuery(Perfil.class);
+		 Root<Perfil> root=criteriaQuery.from(Perfil.class);
+		 Predicate predicadoNombre=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("nombre")), "%"+filtro.toUpperCase()+"%");
+		 criteriaQuery.where(predicadoNombre);
+		 TypedQuery<Perfil> query = em.createQuery(criteriaQuery);
+		return query.getResultList();
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public int getTotal(String filtro) {
+		 CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		 CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);		 
+		 Root<Perfil> root=criteriaQuery.from(Perfil.class);
+		 criteriaQuery.select(criteriaBuilder.count((Expression)root.get("id")));
+		 Predicate predicadoNombre=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("nombre")), "%"+filtro.toUpperCase()+"%");
+		 criteriaQuery.where(predicadoNombre);
+		 TypedQuery<Long> query = em.createQuery(criteriaQuery);
+		 Long tam=query.getSingleResult();
+		 return tam.intValue();
 	}
 
 }

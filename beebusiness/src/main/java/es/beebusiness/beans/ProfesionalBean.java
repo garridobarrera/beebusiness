@@ -1,7 +1,6 @@
 package es.beebusiness.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -165,10 +164,16 @@ public class ProfesionalBean implements Serializable{
 	public void componerActualizarPreferencias(){
 		if(perfilesSeleccionados!=null)
 			profesional.setPerfiles(new HashSet<Perfil>(perfilesSeleccionados));
+		else
+			profesional.setPerfiles(null);
 		if(sectoresSeleccionados!=null)
 			profesional.setSectores(new HashSet<Sector>(sectoresSeleccionados));
-		if(tematicasSeleccionadas!=null && tematicasSeleccionadas.size()>0)
+		else
+			profesional.setSectores(null);
+		if(tematicasSeleccionadas!=null)
 			profesional.setTematicas(new HashSet<Sector>(tematicasSeleccionadas));
+		else
+			profesional.setTematicas(null);
 	}
 
 

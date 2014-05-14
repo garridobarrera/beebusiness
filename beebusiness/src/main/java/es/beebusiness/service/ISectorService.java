@@ -23,4 +23,6 @@ public interface ISectorService extends Serializable{
 	public List<Sector> getAll(String tipo);
 	public int getTotalFilter(Sector s);
 	public List<Sector> getAllFilter(Sector s, Integer inicio, Integer total);
+	List<Sector> getAllFilter(Integer inicio, Integer total, String filtro);
+	int getsize(String filtro);
 }

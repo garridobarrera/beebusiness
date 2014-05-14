@@ -103,6 +103,7 @@ public class ProfesionalDAOImpl extends AbstractBaseGenericDAOImpl<Profesional, 
 		return query.getResultList();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public int getTotal(String filtro) {
 		 CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();

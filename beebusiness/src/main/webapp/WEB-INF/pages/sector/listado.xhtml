@@ -46,7 +46,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="panel panel-default">
-					<div class="panel-heading">Registrar nuevo sector</div>
+					<div class="panel-heading">Registro de sectores</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
@@ -58,11 +58,11 @@
 								<h:form id="registro">
 									<div class="form-group">
 
-										<label class="col-lg-2 control-label">Nombre</label>
+										<label class="col-lg-2 required control-label">Nombre</label>
 										<div class="col-lg-10">
 											<p:inputText styleClass="form-control" id="nombre"
 												requiredMessage="Campo nombre: Es necesario establecer un valor"
-												required="true" value="#{sectorNuevo.nombre}" />
+												required="true" value="#{sectorBean.sector.nombre}" />
 										</div>
 										<div class="col-lg-offset-2 col-lg-10">
 											<p class="help-block">Nombre del sector.</p>
@@ -72,9 +72,10 @@
 
 									<div class="form-group">
 
-										<label class="col-lg-2 control-label">Tipo</label>
+										<label class="col-lg-2 required control-label">Tipo</label>
 										<div class="col-lg-10">
-											<h:selectOneMenu value="#{sectorNuevo.tipo}" style="width:100%" styleClass="form-control">
+											<h:selectOneMenu value="#{sectorBean.sector.tipo}"
+												style="width:100%" styleClass="form-control">
 												<f:selectItem itemLabel="Sector" itemValue="SECTOR" />
 												<f:selectItem itemLabel="Temática" itemValue="TEMATICA" />
 											</h:selectOneMenu>
@@ -84,10 +85,13 @@
 										</div>
 
 									</div>
-
+									<div class="form-group">
+										<label class="col-lg-12 leyenda-obligatorio">Campos
+											obligatorios</label>
+									</div>
 									<div class="form-group">
 										<div class="col-sm-offset-7 col-sm-5 divider">
-											<p:commandButton action="altaSector" value="Alta"
+											<p:commandButton action="altaSector" value="Enviar"
 												id="saveBtn"
 												update=":listado:sectores :registro:nombre :growl"
 												styleClass="btn btn-default btn-sm btn-block"></p:commandButton>
@@ -111,46 +115,80 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Listado de sectores</div>
 					<div class="panel-body">
-						<h:form id="listado">
-							<p:dataTable var="sector" value="#{sectoreslazy}"
-								paginator="true" dynamic="true" rows="#{sectoreslazy.pageSize}"
-								page="#{sectoreslazy.currentPage}" lazy="true" editable="true"
-								id="sectores" paginatorAlwaysVisible="false"
-								styleClass="hide-column-names" emptyMessage="No hay registros"
-								paginatorPosition="bottom"
-								currentPageReportTemplate="total {totalRecords}"
-								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-								rowsPerPageTemplate="5,10,15">
-								<p:ajax event="rowEdit" listener="#{sectorController.onEdit}"
-									update=":growl" />
-								<p:column sortBy="#{sector.nombre}">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{sector.nombre}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{sector.nombre}" style="width:100%" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-								<p:column style="width: 6%;">
-									<p:rowEditor />
-								</p:column>
-
-								<p:column style="width: 6%;">
-									<div class="ui-row-editor">
-										<span> <p:commandLink
-												styleClass="ui-icon ui-icon-trash"
-												update=":listado:sectores :growl" action="eliminarSector">
-												<f:param name="id" value="#{sector.id}" />
-											</p:commandLink>
+						<div class="row padding-bottom">
+							<div class="col-lg-12">
+								<h:form id="buscador">
+									<div class="input-group">
+										<span class="input-group-btn" title="Limpiar"> <h:commandLink
+												action="limpiar" styleClass="btn btn-default">
+												<i class="fa fa-eraser"></i>
+												<p:ajax process="@this" update=":listado :buscador" />
+											</h:commandLink>
 										</span>
-									</div>
+										<p:inputText styleClass="form-control" id="busqueda"
+											value="#{sectorBean.lazy.busqueda}" />
+										<p:watermark for="busqueda" value="Refina tu búsqueda" />
+										<span class="input-group-btn" title="Filtrar"> <h:commandLink
+												action="filtrar" styleClass="btn btn-default">
+												<i class="fa fa-search"></i>
+												<p:ajax process="@form" update=":listado" />
+											</h:commandLink>
+										</span>
 
-								</p:column>
-							</p:dataTable>
-						</h:form>
+									</div>
+								</h:form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<h:form id="listado">
+									<p:dataTable var="sector" value="#{sectorBean.lazy}"
+										paginator="true" dynamic="true"
+										rows="#{sectorBean.lazy.pageSize}"
+										page="#{sectorBean.lazy.currentPage}" lazy="true"
+										editable="false" id="sectores" paginatorAlwaysVisible="false"
+										styleClass="hide-column-names" emptyMessage="No hay registros"
+										paginatorPosition="bottom"
+										currentPageReportTemplate="total {totalRecords}"
+										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										rowsPerPageTemplate="5,10,15">
+										<p:column sortBy="#{sector.nombre}">
+											<p:cellEditor>
+												<f:facet name="output">
+													<h:outputText value="#{sector}" />
+												</f:facet>
+												<f:facet name="input">
+													<p:inputText value="#{sector.nombre}" style="width:100%" />
+												</f:facet>
+											</p:cellEditor>
+										</p:column>
+
+										<p:column style="width: 6%;">
+											<div class="ui-row-editor">
+												<span> <p:commandLink title="Editar"
+														styleClass="fa fa-pencil" action="editarSector"
+														update=":registro">
+														<f:param name="id" value="#{sector.id}" />
+													</p:commandLink>
+												</span>
+											</div>
+										</p:column>
+
+										<p:column style="width: 6%;">
+											<div class="ui-row-editor">
+												<span> <p:commandLink title="Eliminar"
+														styleClass="fa fa-trash-o"
+														update=":listado:sectores :growl" action="confirmacion">
+														<f:param name="id" value="#{sector.id}" />
+													</p:commandLink>
+												</span>
+											</div>
+
+										</p:column>
+									</p:dataTable>
+								</h:form>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

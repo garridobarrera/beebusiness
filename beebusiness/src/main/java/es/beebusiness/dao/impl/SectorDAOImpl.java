@@ -3,6 +3,11 @@ package es.beebusiness.dao.impl;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
@@ -79,5 +84,34 @@ public class SectorDAOImpl extends AbstractBaseGenericDAOImpl<Sector, Long> impl
 		}else{
 			return getAll(inicio, total);
 		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public List<Sector> getAllFilter(Integer inicio, Integer total,
+			String filtro) {
+		 CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		 CriteriaQuery<Sector> criteriaQuery = criteriaBuilder.createQuery(Sector.class);
+		 Root<Sector> root=criteriaQuery.from(Sector.class);
+		 Predicate predicadoNombre=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("nombre")), "%"+filtro.toUpperCase()+"%");
+		 Predicate predicadoTipo=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("tipo")), "%"+filtro.toUpperCase()+"%");
+		 criteriaQuery.where(criteriaBuilder.or(predicadoNombre,predicadoTipo));
+		 TypedQuery<Sector> query = em.createQuery(criteriaQuery);
+		return query.getResultList();
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public int getsize(String filtro) {
+		 CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		 CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);		 
+		 Root<Sector> root=criteriaQuery.from(Sector.class);
+		 criteriaQuery.select(criteriaBuilder.count((Expression)root.get("id")));
+		 Predicate predicadoNombre=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("nombre")), "%"+filtro.toUpperCase()+"%");
+		 Predicate predicadoTipo=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("tipo")), "%"+filtro.toUpperCase()+"%");
+		 criteriaQuery.where(criteriaBuilder.or(predicadoNombre,predicadoTipo));
+		 TypedQuery<Long> query = em.createQuery(criteriaQuery);
+		 Long tam=query.getSingleResult();
+		 return tam.intValue();
 	}
 }

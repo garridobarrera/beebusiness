@@ -11,12 +11,10 @@ import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 
 import es.beebusiness.authenticator.Encrypter;
 import es.beebusiness.beans.ProfesionalBean;
 import es.beebusiness.domain.Empresa;
-import es.beebusiness.domain.Perfil;
 import es.beebusiness.domain.Profesional;
 import es.beebusiness.exception.BusinessException;
 import es.beebusiness.service.IProfesionalService;

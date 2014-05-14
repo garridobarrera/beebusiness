@@ -14,10 +14,10 @@ import es.beebusiness.service.ISectorService;
 public class SectorLazyDataModel extends LazyDataModel<Sector>{
 
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -6093577599793669469L;
+	private int total=Integer.MIN_VALUE;
+	private String busqueda;
 
 	public SectorLazyDataModel(){
 		super();
@@ -59,10 +59,19 @@ public class SectorLazyDataModel extends LazyDataModel<Sector>{
 	}
 
 	
+	public String getBusqueda() {
+		return busqueda;
+	}
+
+	public void setBusqueda(String busqueda) {
+		this.busqueda = busqueda;
+	}
+
 	@Override
 	public List<Sector> load(int first, int pageSize, String sortField,
 			SortOrder sortOrder, Map<String, String> filters) {
-		    sectores= service.getAll(first, pageSize);
+			total=Integer.MIN_VALUE;
+		    sectores= service.getAllFilter(first, pageSize,busqueda);
 		    return sectores;
 	}
 	
@@ -73,7 +82,9 @@ public class SectorLazyDataModel extends LazyDataModel<Sector>{
 	
 	@Override
 	public int getRowCount() {
-		return service.getSizeAll();
+		if(total==Integer.MIN_VALUE)
+			total=service.getsize(busqueda);
+		return total;
 	}
 	
 
