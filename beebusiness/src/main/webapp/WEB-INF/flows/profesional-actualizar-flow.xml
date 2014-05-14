@@ -34,6 +34,12 @@
 	<view-state id="actualizar-informacion"
 		view="../pages/profesional-new/actualizar-informacion.xhtml">
 		<transition on="volver" to="inicio" />
+		<transition on="limpiarProvincia">
+		    <evaluate expression="profesionalBean.setProvinciaSeleccionada(null)"/>
+		</transition>
+		<transition on="limpiarEmpresa">
+		    <evaluate expression="profesionalBean.setEmpresasSeleccionadas(null)"/>
+		</transition>
 		<transition on="actualizar" to="inicio">
 			<evaluate
 				expression="profesionalController.validacionPaso1(profesionalBean.profesional)"></evaluate>
@@ -47,6 +53,15 @@
 	<view-state id="actualizar-preferencias"
 		view="../pages/profesional-new/actualizar-preferencias.xhtml">
 		<transition on="volver" to="inicio" />
+		<transition on="limpiarPerfil">
+		    <evaluate expression="profesionalBean.setPerfilesSeleccionados(null)"/>
+		</transition>
+		<transition on="limpiarTematica">
+		    <evaluate expression="profesionalBean.setTematicasSeleccionadas(null)"/>
+		</transition>
+		<transition on="limpiarSector">
+		    <evaluate expression="profesionalBean.setSectoresSeleccionados(null)"/>
+		</transition>
 		<transition on="actualizar" to="inicio">
 			<evaluate
 				expression="profesionalController.actualizarProfesional(profesionalBean.profesional)" />

@@ -49,13 +49,13 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<p:dataTable var="provincia"
-											value="#{profesionalBean.searchProvincia}"
+											value="#{profesionalBean.provincias}"
 											selectionMode="single"
 											selection="#{profesionalBean.provinciaSeleccionada}"
 											rowKey="#{provincia.id}" paginator="true" dynamic="true"
 											rows="#{profesionalBean.searchProvincia.pageSize}"
 											page="#{profesionalBean.searchProvincia.currentPage}"
-											lazy="true" id="provincias" paginatorAlwaysVisible="false"
+											lazy="false" id="provincias" paginatorAlwaysVisible="false"
 											styleClass="hide-column-names"
 											emptyMessage="No hay registros" paginatorPosition="bottom"
 											currentPageReportTemplate="total {totalRecords}"

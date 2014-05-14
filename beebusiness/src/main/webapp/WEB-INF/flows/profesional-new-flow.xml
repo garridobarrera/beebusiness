@@ -30,6 +30,12 @@
 	    </transition>
 	    <transition on="buscarEmpresa" to="seleccionarEmpresa"/>
 	    <transition on="buscarProvincia" to="seleccionarProvincia"/>
+	    <transition on="limpiarProvincia">
+		    <evaluate expression="profesionalBean.setProvinciaSeleccionada(null)"/>
+		</transition>
+		<transition on="limpiarEmpresa">
+		    <evaluate expression="profesionalBean.setEmpresasSeleccionadas(null)"/>
+		</transition>
 	    <transition on="listado" to="listado"/>
 	</view-state>
 	<view-state id="paso2" view="../pages/profesional-new/registro-paso2.xhtml">
@@ -38,6 +44,15 @@
 	    <transition on="buscarPerfil" to="seleccionarPerfil"/>
 		<transition on="buscarSector" to="seleccionarSector"/>
 		<transition on="buscarTematica" to="seleccionarTematica"/>
+		<transition on="limpiarPerfil">
+		    <evaluate expression="profesionalBean.setPerfilesSeleccionados(null)"/>
+		</transition>
+		<transition on="limpiarTematica">
+		    <evaluate expression="profesionalBean.setTematicasSeleccionadas(null)"/>
+		</transition>
+		<transition on="limpiarSector">
+		    <evaluate expression="profesionalBean.setSectoresSeleccionados(null)"/>
+		</transition>
 		<transition on="listado" to="listado"/>
 	</view-state>
 	<view-state id="paso3" view="../pages/profesional-new/registro-paso3.xhtml">

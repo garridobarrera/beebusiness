@@ -49,13 +49,13 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<p:dataTable var="perfil"
-											value="#{profesionalBean.searchPerfil}"
+											value="#{profesionalBean.perfiles}"
 											selectionMode="multiple"
 											selection="#{profesionalBean.perfilesSeleccionados}"
 											rowKey="#{perfil.id}" paginator="true" dynamic="true"
 											rows="#{profesionalBean.searchPerfil.pageSize}"
 											page="#{profesionalBean.searchPerfil.currentPage}"
-											lazy="true" id="perfiles" paginatorAlwaysVisible="false"
+											lazy="false" id="perfiles" paginatorAlwaysVisible="false"
 											styleClass="hide-column-names"
 											emptyMessage="No hay registros" paginatorPosition="bottom"
 											currentPageReportTemplate="total {totalRecords}"

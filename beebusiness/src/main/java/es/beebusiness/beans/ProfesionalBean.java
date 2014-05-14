@@ -1,8 +1,11 @@
 package es.beebusiness.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import es.beebusiness.controller.lazy.EmpresaLazyDataModel;
 import es.beebusiness.controller.lazy.PerfilLazyDataModel;
@@ -15,6 +18,11 @@ import es.beebusiness.domain.Perfil;
 import es.beebusiness.domain.Profesional;
 import es.beebusiness.domain.Provincia;
 import es.beebusiness.domain.Sector;
+import es.beebusiness.service.IEmpresaService;
+import es.beebusiness.service.IPerfilService;
+import es.beebusiness.service.IProvinciaService;
+import es.beebusiness.service.ISectorService;
+import es.beebusiness.util.Constantes;
 
 public class ProfesionalBean implements Serializable{
 
@@ -34,7 +42,14 @@ public class ProfesionalBean implements Serializable{
 	private List<Sector> tematicasSeleccionadas;
 	private ProvinciaLazyDataModel searchProvincia;
 	private Provincia provinciaSeleccionada;
-	
+	@Autowired
+	private IPerfilService perfilService;
+	@Autowired
+	private ISectorService sectorService;
+	@Autowired
+	private IEmpresaService empresaService;
+	@Autowired
+	private IProvinciaService provinciaService;
 	
 	public Profesional getProfesional() {
 		return profesional;
@@ -111,6 +126,22 @@ public class ProfesionalBean implements Serializable{
 	public void setProvinciaSeleccionada(Provincia provinciaSeleccionada) {
 		this.provinciaSeleccionada = provinciaSeleccionada;
 	}
+	public List<Perfil> getPerfiles() {
+		return perfilService.getAll();
+	}
+	public List<Sector> getTematicas() {
+		return sectorService.getAll(Constantes.TOPIC_TEMATICA);
+	}
+	public List<Sector> getSectores() {
+		return sectorService.getAll(Constantes.TOPIC_SECTOR);
+	}
+	public List<Empresa> getEmpresas() {
+		return empresaService.getAll();
+	}
+	public List<Provincia> getProvincias() {
+		return provinciaService.getAll();
+	}
+	
 	public void componer(){
 		if(perfilesSeleccionados!=null)
 			profesional.setPerfiles(new HashSet<Perfil>(perfilesSeleccionados));

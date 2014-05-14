@@ -12,6 +12,10 @@
 .padding-bottom {
   padding-bottom: 15px;
 }
+/* Padding inferior */
+.padding-rigth {
+  padding-right: 15px;
+}
 /* Visualizacion de cadenas largas en los tags code, se usa para la documentacion de los servicios REST*/
 code {
   white-space: normal;

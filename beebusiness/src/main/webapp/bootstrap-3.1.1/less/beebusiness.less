@@ -7,7 +7,7 @@
 @link-texto:         #8C1418;
 @gradiente-inicio: #dddddd;
 @gradiente-fin: #ddccdc;
-
+@padding:      15px;
 
 /**********************************************/
 /*************Estilos generales****************/
@@ -15,11 +15,15 @@
 
 /* Padding superior */
 .padding-top {
-	padding-top: 15px;
+	padding-top: @padding;
 }
 /* Padding inferior */
 .padding-bottom{
-	padding-bottom: 15px;
+	padding-bottom: @padding;
+}
+/* Padding inferior */
+.padding-rigth{
+	padding-right: @padding;
 }
 
 /* Visualizacion de cadenas largas en los tags code, se usa para la documentacion de los servicios REST*/

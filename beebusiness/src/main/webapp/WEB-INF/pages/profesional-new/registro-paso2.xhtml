@@ -76,8 +76,8 @@
 											</p:dataList>
 											</div>
 											<div class="col-lg-1">
-												<p:commandLink action="buscarPerfil" id="buscarPerfil"
-													styleClass="ui-icon ui-icon-search" process="@this"></p:commandLink>
+												<p:commandLink action="buscarPerfil" id="buscarPerfil" process="@this" title="Buscar" styleClass="padding-rigth"><i class="fa fa-search"/></p:commandLink>
+												<p:commandLink action="limpiarPerfil" id="limpiarPerfil" update="@form" title="Limpiar"><i class="fa fa-eraser"/></p:commandLink>
 											</div>
 											<div class="col-lg-offset-2 col-lg-10">
 												<p class="help-block">Perfiles.</p>
@@ -95,8 +95,8 @@
 											</p:dataList>
 											</div>
 											<div class="col-lg-1">
-												<p:commandLink action="buscarSector" id="buscarSector"
-													styleClass="ui-icon ui-icon-search" process="@this"></p:commandLink>
+												<p:commandLink action="buscarSector" id="buscarSector" process="@this" title="Buscar" styleClass="padding-rigth"><i class="fa fa-search"/></p:commandLink>
+													<p:commandLink action="limpiarSector" id="limpiarSector" update="@form" title="Limpiar"><i class="fa fa-eraser"/></p:commandLink>
 											</div>
 											<div class="col-lg-offset-2 col-lg-10">
 												<p class="help-block">Sectores.</p>
@@ -116,7 +116,8 @@
 											</div>
 											<div class="col-lg-1">
 												<p:commandLink action="buscarTematica" id="buscarTematica"
-													styleClass="ui-icon ui-icon-search" process="@this"></p:commandLink>
+													 process="@this" title="Buscar" styleClass="padding-rigth"><i class="fa fa-search"/></p:commandLink>
+											    <p:commandLink action="limpiarTematica" id="limpiarTematica" update="@form" title="Limpiar"><i class="fa fa-eraser"/></p:commandLink>
 											</div>
 											<div class="col-lg-offset-2 col-lg-10">
 												<p class="help-block">Temáticas.</p>
