@@ -161,7 +161,6 @@
 			</exclusions>
 		</dependency>
 
-
 		<!-- Dependencias JSF 2.X -->
 		<dependency>
 			<groupId>com.sun.faces</groupId>

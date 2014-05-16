@@ -5,7 +5,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:sec="http://www.springframework.org/security/tags">
 <f:view locale="es">
 	<h:head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -248,7 +249,7 @@
 								class="fa fa-crosshairs fa-fw"></i> Provincias</a></li>
 						<li><a href="usuario-flow"><i
 								class="fa fa-crosshairs fa-fw"></i> Usuarios</a></li>
-				 		<li><a href="profesional-listado-flow"><i
+						<li><a href="profesional-listado-flow"><i
 								class="fa fa-crosshairs fa-fw"></i> Profesionales</a></li>
 						<li><a href="../api-doc" target="_blank"><i
 								class="fa fa-pencil-square-o"></i> REST Services</a></li>
@@ -279,7 +280,7 @@
 		<!-- /#wrapper -->
 
 		<!-- Core Scripts - Include with every page -->
-	<!-- <script src="../js/jquery-1.10.2.js"></script> -->
+		<!-- <script src="../js/jquery-1.10.2.js"></script> -->
 		<script src="../js/bootstrap.min.js"></script>
 		<script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
 

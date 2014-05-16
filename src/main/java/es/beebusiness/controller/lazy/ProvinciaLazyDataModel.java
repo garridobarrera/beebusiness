@@ -10,24 +10,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import es.beebusiness.domain.Provincia;
 import es.beebusiness.service.IProvinciaService;
 
-
-public class ProvinciaLazyDataModel extends LazyDataModel<Provincia>{
+public class ProvinciaLazyDataModel extends LazyDataModel<Provincia> {
 
 	private static final long serialVersionUID = -8117874649477106123L;
-	
-	public ProvinciaLazyDataModel(){
+
+	private int total = Integer.MIN_VALUE;
+
+	private String busqueda;
+
+	private transient IProvinciaService service;
+
+	private int currentPage = 1;
+
+	private List<Provincia> provincias;
+
+	public ProvinciaLazyDataModel() {
 		super();
 		super.setPageSize(5);
 	}
-	
-	
-	private transient IProvinciaService service;
-	
-	
-	private int currentPage=1;
-	
-	
-	private List<Provincia> provincias;
 
 	public int getCurrentPage() {
 		return currentPage;
@@ -45,7 +45,7 @@ public class ProvinciaLazyDataModel extends LazyDataModel<Provincia>{
 	public void setService(IProvinciaService service) {
 		this.service = service;
 	}
-	
+
 	public List<Provincia> getProvincias() {
 		return provincias;
 	}
@@ -54,25 +54,32 @@ public class ProvinciaLazyDataModel extends LazyDataModel<Provincia>{
 		this.provincias = provincias;
 	}
 
-	
+	public String getBusqueda() {
+		return busqueda;
+	}
+
+	public void setBusqueda(String busqueda) {
+		this.busqueda = busqueda;
+	}
+
 	@Override
 	public List<Provincia> load(int first, int pageSize, String sortField,
 			SortOrder sortOrder, Map<String, String> filters) {
-		provincias= service.getAll(first, pageSize);
-		    return provincias;
+		total=Integer.MIN_VALUE;
+		provincias = service.getAll(first, pageSize,busqueda);
+		return provincias;
 	}
-	
+
 	@Override
 	public Object getRowKey(Provincia Provincia) {
 		return Provincia.getId();
 	}
-	
+
 	@Override
 	public int getRowCount() {
-		return service.getSizeAll();
+		if(total==Integer.MIN_VALUE)
+			total=service.getSizeAll(busqueda);
+		return total;
 	}
-	
-
-	
 
 }

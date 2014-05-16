@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 
 import es.beebusiness.domain.Provincia;
@@ -28,40 +29,40 @@ public class ProvinciaController implements Serializable{
 		try{
 		if(p.getId()!=null && !"".equals(p.getId())){
 			provinciaService.actualizar(p);
-			FacesMessage msg = new FacesMessage("Provincia actualizada correctamente");  
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
+			FacesMessage msg = new FacesMessage(
+					"Provincia actualizada correctamente");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}else{
-			provinciaService.crear(p);	
-			FacesMessage msg = new FacesMessage("Provincia creado correctamente");  
+			provinciaService.crear(p);
+			FacesMessage msg = new FacesMessage("Provincia creada correctamente");  
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-		
+
 		}catch (BusinessException e) {
-			FacesMessage msg = new FacesMessage("Ha sucedido un error al crear el Provincia, puede que el Provincia ya exista");  
+			FacesMessage msg = new FacesMessage("Ha sucedido un error al crear la provincia, puede que el perfil ya exista");  
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 		  
 	}
-	
-	
-	
-	public void eliminarProvincia(String id){
-		Provincia p=new Provincia();
-		p.setId(new Long(id));
-		provinciaService.borrar(p);
-		FacesMessage msg = new FacesMessage("Provincia eliminado correctamente");  
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
-	}
-	
-	public Provincia obtenerProvincia(String id){
-		Provincia p=new Provincia();
-		p.setId(new Long(id));
+
+	public Provincia obtenerProvincia(String id) {
 		return provinciaService.get(new Long(id));
 	}
-	
-	public List<Provincia> obtenerProvincias(){
-		return provinciaService.getAll();
+
+	public void eliminarProvincia(String id) {
+		Provincia p = new Provincia();
+		p.setId(new Long(id));
+		try{
+			provinciaService.borrar(p);
+		FacesMessage msg = new FacesMessage("Provincia eliminada correctamente");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		}catch(DataIntegrityViolationException e){
+			FacesMessage msg = new FacesMessage("No se ha podido eliminar la provincia, compruebe que no se está usando en otras entidades.");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		
 	}
 
 }

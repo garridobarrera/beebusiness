@@ -46,7 +46,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="panel panel-default">
-					<div class="panel-heading">Registrar nueva provincia</div>
+					<div class="panel-heading">Registro de provincia</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
@@ -56,13 +56,13 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<h:form id="registro">
-								<div class="form-group">
+									<div class="form-group">
 
-										<label class="col-lg-2 control-label">INE</label>
+										<label class="col-lg-2 required control-label">INE</label>
 										<div class="col-lg-10">
 											<p:inputText styleClass="form-control" id="ine"
 												requiredMessage="Campo código: Es necesario establecer un valor"
-												required="true" value="#{provinciaNueva.ine}" />
+												required="true" value="#{provinciaBean.provincia.ine}" />
 										</div>
 										<div class="col-lg-offset-2 col-lg-10">
 											<p class="help-block">INE de la provincia.</p>
@@ -71,11 +71,11 @@
 									</div>
 									<div class="form-group">
 
-										<label class="col-lg-2 control-label">Nombre</label>
+										<label class="col-lg-2 required control-label">Nombre</label>
 										<div class="col-lg-10">
 											<p:inputText styleClass="form-control" id="nombre"
 												requiredMessage="Campo nombre: Es necesario establecer un valor"
-												required="true" value="#{provinciaNueva.nombre}" />
+												required="true" value="#{provinciaBean.provincia.nombre}" />
 										</div>
 										<div class="col-lg-offset-2 col-lg-10">
 											<p class="help-block">Nombre de la provincia.</p>
@@ -83,10 +83,13 @@
 
 									</div>
 									<div class="form-group">
+										<label class="col-lg-12 leyenda-obligatorio">Campos
+											obligatorios</label>
+									</div>
+									<div class="form-group">
 										<div class="col-sm-offset-7 col-sm-5 divider">
-											<p:commandButton action="altaProvincia" value="Alta"
-												id="saveBtn"
-												update=":listado:provincias :registro  :growl"
+											<p:commandButton action="altaProvincia" value="Enviar"
+												id="saveBtn" update=":listado:provincias :registro  :growl"
 												styleClass="btn btn-default btn-sm btn-block"></p:commandButton>
 											<p:blockUI block=":registro:saveBtn"
 												trigger=":registro:saveBtn" />
@@ -108,44 +111,74 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Listado de provincias</div>
 					<div class="panel-body">
-						<h:form id="listado">
-							<p:dataTable var="provincia" value="#{provinciaslazy}"
-								paginator="true" dynamic="true" rows="#{provinciaslazy.pageSize}"
-								page="#{provinciaslazy.currentPage}" lazy="true"
-								id="provincias" paginatorAlwaysVisible="false"
-								styleClass="hide-column-names" emptyMessage="No hay registros"
-								paginatorPosition="bottom"
-								currentPageReportTemplate="total {totalRecords}"
-								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-								rowsPerPageTemplate="5,10,15">
-								<p:column>
+						<div class="row padding-bottom">
+							<div class="col-lg-12">
+								<h:form id="buscador">
+									<div class="input-group">
+										<span class="input-group-btn" title="Limpiar"> <h:commandLink
+												action="limpiar" styleClass="btn btn-default">
+												<i class="fa fa-eraser"></i>
+												<p:ajax process="@this" update=":listado :buscador" />
+											</h:commandLink>
+										</span>
+										<p:inputText styleClass="form-control" id="busqueda"
+											value="#{provinciaBean.lazy.busqueda}" />
+										<p:watermark for="busqueda" value="Refina tu búsqueda" />
+										<span class="input-group-btn" title="Filtrar"> <h:commandLink
+												action="filtrar" styleClass="btn btn-default">
+												<i class="fa fa-search"></i>
+												<p:ajax process="@form" update=":listado" />
+											</h:commandLink>
+										</span>
+
+									</div>
+								</h:form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<h:form id="listado">
+									<p:dataTable var="provincia" value="#{provinciaBean.lazy}"
+										paginator="true" dynamic="true"
+										rows="#{provinciaBean.lazy.pageSize}"
+										page="#{provinciaBean.lazy.currentPage}" lazy="true"
+										id="provincias" paginatorAlwaysVisible="false"
+										styleClass="hide-column-names" emptyMessage="No hay registros"
+										paginatorPosition="bottom"
+										currentPageReportTemplate="total {totalRecords}"
+										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										rowsPerPageTemplate="5,10,15">
+										<p:column>
 											<h:outputText value="#{provincia}" />
-								</p:column>
+										</p:column>
 
-								<p:column style="width: 6%;">
-									<div class="ui-row-editor">
-										<span> <p:commandLink
-												styleClass="ui-icon ui-icon-pencil"
-												update=":registro" action="obtenerProvincia">
-												<f:param name="id" value="#{provincia.id}" />
-											</p:commandLink>
-										</span>
-									</div>
-								</p:column>
+										<p:column style="width: 6%;">
+											<div class="ui-row-editor">
+												<span> <p:commandLink title="Editar"
+														styleClass="fa fa-pencil" action="editarProvincia"
+														update=":registro">
+														<f:param name="id" value="#{provincia.id}" />
+													</p:commandLink>
+												</span>
+											</div>
+										</p:column>
 
-								<p:column style="width: 6%;">
-									<div class="ui-row-editor">
-										<span> <p:commandLink
-												styleClass="ui-icon ui-icon-trash"
-												update=":listado:provincias :growl" action="eliminarProvincia">
-												<f:param name="id" value="#{provincia.id}" />
-											</p:commandLink>
-										</span>
-									</div>
+										<p:column style="width: 6%;">
 
-								</p:column>
-							</p:dataTable>
-						</h:form>
+											<div class="ui-row-editor">
+												<span> <p:commandLink title="Eliminar"
+														styleClass="fa fa-trash-o"
+														update=":listado:provincias :growl" action="confirmacion">
+														<f:param name="id" value="#{provincia.id}" />
+													</p:commandLink>
+												</span>
+											</div>
+
+										</p:column>
+									</p:dataTable>
+								</h:form>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

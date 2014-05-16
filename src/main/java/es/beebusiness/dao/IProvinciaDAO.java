@@ -10,4 +10,6 @@ public interface IProvinciaDAO extends IBaseGenericDAO<Provincia, Long> {
 	public List<Provincia> getAll(Integer inicio,Integer total);
 	public int getTotalFilter(Provincia p);
 	public List<Provincia> getAllFilter(Provincia p,Integer inicio,Integer total);
+	List<Provincia> getAll(Integer inicio, Integer total, String filtro);
+	int getTotal(String filtro);
 }

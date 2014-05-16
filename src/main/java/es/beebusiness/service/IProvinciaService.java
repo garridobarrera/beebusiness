@@ -20,4 +20,6 @@ public interface IProvinciaService extends Serializable{
 	public List<Provincia> getAll();
 	public int getTotalFilter(Provincia p);
 	public List<Provincia> getAllFilter(Provincia p, Integer inicio, Integer total);
+	List<Provincia> getAll(Integer inicio, Integer total, String busqueda);
+	int getSizeAll(String filtro);
 }
