@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/api-doc/template-rest-doc.xhtml">
+
+	<ui:define name="miga">
+		<div class="row">
+			<div class="col-lg-12">
+				<ol class="breadcrumb">
+					<li><a href="index.xhtml">Índice</a></li>
+					<li><a href="profesional-services.xhtml">Profesional - Servicios</a></li>
+					<li class="active">Datos personales</li>
+				</ol>
+			</div>
+		</div>
+	</ui:define>
+
+	<ui:define name="contenido">
+		<div class="row">
+			<div class="col-md-12">
+				<h4>[GET] /rest/profesional</h4>
+				<p>Obtiene la información personal del profesional autenticado
+					para el token indicado.</p>
+				<div class="row">
+					<div class="col-md-12">
+						<b>Información.</b>
+						<ul>
+							<li>HTTP Method: GET</li>
+							<li>Formato salida: JSON</li>
+							<li>Autenticación requerida: Sí</li>
+						</ul>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<b>URL del recurso.</b>
+						<code>http://IP:PORT/beebusiness/rest/profesional</code>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<b>Parámetros headers.</b>
+						<table>
+							<tbody>
+								<tr>
+									<td><code>token (*)</code></td>
+									<td>token de autenticación.</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<b>Ejemplo de petición.</b>
+						<p>
+							<code>[GET]
+								http://IP:PORT/beebusiness/rest/profesional</code>
+						</p>
+						<p>
+							HEADER:
+							<code>"token":"tcj4e69TclbQrmP4C6jR3N+WFKxbUvmSXl+NJw1A//B1AyYlLb5E771noIHRUdv6dak1lmotlnswoFtQqQSWJ4zWNnHr1htB"</code>
+						</p>
+						<p>
+							OUTPUT:
+							<code>{ id: 7 ,nombre: "José Manuel" ,apellidos: "Garrido
+							
+								Barrera" ,cargo: null, empresa: { id: 32, codigo: "EVR", nombre:
+								"everis", dominio: "USERSAD" ,telefono: "765668400" },
+								emailPersonal: "garridobarrera@gmail.com" ,emailProfesional:
+								"jgarridb@everis.com" ,username: "jgarridb" }</code>
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<b>Códigos de estado disponibles.</b>
+						<table>
+							<tbody>
+								<tr>
+									<td><code>200 OK</code></td>
+									<td>Operación realizada correctamente</td>
+								</tr>
+								<tr>
+									<td><code>401 Unauthorized</code></td>
+									<td>Credenciales incorrectas</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+	</ui:define>
+</ui:composition>
+</html>

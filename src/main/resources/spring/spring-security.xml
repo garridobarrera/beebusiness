@@ -1,0 +1,55 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+
+	<global-method-security pre-post-annotations="enabled"/>
+	
+	<!-- AUTENTICACION SERVICIOS REST -->
+	<http pattern="/rest/**" realm="Protected API" use-expressions="true" auto-config="false" create-session="stateless" entry-point-ref="customAuthenticationEntryPoint">
+    	<custom-filter ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER" />
+    	<intercept-url pattern="/rest/admin/authenticate" access="permitAll"/>
+    	<intercept-url pattern="/rest/profesional/authenticate" access="permitAll"/>
+    	<intercept-url pattern="/rest/profesional/registro" access="permitAll"/>
+    	<intercept-url pattern="/rest/topics" access="permitAll"/>
+    	<intercept-url pattern="/rest/provincias" access="permitAll"/>
+    	<intercept-url pattern="/rest/empresas" access="permitAll"/>
+    	<intercept-url pattern="/rest/**" access="isAuthenticated()" />
+	</http>
+	
+	<beans:bean id="customAuthenticationEntryPoint"
+    class="es.beebusiness.authenticator.CustomAuthenticatorEntryPoint" />
+
+	<beans:bean class="es.beebusiness.authenticator.AuthenticationTokenProcessingFilter"
+    	id="authenticationTokenProcessingFilter">
+    	<beans:constructor-arg ref="authenticationManager" />
+    	<beans:constructor-arg value="1800000" /> <!-- vigencia del token en milisegundos -->
+	</beans:bean>
+	
+	<!-- AUTENTICACION APLICACION WEB -->
+	  <http auto-config="true">
+		<intercept-url pattern="/app/**" access="ROLE_USER" />
+		<form-login login-page="/login.xhtml" default-target-url="/app/perfil-flow"
+			authentication-failure-url="/login.xhtml?error=1" username-parameter="username"
+			password-parameter="password" />
+		<logout logout-success-url="/login?logout" />
+
+	</http>
+	
+	
+
+	<!-- MANAGER DE AUTENTICACION MOCK-->
+	<!-- <authentication-manager> <authentication-provider> <user-service> <user 
+		name="admin@beebusiness.biz" password="admin" authorities="ROLE_USER" /> 
+		</user-service> </authentication-provider> </authentication-manager> -->
+
+	
+	<!-- MANAGER DE AUTENTICACION BASE DE DATOS -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="customAuthenticationProvider" />
+	</authentication-manager>
+
+</beans:beans>

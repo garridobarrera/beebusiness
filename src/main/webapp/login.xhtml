@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<title>Landing Page Template for Bootstrap</title>
+
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.css" rel="stylesheet" />
+
+<!-- Custom Google Web Font -->
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+<!-- Add custom CSS here -->
+<link href="css/landing-page.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+
+
+	<div class="intro-header">
+
+		<div class="container">
+
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-4">
+					<div class="intro-message">
+						<!-- <div class="row">
+							<div class="col-md-2">
+								<img alt="logo" src="img/logo.png" />
+							</div>
+							<div class="col-md-8">
+								<h1>beeBusiness</h1>
+							</div>
+						</div>  -->
+
+						<h3>Formulario de acceso</h3>
+						<div class="panel-body block">
+							<h:panelGrid rendered="#{param['error'] == '1' ? true : false}"
+								width="100%">
+								<div class="alert alert-danger">
+									<a class="close" data-dismiss="alert">×</a> Credenciales
+									incorrectas
+								</div>
+							</h:panelGrid>
+							<form role="form" action="j_spring_security_check" method="post">
+								<fieldset>
+									<div class="form-group">
+										<input class="form-control" placeholder="E-mail"
+											name="username" type="email" value="" required="true" />
+									</div>
+									<div class="form-group">
+										<input class="form-control" placeholder="Password"
+											name="password" type="password" value="" required="true" />
+									</div>
+									<!-- Change this to a button or input when using this as a form -->
+									<input type="submit" class="btn btn-lg btn-danger btn-block"
+										value="Acceder"></input>
+								</fieldset>
+							</form>
+						</div>
+						<hr class="intro-divider" />
+						<ul class="list-inline intro-social-buttons">
+							<!-- <li><a href="#" class="btn btn-default btn-lg"><i
+									class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+							</li> -->
+							<li><a href="api-doc" target="_blank" class="btn btn-default btn-lg"><i
+									class="fa fa-pencil-square-o"></i> <span class="network-name">REST Services</span></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /.container -->
+
+	</div>
+
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+
+					<p class="copyright text-muted small">Copyright beeBusiness
+						2014. All Rights Reserved</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Core Scripts - Include with every page -->
+	<script src="js/jquery-1.10.2.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+	<!-- SB Admin Scripts - Include with every page -->
+	<script src="js/sb-admin.js"></script>
+
+</body>
+
+</html>

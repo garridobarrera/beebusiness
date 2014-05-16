@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="listado">
+	<secured attributes="ROLE_USER" />
+	<var name="tipoEventoNuevo" class="es.beebusiness.domain.TipoEvento" />
+	<on-start>
+		<evaluate expression="new es.beebusiness.domain.TipoEvento()"
+			result="tipoEventoNuevo" />
+	</on-start>
+	<view-state id="listado" view="../pages/tipoEvento/listado.xhtml">
+	    <var name="tipoEventoslazy" class="es.beebusiness.controller.lazy.TipoEventoLazyDataModel"/>
+		
+		
+		<transition on="altaTipoEvento">
+			<evaluate expression="tipoEventoController.altaTipoEvento(tipoEventoNuevo)" />
+			<evaluate expression="new es.beebusiness.domain.TipoEvento()"
+			result="tipoEventoNuevo" />
+		</transition>
+		
+		
+		<transition on="eliminarTipoEvento">
+			<evaluate expression="tipoEventoController.eliminarTipoEvento(requestParameters.id)"></evaluate>
+		</transition>
+	</view-state>
+
+
+	<end-state id="fin" view="final">
+	</end-state>
+</flow>

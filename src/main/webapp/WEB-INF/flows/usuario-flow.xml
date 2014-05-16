@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="listado">
+	<secured attributes="ROLE_USER" />
+	<var name="usuarioBean" class="es.beebusiness.beans.UserBean"/>
+	<var name="lazy" class="es.beebusiness.controller.lazy.UsuarioLazyDataModel"/>
+	
+	<on-start>
+		<evaluate expression="new es.beebusiness.domain.Usuario()"
+		result="usuarioBean.usuario" />
+		<evaluate expression="usuarioBean.setLazy(lazy)"/>
+	</on-start>
+	<view-state id="listado" view="../pages/usuario/listado.xhtml">
+		<transition on="altaUsuario">
+			<evaluate expression="usuarioController.altaUsuario(usuarioBean.usuario)" />
+			<evaluate expression="new es.beebusiness.domain.Usuario()"
+			result="usuarioBean.usuario" />
+		</transition>
+		
+		
+		<transition on="eliminarUsuario">
+			<evaluate expression="usuarioController.eliminarUsuario(requestParameters.id)"></evaluate>
+		</transition>
+		
+		<transition on="obtenerUsuario">
+			<evaluate expression="usuarioController.obtenerUsuario(requestParameters.id)" result="usuarioBean.usuario"></evaluate>
+		</transition>
+	</view-state>
+
+
+	<end-state id="fin" view="final">
+	</end-state>
+</flow>

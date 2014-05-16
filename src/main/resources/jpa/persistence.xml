@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+	http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+	
+	<persistence-unit name="beebusiness" transaction-type="RESOURCE_LOCAL">
+	    <class>es.beebusiness.domain.Evento</class>
+	    <class>es.beebusiness.domain.TipoEvento</class>
+	    <class>es.beebusiness.domain.Empresa</class>
+	    <class>es.beebusiness.domain.Direccion</class>
+	    <class>es.beebusiness.domain.Provincia</class>
+	    <class>es.beebusiness.domain.Perfil</class>
+	    <class>es.beebusiness.domain.Sector</class>
+	    <class>es.beebusiness.domain.Programa</class>
+	    <class>es.beebusiness.domain.Ponente</class>
+	    <class>es.beebusiness.domain.Profesional</class>
+	    <class>es.beebusiness.domain.Usuario</class>
+	    <class>es.beebusiness.domain.association.Asistente</class>
+	    <properties>
+	            <property name="hibernate.hbm2ddl.auto" value="update"/>
+	            <property name="hibernate.archive.autodetection" value="class, hbm"/>
+	            <property name="hibernate.c3p0.min_size" value="5"/>
+	            <property name="hibernate.c3p0.max_size" value="20"/>
+	            <property name="hibernate.c3p0.timeout" value="300"/>
+	            <property name="hibernate.c3p0.max_statements" value="50"/>
+	            <property name="hibernate.c3p0.idle_test_period" value="3000"/>
+	        </properties>
+	</persistence-unit>
+</persistence>

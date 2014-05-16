@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/template.xhtml">
+
+	<ui:define name="miga">
+	</ui:define>
+
+	<ui:define name="contenido">
+	
+		<div class="row">
+			<div class="col-lg-12">
+				<p:growl id="growl" showDetail="false" sticky="true" />
+			</div>
+		</div>
+		<!-- /.row -->
+		<div class="row confirmation-header">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">Confirmación</div>
+					<div class="panel-body">
+						<h:form id="confirmacion">
+							<div class="row">
+								<div class="col-lg-12">
+									<p>¿Está seguro que desea continuar con la operación?</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="form-group">
+										<div class="row">
+											<div
+												class="col-lg-offset-4 col-lg-2">
+												<p:commandButton value="Cancelar"
+													action="deshacer"
+													styleClass="btn btn-default btn-sm btn-block" />
+											</div>
+											<div
+												class="col-lg-2">
+												<p:commandButton value="Aceptar"
+													action="confirmar" update=":growl"
+													styleClass="btn btn-default btn-sm btn-block" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</h:form>
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+
+	</ui:define>
+</ui:composition>
+</html>

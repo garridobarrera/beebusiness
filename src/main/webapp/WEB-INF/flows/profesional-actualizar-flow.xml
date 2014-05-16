@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="inicio">
+	<var name="profesionalBean" class="es.beebusiness.beans.ProfesionalBean" />
+	<var name="searchEmpresa" class="es.beebusiness.controller.lazy.EmpresaLazyDataModel" />
+	<var name="searchProvincia" class="es.beebusiness.controller.lazy.ProvinciaLazyDataModel" />
+	<var name="searchPerfil" class="es.beebusiness.controller.lazy.PerfilLazyDataModel" />
+	<var name="searchSector" class="es.beebusiness.controller.lazy.TopicSectorLazyDataModel" />
+	<var name="searchTematica"
+		class="es.beebusiness.controller.lazy.TopicTematicaLazyDataModel" />
+	<input name="id" />
+	<on-start>
+		<evaluate expression="profesionalController.obtenerProfesional(id)"
+			result="profesionalBean.profesional" />
+		<evaluate expression="profesionalController.componerProfesional(profesionalBean)"
+			result="profesionalBean" />
+		<evaluate expression="profesionalBean.setSearchProvincia(searchProvincia)" />
+		<evaluate expression="profesionalBean.setSearchEmpresa(searchEmpresa)" />
+		<evaluate expression="profesionalBean.setSearchPerfil(searchPerfil)" />
+		<evaluate expression="profesionalBean.setSearchSector(searchSector)" />
+		<evaluate expression="profesionalBean.setSearchTematica(searchTematica)" />
+	</on-start>
+	<view-state id="inicio"
+		view="../pages/profesional-new/elegir-seccion-actualizar.xhtml">
+		<transition on="actualizar-informacion" to="actualizar-informacion" />
+		<transition on="actualizar-preferencias" to="actualizar-preferencias" />
+		<transition on="actualizar-credenciales" to="actualizar-credenciales" />
+		<transition on="volver" to="listado" />
+	</view-state>
+
+	<view-state id="actualizar-informacion"
+		view="../pages/profesional-new/actualizar-informacion.xhtml">
+		<transition on="volver" to="inicio" />
+		<transition on="limpiarProvincia">
+		    <evaluate expression="profesionalBean.setProvinciaSeleccionada(null)"/>
+		</transition>
+		<transition on="limpiarEmpresa">
+		    <evaluate expression="profesionalBean.setEmpresasSeleccionadas(null)"/>
+		</transition>
+		<transition on="actualizar" to="inicio">
+			<evaluate
+				expression="profesionalController.validacionPaso1(profesionalBean.profesional)"></evaluate>
+			<evaluate
+				expression="profesionalController.actualizarProfesional(profesionalBean.profesional)" />
+		</transition>
+		<transition on="buscarEmpresa" to="seleccionarEmpresa" />
+		<transition on="buscarProvincia" to="seleccionarProvincia" />
+	</view-state>
+
+	<view-state id="actualizar-preferencias"
+		view="../pages/profesional-new/actualizar-preferencias.xhtml">
+		<transition on="volver" to="inicio" />
+		<transition on="limpiarPerfil">
+		    <evaluate expression="profesionalBean.setPerfilesSeleccionados(null)"/>
+		</transition>
+		<transition on="limpiarTematica">
+		    <evaluate expression="profesionalBean.setTematicasSeleccionadas(null)"/>
+		</transition>
+		<transition on="limpiarSector">
+		    <evaluate expression="profesionalBean.setSectoresSeleccionados(null)"/>
+		</transition>
+		<transition on="actualizar" to="inicio">
+			<evaluate
+				expression="profesionalController.actualizarProfesional(profesionalBean.profesional)" />
+		</transition>
+		<transition on="buscarPerfil" to="seleccionarPerfil" />
+		<transition on="buscarSector" to="seleccionarSector" />
+		<transition on="buscarTematica" to="seleccionarTematica" />
+	</view-state>
+
+	<view-state id="actualizar-credenciales"
+		view="../pages/profesional-new/actualizar-credenciales.xhtml">
+		<transition on="volver" to="inicio" />
+		<transition on="actualizar" to="inicio">
+			<evaluate
+				expression="profesionalController.actualizarCredenciales(profesionalBean.profesional)" />
+		</transition>
+	</view-state>
+
+
+
+	<view-state id="seleccionarEmpresa"
+		view="../pages/profesional-new/seleccionarEmpresa.xhtml">
+		<transition on="seleccionar" to="actualizar-informacion" />
+	</view-state>
+
+	<view-state id="seleccionarProvincia"
+		view="../pages/profesional-new/seleccionarProvincia.xhtml">
+		<transition on="seleccionar" to="actualizar-informacion" />
+	</view-state>
+	
+	<view-state id="seleccionarPerfil" view="../pages/profesional-new/seleccionarPerfil.xhtml">
+	    <transition on="seleccionar" to="actualizar-preferencias"/>
+	</view-state>
+	
+	<view-state id="seleccionarSector" view="../pages/profesional-new/seleccionarSector.xhtml">
+	    <transition on="seleccionar" to="actualizar-preferencias"/>
+	</view-state>
+	
+	<view-state id="seleccionarTematica" view="../pages/profesional-new/seleccionarTematica.xhtml">
+	    <transition on="seleccionar" to="actualizar-preferencias"/>
+	</view-state>
+
+
+	<end-state id="listado" view="flowRedirect:profesional-listado-flow">
+	</end-state>
+</flow>
