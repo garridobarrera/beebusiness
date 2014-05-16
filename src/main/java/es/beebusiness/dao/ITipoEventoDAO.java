@@ -10,4 +10,6 @@ public interface ITipoEventoDAO extends IBaseGenericDAO<TipoEvento, Long> {
 	public List<TipoEvento> getAll(Integer inicio,Integer total);
 	public int getTotalFilter(TipoEvento tev);
 	public List<TipoEvento> getAllFilter(TipoEvento tev,Integer inicio,Integer total);
+	List<TipoEvento> getAll(Integer inicio, Integer total, String filtro);
+	int getTotal(String filtro);
 }

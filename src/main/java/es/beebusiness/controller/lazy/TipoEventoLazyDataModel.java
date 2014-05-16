@@ -10,25 +10,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import es.beebusiness.domain.TipoEvento;
 import es.beebusiness.service.ITipoEventoService;
 
-
-public class TipoEventoLazyDataModel extends LazyDataModel<TipoEvento>{
-
+public class TipoEventoLazyDataModel extends LazyDataModel<TipoEvento> {
 
 	private static final long serialVersionUID = -8923565766966575206L;
 
-	public TipoEventoLazyDataModel(){
+	private int total = Integer.MIN_VALUE;
+
+	private String busqueda;
+
+
+	private transient ITipoEventoService service;
+
+	private int currentPage = 1;
+
+	private List<TipoEvento> tipoEventos;
+	
+	public TipoEventoLazyDataModel() {
 		super();
 		super.setPageSize(5);
 	}
-	
-	
-	private transient ITipoEventoService service;
-	
-	
-	private int currentPage=1;
-	
-	
-	private List<TipoEvento> tipoEventos;
 
 	public int getCurrentPage() {
 		return currentPage;
@@ -46,7 +46,7 @@ public class TipoEventoLazyDataModel extends LazyDataModel<TipoEvento>{
 	public void setService(ITipoEventoService service) {
 		this.service = service;
 	}
-	
+
 	public List<TipoEvento> getTipoEventos() {
 		return tipoEventos;
 	}
@@ -55,25 +55,32 @@ public class TipoEventoLazyDataModel extends LazyDataModel<TipoEvento>{
 		this.tipoEventos = tipoEventos;
 	}
 
-	
+	public String getBusqueda() {
+		return busqueda;
+	}
+
+	public void setBusqueda(String busqueda) {
+		this.busqueda = busqueda;
+	}
+
 	@Override
 	public List<TipoEvento> load(int first, int pageSize, String sortField,
 			SortOrder sortOrder, Map<String, String> filters) {
-		    tipoEventos= service.getAll(first, pageSize);
-		    return tipoEventos;
+		total=Integer.MIN_VALUE;
+		tipoEventos = service.getAll(first, pageSize,busqueda);
+		return tipoEventos;
 	}
-	
+
 	@Override
 	public Object getRowKey(TipoEvento tev) {
 		return tev.getId();
 	}
-	
+
 	@Override
 	public int getRowCount() {
-		return service.getSizeAll();
+		if(total==Integer.MIN_VALUE)
+			total=service.getSizeAll(busqueda);
+		return total;
 	}
-	
-
-	
 
 }

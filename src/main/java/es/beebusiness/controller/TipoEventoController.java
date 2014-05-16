@@ -6,8 +6,8 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 
 import es.beebusiness.domain.TipoEvento;
@@ -24,32 +24,44 @@ public class TipoEventoController implements Serializable{
 		return tipoEventoService.getAll();
 	}
 	
-	public void altaTipoEvento(TipoEvento tev){
+	public void altaTipoEvento(TipoEvento tipoEvento){
 		try{
-			tipoEventoService.crear(tev);
-		FacesMessage msg = new FacesMessage("Tipo de evento creado correctamente");  
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+		if(tipoEvento.getId()!=null && !"".equals(tipoEvento.getId())){
+			tipoEventoService.actualizar(tipoEvento);
+			FacesMessage msg = new FacesMessage(
+					"Tipo de evento actualizado correctamente");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}else{
+			tipoEventoService.crear(tipoEvento);
+			FacesMessage msg = new FacesMessage("Tipo de evento creado correctamente");  
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+
 		}catch (BusinessException e) {
-			FacesMessage msg = new FacesMessage("Ha sucedido un error al crear el Tipo de evento, puede que el Tipo de evento ya exista");  
+			FacesMessage msg = new FacesMessage("Ha sucedido un error al crear el tipo de evento, puede que ya exista");  
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 	        FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 		  
 	}
-	
-	public void onEdit(RowEditEvent event){
-		TipoEvento tev=(TipoEvento)event.getObject();
-		tipoEventoService.actualizar(tev);
-		FacesMessage msg = new FacesMessage("Tipo de evento actualizado correctamente");  
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
+
+	public TipoEvento obtenerTipoEvento(String id) {
+		return tipoEventoService.get(new Long(id));
 	}
-	
-	public void eliminarTipoEvento(String id){
-		TipoEvento tev=new TipoEvento();
-		tev.setId(new Long(id));
-		tipoEventoService.borrar(tev);
-		FacesMessage msg = new FacesMessage("Tipo de evento eliminado correctamente");  
-        FacesContext.getCurrentInstance().addMessage(null, msg);  
+
+	public void eliminarTipoEvento(String id) {
+		TipoEvento tipo = new TipoEvento();
+		tipo.setId(new Long(id));
+		try{
+			tipoEventoService.borrar(tipo);
+		FacesMessage msg = new FacesMessage("Tipo de evento eliminado correctamente");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		}catch(DataIntegrityViolationException e){
+			FacesMessage msg = new FacesMessage("No se ha podido eliminar el tipo de evento, compruebe que no se está usando en otras entidades.");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		
 	}
 
 }

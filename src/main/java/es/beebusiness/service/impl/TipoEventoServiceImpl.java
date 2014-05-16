@@ -78,5 +78,21 @@ public class TipoEventoServiceImpl implements ITipoEventoService {
 	public List<TipoEvento> getAllFilter(TipoEvento tev, Integer inicio, Integer total) {
 		return dao.getAllFilter(tev, inicio, total);
 	}
+	
+	@Override
+	public List<TipoEvento> getAll(Integer inicio, Integer total, String busqueda) {
+		if(busqueda==null || "".equals(busqueda))
+			return dao.getAll(inicio, total);
+		else
+			return dao.getAll(inicio, total, busqueda);
+	}
+
+	@Override
+	public int getSizeAll(String filtro) {
+		if(filtro==null || "".equals(filtro))
+			return dao.getTotal();
+		else
+			return dao.getTotal(filtro);
+	}
 
 }

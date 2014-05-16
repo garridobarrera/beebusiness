@@ -20,4 +20,6 @@ public interface ITipoEventoService extends Serializable{
 	public List<TipoEvento> getAll();
 	public int getTotalFilter(TipoEvento tev);
 	public List<TipoEvento> getAllFilter(TipoEvento tev, Integer inicio, Integer total);
+	List<TipoEvento> getAll(Integer inicio, Integer total, String busqueda);
+	int getSizeAll(String filtro);
 }
