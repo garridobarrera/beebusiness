@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="listado">
+	<var name="eventoBean" class="es.beebusiness.beans.EventoBean" />
+	<var name="lazy" class="es.beebusiness.controller.lazy.EventoLazyDataModel" />
+	<var name="id" class="string"/>
+	<on-start>
+		<evaluate expression="eventoBean.setLazy(lazy)" />
+	</on-start>
+	<view-state id="listado" view="../pages/evento/listado.xhtml">
+	    <transition on="filtrar"/>
+	    <transition on="limpiar">
+	        <evaluate expression="eventoBean.getLazy().setBusqueda(null)"/>
+	    </transition>
+	    <transition on="visualizarEvento" to="view">
+	        <evaluate expression="eventoController.obtenerEvento(requestParameters.id)" result="eventoBean.evento"></evaluate>
+	    </transition>
+	    <transition on="editarEvento" to="fin"/>
+	        <transition on="registrar" to="registrar"/>
+	   
+	    <transition on="confirmacion" to="borrar">
+	       <set name="id" value="requestParameters.id" type="string" />
+		</transition>
+	</view-state>
+	
+	<view-state id="view" view="../pages/evento/view-evento.xhtml">
+		<transition on="volver" to="listado"></transition>
+	</view-state>
+	
+	<view-state id="borrar" view="../pages/comun/borrar-entidad.xhtml">
+	    <transition on="confirmar" to="listado">
+	        <evaluate expression="eventoController.eliminarEvento(id)"></evaluate>
+	    </transition>
+	     <transition on="deshacer" to="listado"/>
+	</view-state>
+	
+	<end-state id="fin" view="flowRedirect:evento-actualizar-flow?id=#{requestParameters.id}">
+	</end-state>
+	
+	<end-state id="registrar" view="flowRedirect:evento-new-flow">
+	</end-state>
+</flow>

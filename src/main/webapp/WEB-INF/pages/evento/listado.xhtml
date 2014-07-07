@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/template.xhtml">
+
+	<ui:define name="miga">
+		<div class="row">
+			<div class="col-lg-12">
+				<ol class="breadcrumb">
+					<li><a href="perfil-flow">Inicio</a></li>
+					<li class="active">Eventos</li>
+				</ol>
+			</div>
+		</div>
+	</ui:define>
+
+	<ui:define name="contenido">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Listado de eventos</h1>
+			</div>
+			<div class="col-lg-12">
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+					Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque
+					penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+					Donec quam felis, ultricies nec, pellentesque eu, pretium quis,
+					sem. Nulla consequat massa quis enim. Donec pede justo, fringilla
+					vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
+					imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede
+					mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
+					semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
+					porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem
+					ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus
+					viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean
+					imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper
+					ultricies nisi. Nam eget dui. Etiam rhoncus.</p>
+				<div class="padding-bottom">
+					<h:form>
+						<span>Para registrar nuevos eventos pulse <h:commandLink styleClass="link-texto"
+								action="registrar">aquí</h:commandLink>.
+						</span>
+					</h:form>
+				</div>
+			</div>
+
+		</div>
+		<!-- /.row -->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">Listado de eventos</div>
+					<div class="panel-body">
+						<div class="row padding-bottom">
+							<div class="col-lg-12">
+								<p:growl id="growl" showDetail="false" sticky="true" />
+							</div>
+							<div class="col-lg-offset-6 col-lg-6">
+								<h:form id="buscador">
+									<div class="input-group">
+										<span class="input-group-btn" title="Limpiar"> <h:commandLink
+												action="limpiar" styleClass="btn btn-default">
+												<i class="fa fa-eraser"></i>
+												<p:ajax process="@this" update=":listado :buscador" />
+											</h:commandLink>
+										</span>
+										<p:inputText styleClass="form-control" id="busqueda"
+											value="#{eventoBean.lazy.busqueda}" />
+											<p:watermark for="busqueda" value="Refina tu búsqueda" />
+										<span class="input-group-btn" title="Filtrar"> <h:commandLink
+												action="filtrar" styleClass="btn btn-default">
+												<i class="fa fa-search"></i>
+												<p:ajax process="@form" update=":listado" />
+											</h:commandLink>
+										</span>
+
+									</div>
+								</h:form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<h:form id="listado">
+									<p:dataTable var="evento" value="#{eventoBean.lazy}"
+										paginator="true" dynamic="true"
+										rows="#{eventoBean.lazy.pageSize}"
+										page="#{eventoBean.lazy.currentPage}" lazy="true"
+										id="eventos" paginatorAlwaysVisible="false"
+										styleClass="hide-column-names" emptyMessage="No hay registros"
+										paginatorPosition="bottom"
+										currentPageReportTemplate="total {totalRecords}"
+										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+										rowsPerPageTemplate="5,10,15">
+										<p:column>
+											<h:outputText value="#{evento}" />
+										</p:column>
+
+										<p:column style="width: 2%;">
+											<div class="ui-row-editor">
+												<span> <p:commandLink styleClass="fa fa-info"
+														title="Consultar" action="visualizarEvento">
+														<f:param name="id" value="#{evento.id}" />
+													</p:commandLink>
+												</span>
+											</div>
+										</p:column>
+
+										<p:column style="width: 2%;">
+											<div class="ui-row-editor">
+												<span> <p:commandLink title="Editar"
+														styleClass="fa fa-pencil" action="editarEvento">
+														<f:param name="id" value="#{evento.id}" />
+													</p:commandLink>
+												</span>
+											</div>
+										</p:column>
+
+										<p:column style="width: 2%;">
+											<div class="ui-row-editor">
+												<span> <p:commandLink title="Eliminar"
+														styleClass="fa fa-trash-o"
+														update=":listado:eventos :growl"
+														action="confirmacion">
+														<f:param name="id" value="#{evento.id}" />
+													</p:commandLink>
+												</span>
+											</div>
+
+										</p:column>
+									</p:dataTable>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</ui:define>
+</ui:composition>
+</html>

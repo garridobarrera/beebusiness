@@ -1,6 +1,7 @@
 package es.beebusiness.domain;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
@@ -14,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,10 +26,17 @@ import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "BB_EVENTO")
+@NamedQueries(value = {
+		@NamedQuery(name = "getEventoAll", query = "SELECT e FROM Evento e ORDER BY e.fechaInicio ASC"),
+		@NamedQuery(name = "getEventoSize", query = "SELECT COUNT(e) FROM Evento e")
+		})
 public class Evento extends Auditoria implements Serializable {
 
 
 	private static final long serialVersionUID = 6657727355936858994L;
+	public static final String QUERY_GETALL="getEventoAll";
+	public static final String QUERY_GETTOTAL="getEventoSize";
+	
 	private Long id;
 	private String nombre;
 	private String descripcion;
@@ -39,6 +49,7 @@ public class Evento extends Auditoria implements Serializable {
 	private Direccion direccion;
 	private Set<Perfil> perfiles;
 	private Set<Sector> sectores;
+	private Set<Sector> tematicas;
 	private Set<Programa> programas;
 	
 	@Id
@@ -164,6 +175,30 @@ public class Evento extends Auditoria implements Serializable {
 	public void setProgramas(Set<Programa> programas) {
 		this.programas = programas;
 	}
+
+	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Sector.class)
+	@JoinTable(name="BB_EVEN_TEM",joinColumns={@JoinColumn(name="evento")},inverseJoinColumns={@JoinColumn(name="tema")})
+	@ForeignKey(name="FK_EVENTO_EVENTO",inverseName="FK_EVENTO_TEMA")
+	public Set<Sector> getTematicas() {
+		return tematicas;
+	}
+
+	public void setTematicas(Set<Sector> tematicas) {
+		this.tematicas = tematicas;
+	}
+	
+	@Override
+	public String toString() {
+		SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		StringBuffer sf = new StringBuffer();
+		sf.append(nombre).append(" ");
+		if(descripcion!=null && !"".equals(descripcion))
+			sf.append("- ").append(descripcion);
+		if(fechaInicio!=null)
+			sf.append(" (").append(sdf.format(fechaInicio)).append(")");
+		return sf.toString();
+	}
+
 
 
 }
