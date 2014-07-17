@@ -287,6 +287,18 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
+		
+		<!-- http client -->
+		<!--<dependency>
+   			 <groupId>org.apache.httpcomponents</groupId>
+    		 <artifactId>httpclient</artifactId>
+    		 <version>4.0.1</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.apache.httpcomponents</groupId>
+    		<artifactId>httpmime</artifactId>
+    		<version>4.0.1</version>
+		</dependency> -->
 	</dependencies>
 	<build>
 		<plugins>

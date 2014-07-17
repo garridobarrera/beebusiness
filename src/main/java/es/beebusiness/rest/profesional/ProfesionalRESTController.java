@@ -138,16 +138,17 @@ public class ProfesionalRESTController {
 	
 	
 	@RequestMapping(value = "/imagen", method = RequestMethod.POST, consumes= MediaType.MULTIPART_FORM_DATA_VALUE)
-	public void setImagen(Principal principal, @RequestParam("imagen") MultipartFile imagen) {
+	public void setImagen(Principal principal, @RequestParam("imagen") MultipartFile imagen,HttpServletResponse response) {
 		Profesional prof = profesionalService.get(principal.getName());
-		prof.setNombreImagen(imagen.getName());
+		prof.setNombreImagen(imagen.getOriginalFilename());
 		prof.setMimeType(imagen.getContentType());
 		try {
 			prof.setImageFile(imagen.getBytes());
 		} catch (IOException e) {
-			e.printStackTrace();
+			response.setStatus(HttpStatus.BAD_REQUEST.value());
 		}
 		profesionalService.actualizar(prof);
+		response.setStatus(HttpStatus.OK.value());
 	}
 	
 	
