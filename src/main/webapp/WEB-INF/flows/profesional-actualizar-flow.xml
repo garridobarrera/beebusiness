@@ -48,6 +48,11 @@
 		</transition>
 		<transition on="buscarEmpresa" to="seleccionarEmpresa" />
 		<transition on="buscarProvincia" to="seleccionarProvincia" />
+		<transition on="eliminarImagen">
+		   <evaluate expression="profesionalBean.getProfesional().setImageFile(null)"/>
+		   <evaluate expression="profesionalBean.getProfesional().setMimeType(null)"/>
+		   <evaluate expression="profesionalBean.getProfesional().setNombreImagen(null)"/>
+		</transition>
 	</view-state>
 
 	<view-state id="actualizar-preferencias"

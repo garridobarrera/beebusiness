@@ -37,6 +37,11 @@
 		    <evaluate expression="profesionalBean.setEmpresasSeleccionadas(null)"/>
 		</transition>
 	    <transition on="listado" to="listado"/>
+	    <transition on="eliminarImagen">
+		   <evaluate expression="profesionalBean.getProfesional().setImageFile(null)"/>
+		   <evaluate expression="profesionalBean.getProfesional().setMimeType(null)"/>
+		   <evaluate expression="profesionalBean.getProfesional().setNombreImagen(null)"/>
+		</transition>
 	</view-state>
 	<view-state id="paso2" view="../pages/profesional-new/registro-paso2.xhtml">
 	     <transition on="anterior" to="paso1"/>

@@ -94,47 +94,28 @@
 										</div>
 										<div class="form-group">
 
-											<label class="col-lg-2 control-label">Email personal</label>
+											<label class="col-lg-2 control-label">Imagen</label>
 											<div class="col-lg-10">
-												<p:inputText styleClass="form-control" id="emailpersonal"
-													value="#{profesionalBean.profesional.emailPersonal}" />
+												<h:panelGroup id="grupo-imagen">
+													<p:fileUpload
+														fileUploadListener="#{profesionalBean.upload}"
+														rendered="#{profesionalBean.profesional.nombreImagen==null}" label="Elegir"
+														mode="advanced" update=":registro:grupo-imagen :growl" auto="true" 
+														sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/">
+													</p:fileUpload>
+													<p:commandButton value="Descargar" ajax="false"
+														rendered="#{profesionalBean.profesional.nombreImagen != null}"
+														icon="ui-icon-arrowthick-1-s">
+														<p:fileDownload value="#{profesionalBean.download}" />
+													</p:commandButton>
+													<p:commandLink title="Eliminar"
+														rendered="#{profesionalBean.profesional.nombreImagen != null}"
+														styleClass="fa fa-trash-o" action="eliminarImagen" update=":registro:grupo-imagen :growl">
+													</p:commandLink>
+												</h:panelGroup>
 											</div>
 											<div class="col-lg-offset-2 col-lg-10">
-												<p class="help-block">Email personal.</p>
-											</div>
-
-										</div>
-										<div class="form-group">
-
-											<label class="col-lg-2 control-label">Provincia</label>
-											<div class="col-lg-9">
-												<p:dataList value="#{profesionalBean.provinciaSeleccionada}"
-													var="provincia" emptyMessage="No hay provincia"
-													type="ordered" itemType="1"
-													styleClass="form-control textarea">  
-    											#{provincia}  
-											</p:dataList>
-											</div>
-											<div class="col-lg-1">
-												<div class="row">
-													<div class="col-lg-12 col-xs-1">
-														<p:commandLink action="buscarProvincia"
-															id="buscarProvincia" title="Buscar">
-															<i class="fa fa-search" />
-														</p:commandLink>
-													</div>
-													<div class="col-lg-12 col-xs-1">
-														<p:commandLink action="limpiarProvincia"
-															id="limpiarProvincia" update="@form" title="Limpiar">
-															<i class="fa fa-eraser" />
-														</p:commandLink>
-													</div>
-												</div>
-
-
-											</div>
-											<div class="col-lg-offset-2 col-lg-10">
-												<p class="help-block">Provincia.</p>
+												<p class="help-block">Imagen.</p>
 											</div>
 
 										</div>
@@ -143,30 +124,6 @@
 								<div class="col-lg-6">
 									<fieldset>
 										<legend>Información laboral</legend>
-										<div class="form-group">
-
-											<label class="col-lg-2 control-label">Formación</label>
-											<div class="col-lg-10">
-												<p:inputTextarea styleClass="form-control" id="formacion"
-													value="#{profesionalBean.profesional.formacion}" />
-											</div>
-											<div class="col-lg-offset-2 col-lg-10">
-												<p class="help-block">Formación académica o titulación.</p>
-											</div>
-
-										</div>
-										<div class="form-group">
-
-											<label class="col-lg-2 control-label">Cargo</label>
-											<div class="col-lg-10">
-												<p:inputTextarea styleClass="form-control" id="cargo"
-													value="#{profesionalBean.profesional.cargo}" />
-											</div>
-											<div class="col-lg-offset-2 col-lg-10">
-												<p class="help-block">Cargo.</p>
-											</div>
-
-										</div>
 										<div class="form-group">
 
 											<label class="col-lg-2 control-label">Empresa</label>

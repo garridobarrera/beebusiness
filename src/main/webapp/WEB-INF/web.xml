@@ -43,6 +43,16 @@
 		<param-value>classpath:spring/*.xml</param-value>
 	</context-param>
 	
+	<!-- FileUpload -->
+	<filter>
+ 		 <filter-name>PrimeFaces FileUpload Filter</filter-name>
+  		 <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	</filter>
+	<filter-mapping>
+  		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+  		<url-pattern>/app/*</url-pattern>
+	</filter-mapping>
+	
 	<!-- Add Support for Spring Security -->
 
 	 <filter>
@@ -61,6 +71,7 @@
     	<param-value>/WEB-INF/springsecurity.taglib.xml</param-value>
 	</context-param>
   
+	
   
   <!-- Add Support for JSF -->
   
@@ -85,6 +96,9 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>bootstrap</param-value>
 	</context-param>
+	
+	
+	
 	
 	
 	<welcome-file-list>

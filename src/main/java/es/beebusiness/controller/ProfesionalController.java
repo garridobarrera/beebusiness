@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -137,6 +138,7 @@ public class ProfesionalController implements Serializable {
 		return profesionalService.get(new Long(id));
 	}
 
+
 	public boolean validacionPaso1(Profesional profesional) {
 		if (profesional.getNombre() == null
 				|| "".equals(profesional.getNombre())) {
@@ -159,5 +161,7 @@ public class ProfesionalController implements Serializable {
 			return true;
 		}
 	}
+	
+	
 
 }

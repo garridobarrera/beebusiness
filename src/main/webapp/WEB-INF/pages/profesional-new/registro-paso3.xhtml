@@ -92,35 +92,11 @@
 											<label class="resumen" id="direccion">#{profesionalBean.profesional.direccion}</label>
 										</div>
 									</div>
-									<div class="row">
-										<label class="col-lg-3 control-label">Email personal</label>
-										<div class="col-lg-9">
-											<label class="resumen" id="direccion">#{profesionalBean.profesional.emailPersonal}</label>
-										</div>
-									</div>
-									<div class="row">
-										<label class="col-lg-3 control-label">Provincia</label>
-										<div class="col-lg-9">
-											<label class="resumen" id="provincia">#{profesionalBean.provinciaSeleccionada}</label>
-										</div>
-									</div>
 								</fieldset>
 							</div>
 							<div class="col-lg-6">
 								<fieldset>
 									<legend>Información laboral</legend>
-									<div class="row">
-										<label class="col-lg-2 control-label">Formación</label>
-										<div class="col-lg-10">
-											<label class="resumen" id="formacion">#{profesionalBean.profesional.formacion}</label>
-										</div>
-									</div>
-									<div class="row">
-										<label class="col-lg-2 control-label">Cargo</label>
-										<div class="col-lg-10">
-											<label class="resumen" id="cargo">#{profesionalBean.profesional.cargo}</label>
-										</div>
-									</div>
 									<div class="row">
 										<label class="col-lg-2 control-label">Empresa</label>
 										<div class="col-lg-10 resumen">
@@ -181,15 +157,15 @@
 										<legend>Credenciales de acceso</legend>
 										<div class="form-group">
 
-											<label class="col-lg-2 required control-label">Username</label>
+											<label class="col-lg-2 required control-label">Email</label>
 											<div class="col-lg-10">
 												<p:inputText styleClass="form-control" id="username"
 													value="#{profesionalBean.profesional.username}"
 													required="true"
-													requiredMessage="Campo username Es necesario establecer un valor" />
+													requiredMessage="Campo email Es necesario establecer un valor" />
 											</div>
 											<div class="col-lg-offset-2 col-lg-10">
-												<p class="help-block">Username.</p>
+												<p class="help-block">Email.</p>
 											</div>
 
 										</div>

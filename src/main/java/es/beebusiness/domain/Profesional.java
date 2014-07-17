@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -62,6 +64,11 @@ public class Profesional extends Auditoria implements Serializable{
 	private Provincia provincia;
 	private Date fechaNacimiento;
 	private String formacion;
+	
+	private String mimeType;
+	protected byte[] imageFile;
+	private String nombreImagen;
+	
 	
 	
 	@Id
@@ -186,6 +193,26 @@ public class Profesional extends Auditoria implements Serializable{
 	public void setFormacion(String formacion) {
 		this.formacion = formacion;
 	}
+	public String getMimeType() {
+		return mimeType;
+	}
+	public void setMimeType(String mimeType) {
+		this.mimeType = mimeType;
+	}
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	public byte[] getImageFile() {
+		return imageFile;
+	}
+	public void setImageFile(byte[] imageFile) {
+		this.imageFile = imageFile;
+	}
+	public String getNombreImagen() {
+		return nombreImagen;
+	}
+	public void setNombreImagen(String nombreImagen) {
+		this.nombreImagen = nombreImagen;
+	}
 	@Override
 	public String toString() {
 		StringBuffer sf = new StringBuffer();
@@ -193,10 +220,6 @@ public class Profesional extends Auditoria implements Serializable{
 		if(apellidos!=null && !"".equals(apellidos))
 			sf.append(apellidos).append(" ");
 		sf.append("(").append(username).append(")").append(" ");
-		if(emailPersonal!=null && !"".equals(emailPersonal))
-			sf.append(" - ").append(emailPersonal).append(" ");
-		if(emailProfesional!=null && !"".equals(emailProfesional))
-			sf.append(" - ").append(emailProfesional);
 		return sf.toString();
 	}
 	
