@@ -126,6 +126,8 @@ public class ProfesionalRESTController {
 		if (prof != null && prof.getNombreImagen()!=null) {
 			InputStream array = new ByteArrayInputStream(prof.getImageFile());
 			try {
+				response.setContentType(prof.getMimeType());
+			    response.setContentLength(array.available());
 				IOUtils.copy(array, response.getOutputStream());
 				response.flushBuffer();
 			} catch (IOException e) {

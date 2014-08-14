@@ -16,6 +16,7 @@
     	<intercept-url pattern="/rest/profesional/registro" access="permitAll"/>
     	<intercept-url pattern="/rest/profesional/reestablecer" access="permitAll"/>
     	<intercept-url pattern="/rest/topics" access="permitAll"/>
+    	<intercept-url pattern="/rest/perfiles" access="permitAll"/>
     	<intercept-url pattern="/rest/provincias" access="permitAll"/>
     	<intercept-url pattern="/rest/empresas" access="permitAll"/>
     	<intercept-url pattern="/rest/**" access="isAuthenticated()" />
