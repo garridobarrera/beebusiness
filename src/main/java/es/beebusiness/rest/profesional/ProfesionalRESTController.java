@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ import es.beebusiness.domain.Perfil;
 import es.beebusiness.domain.Profesional;
 import es.beebusiness.domain.Sector;
 import es.beebusiness.exception.BusinessException;
+import es.beebusiness.rest.profesional.domain.Registro;
 import es.beebusiness.service.IEmailService;
 import es.beebusiness.service.IProfesionalService;
 import es.beebusiness.util.Constantes;
@@ -77,15 +79,63 @@ public class ProfesionalRESTController {
 	@RequestMapping(value = "/registro", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Token> crearProfesional(
-			@RequestBody Profesional profesional) {
-		profesional.setPassword(encode.encode(profesional.getPassword()));
+			@RequestBody Registro registro) {
+		registro.getProfesional().setPassword(encode.encode(registro.getProfesional().getPassword()));
+		registro.getProfesional().setPerfiles(registro.getPerfiles());
+		registro.getProfesional().setTematicas(registro.getTematicas());
+		registro.getProfesional().setSectores(registro.getSectores());
 		try {
-			profesionalService.crear(profesional);
+			profesionalService.crear(registro.getProfesional());
 		} catch (BusinessException e) {
 			return new ResponseEntity<Token>(HttpStatus.BAD_GATEWAY);
 		}
 		String key = UUID.randomUUID().toString().toUpperCase() + "&&"
-				+ profesional.getUsername() + "&&" + System.currentTimeMillis();
+				+ registro.getProfesional().getUsername() + "&&" + System.currentTimeMillis();
+		StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
+		jasypt.setPassword(ConstantesAutenticator.PASS);
+		String encrypt = jasypt.encrypt(key);
+		Token t = new Token(encrypt, true);
+		return new ResponseEntity<Token>(t, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/actualizar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<Token> actualizarProfesional(
+			@RequestBody Registro registro,Principal principal) {
+		//1. Comprobamos que se intenta modificar los datos del usuario logado
+		if(!principal.getName().equals(registro.getProfesional().getUsername())){
+			return new ResponseEntity<Token>(HttpStatus.UNAUTHORIZED);
+		}
+		
+		//2. Comprobamos que el usuario existe
+		Profesional profesional=profesionalService.get(registro.getProfesional().getUsername());
+		if(profesional==null){
+			return new ResponseEntity<Token>(HttpStatus.BAD_GATEWAY);
+		}
+		
+		//3. Seteamos los datos recibidos
+		if(registro.getPerfiles()!=null){
+			profesional.setPerfiles(registro.getPerfiles());
+		}
+		if(registro.getTematicas()!=null){
+			profesional.setTematicas(registro.getTematicas());
+		}
+		if(registro.getSectores()!=null){
+			profesional.setSectores(registro.getSectores());
+		}
+		profesional.copiarDatosBasicos(registro.getProfesional(), true);
+		
+		//4.- Seteamos la password si viene indicada
+		if(StringUtils.isEmpty(registro.getProfesional().getPassword())){
+			profesional.setPassword(encode.encode(registro.getProfesional().getPassword()));
+		}
+		try {
+			profesionalService.actualizar(profesional);
+		} catch (BusinessException e) {
+			return new ResponseEntity<Token>(HttpStatus.BAD_GATEWAY);
+		}
+		String key = UUID.randomUUID().toString().toUpperCase() + "&&"
+				+ registro.getProfesional().getUsername() + "&&" + System.currentTimeMillis();
 		StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
 		jasypt.setPassword(ConstantesAutenticator.PASS);
 		String encrypt = jasypt.encrypt(key);
@@ -106,7 +156,7 @@ public class ProfesionalRESTController {
 			StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
 			jasypt.setPassword(ConstantesAutenticator.PASS);
 			String encrypt = jasypt.encrypt(key);
-			prof.setPassword(encode.encode(encrypt));
+			prof.setPassword(encode.encode(encrypt.substring(0,5)));
 			profesionalService.actualizar(prof);
 			emailService.enviarCredenciales(profesional.getUsername(), encrypt,
 					"");

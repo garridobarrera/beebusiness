@@ -22,6 +22,7 @@ import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.ForeignKey;
+import org.springframework.util.StringUtils;
 
 @Entity
 @Table(name = "BB_PROFESIONAL")
@@ -65,8 +66,11 @@ public class Profesional extends Auditoria implements Serializable{
 	private Date fechaNacimiento;
 	private String formacion;
 	
+	@JsonIgnore
 	private String mimeType;
+	@JsonIgnore
 	protected byte[] imageFile;
+	@JsonIgnore
 	private String nombreImagen;
 	
 	
@@ -213,6 +217,55 @@ public class Profesional extends Auditoria implements Serializable{
 	public void setNombreImagen(String nombreImagen) {
 		this.nombreImagen = nombreImagen;
 	}
+	
+	/**
+	 * Metodo para copiar datos basicos de un profesional a otro, excluyendo los campos: password, sectores, tematicas y perfiles.
+	 * @param profesional Profesional a copiar
+	 * @param vacios boolean que indica si se van a copiar datos vacios
+	 * */
+	public void copiarDatosBasicos(Profesional profesional,boolean vacios){
+		if(vacios || !StringUtils.isEmpty(profesional.getNombre())){
+			this.nombre=profesional.getNombre();
+		}
+		
+		if(vacios || !StringUtils.isEmpty(profesional.getApellidos())){
+			this.apellidos=profesional.getApellidos();
+		}
+		
+		if(vacios || !StringUtils.isEmpty(profesional.getCargo())){
+			this.cargo=profesional.getCargo();
+		}
+		
+		if(vacios || profesional.getEmpresa()!=null){
+			this.empresa=profesional.getEmpresa();
+		}
+
+		if(vacios || !StringUtils.isEmpty(profesional.getEmailPersonal())){
+			this.emailPersonal=profesional.getEmailPersonal();
+		}
+		
+		if(vacios || !StringUtils.isEmpty(profesional.getEmailProfesional())){
+			this.emailProfesional=profesional.getEmailProfesional();
+		}
+		
+		if(vacios || !StringUtils.isEmpty(profesional.getDireccion())){
+			this.direccion=profesional.getDireccion();
+		}
+		
+		if(vacios || profesional.getProvincia()!=null){
+			this.provincia=profesional.getProvincia();
+		}
+		
+		if(vacios || profesional.getFechaNacimiento()!=null){
+			this.fechaNacimiento=profesional.getFechaNacimiento();
+		}
+		
+		if(vacios || !StringUtils.isEmpty(profesional.getFormacion())){
+			this.formacion=profesional.getFormacion();
+		}
+
+	}
+	
 	@Override
 	public String toString() {
 		StringBuffer sf = new StringBuffer();
