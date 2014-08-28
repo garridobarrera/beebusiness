@@ -27,4 +27,5 @@ public interface IProfesionalService extends Serializable{
 	public List<Sector> getSectores(String username);
 	public List<Sector> getTematicas(String username);
 	public List<Profesional> getAll(Integer inicio, Integer total, String busqueda);
+	public List<Profesional> getAllSoloListado(Integer inicio, Integer total, String busqueda);
 }

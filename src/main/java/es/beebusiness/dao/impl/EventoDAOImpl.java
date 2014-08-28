@@ -2,6 +2,7 @@ package es.beebusiness.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -12,6 +13,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import es.beebusiness.dao.IEventoDAO;
+import es.beebusiness.domain.Empresa;
 import es.beebusiness.domain.Evento;
 import es.beebusiness.domain.Perfil;
 import es.beebusiness.domain.Sector;
@@ -86,20 +88,30 @@ public class EventoDAOImpl extends AbstractBaseGenericDAOImpl<Evento, Long> impl
 
 	@Override
 	public List<Perfil> getPerfiles(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query=em.createNamedQuery(Evento.QUERY_GETPERFILES);
+		query.setParameter(1, id);
+		return query.getResultList();
 	}
 
 	@Override
 	public List<Sector> getSectores(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query=em.createNamedQuery(Evento.QUERY_GETSECTORES);
+		query.setParameter(1, id);
+		return query.getResultList();
 	}
 
 	@Override
 	public List<Sector> getTematicas(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query=em.createNamedQuery(Evento.QUERY_GETTEMATICAS);
+		query.setParameter(1, id);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Empresa> getEmpresas(Long id) {
+		Query query=em.createNamedQuery(Evento.QUERY_GETEMPRESAS);
+		query.setParameter(1, id);
+		return query.getResultList();
 	}
 
 }

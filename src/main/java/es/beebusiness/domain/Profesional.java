@@ -30,6 +30,7 @@ import org.springframework.util.StringUtils;
 		@NamedQuery(name = "getProfesionalByUsername", query = "SELECT u FROM Profesional u WHERE u.username=?"),
 		@NamedQuery(name = "getProfesionalSizeByUsername", query = "SELECT COUNT(u) FROM Profesional u WHERE u.username=? GROUP BY u.username ORDER BY u.username ASC"),
 		@NamedQuery(name = "getProfesionalAll", query = "SELECT u FROM Profesional u ORDER BY u.username ASC"),
+		@NamedQuery(name = "getProfesionalAllSoloListado", query = "SELECT new Profesional(u.id,u.nombre,u.apellidos,u.username) FROM Profesional u ORDER BY u.username ASC"),
 		@NamedQuery(name = "getProfesionalSize", query = "SELECT COUNT(u) FROM Profesional u"),
 		@NamedQuery(name = "getPerfilesByUsername", query = "SELECT u.perfiles FROM Profesional u WHERE u.username=?"),
 		@NamedQuery(name = "getSectoresByUsername", query = "SELECT u.sectores FROM Profesional u WHERE u.username=?"),
@@ -45,6 +46,7 @@ public class Profesional extends Auditoria implements Serializable{
 	public static final String QUERY_GETPERFILESBYUSERNAME="getPerfilesByUsername";
 	public static final String QUERY_GETSECTORESBYUSERNAME="getSectoresByUsername";
 	public static final String QUERY_GETTEMATICASBYUSERNAME="getTematicasByUsername";
+	public static final String QUERY_GETALL_LISTADO="getProfesionalAllSoloListado";
 	
 	private Long id;
 	private String nombre;
@@ -73,7 +75,15 @@ public class Profesional extends Auditoria implements Serializable{
 	@JsonIgnore
 	private String nombreImagen;
 	
+	public Profesional(){
+	}
 	
+	public Profesional(Long id,String nombre,String apellidos,String username){
+		this.id=id;
+		this.nombre=nombre;
+		this.apellidos=apellidos;
+		this.username=username;
+	}
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

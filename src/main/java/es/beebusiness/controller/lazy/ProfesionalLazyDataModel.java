@@ -71,7 +71,7 @@ public class ProfesionalLazyDataModel extends LazyDataModel<Profesional>{
 	public List<Profesional> load(int first, int pageSize, String sortField,
 			SortOrder sortOrder, Map<String, String> filters) {
 			total=Integer.MIN_VALUE;
-		    profesionales= service.getAll(first, pageSize,busqueda);
+		    profesionales= service.getAllSoloListado(first, pageSize,busqueda);
 		    return profesionales;
 	}
 	

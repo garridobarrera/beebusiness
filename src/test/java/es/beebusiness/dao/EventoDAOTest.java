@@ -78,7 +78,7 @@ public class EventoDAOTest {
 			empresas.add(empresaBBDD);
 			evento.setEmpresas(empresas);
 			evento.setTipoEvento(tipoBBDD);
-			evento.setDireccion(direccion);
+			//evento.setDireccion(direccion);
 			idEvento = eventoDAO.create(evento).getId();
 		}
 		Perfil perfilCreado=new Perfil();
@@ -101,7 +101,7 @@ public class EventoDAOTest {
 	public void crearEventoCorrecto(){
 		Provincia provincia=provinciaDAO.findById(idProvincia);
 		Direccion direccion=new Direccion();
-		direccion.setDireccion("Almer�a n� 48");
+		direccion.setDireccion("Almería nº 48");
 		direccion.setProvincia(provincia);
 		Perfil perfil=perfilDAO.findById(idPerfil);
 		Empresa empresa=empresaDAO.findById(idEmpresa);
@@ -109,7 +109,7 @@ public class EventoDAOTest {
 		Evento evento=new Evento();
 		evento.setAsistentes(4l);
 		evento.setDescripcion("Evento con perfiles");
-		evento.setDireccion(direccion);
+		//evento.setDireccion(direccion);
 		Set<Empresa> empresas=new HashSet<Empresa>();
 		empresas.add(empresa);
 		evento.setEmpresas(empresas);

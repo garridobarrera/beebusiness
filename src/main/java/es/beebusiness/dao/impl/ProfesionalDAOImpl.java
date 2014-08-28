@@ -44,6 +44,16 @@ public class ProfesionalDAOImpl extends AbstractBaseGenericDAOImpl<Profesional, 
 		}
 		return query.getResultList();
 	}
+	
+	@Override
+	public List<Profesional> getAllSoloListado(Integer inicio, Integer total) {
+		TypedQuery<Profesional> query=em.createNamedQuery(Profesional.QUERY_GETALL_LISTADO, Profesional.class);
+		if(inicio!=null && total!=null){
+			query.setFirstResult(inicio);
+			query.setMaxResults(total);
+		}
+		return query.getResultList();
+	}
 
 	@Override
 	public int getTotalFilter(Profesional profesional) {
@@ -93,6 +103,23 @@ public class ProfesionalDAOImpl extends AbstractBaseGenericDAOImpl<Profesional, 
 		 CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		 CriteriaQuery<Profesional> criteriaQuery = criteriaBuilder.createQuery(Profesional.class);
 		 Root<Profesional> root=criteriaQuery.from(Profesional.class);
+		 Predicate predicadoUsername=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("username")), "%"+filtro.toUpperCase()+"%");
+		 Predicate predicadoNombre=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("nombre")), "%"+filtro.toUpperCase()+"%");
+		 Predicate predicadoApellidos=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("apellidos")), "%"+filtro.toUpperCase()+"%");
+		 Predicate predicadoEmailPersonal=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("emailPersonal")), "%"+filtro.toUpperCase()+"%");
+		 Predicate predicadoEmailProfesional=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("emailProfesional")), "%"+filtro.toUpperCase()+"%");
+		 criteriaQuery.where(criteriaBuilder.or(predicadoUsername,predicadoNombre,predicadoApellidos,predicadoEmailPersonal,predicadoEmailProfesional));
+		 TypedQuery<Profesional> query = em.createQuery(criteriaQuery);
+		return query.getResultList();
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public List<Profesional> getAllSoloListado(Integer inicio, Integer total, String filtro) {
+		 CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		 CriteriaQuery<Profesional> criteriaQuery = criteriaBuilder.createQuery(Profesional.class);
+		 Root<Profesional> root=criteriaQuery.from(Profesional.class);
+		 criteriaQuery.multiselect((Expression)root.get("id"),(Expression)root.get("nombre"),(Expression)root.get("apellidos"),(Expression)root.get("username"));
 		 Predicate predicadoUsername=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("username")), "%"+filtro.toUpperCase()+"%");
 		 Predicate predicadoNombre=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("nombre")), "%"+filtro.toUpperCase()+"%");
 		 Predicate predicadoApellidos=criteriaBuilder.like(criteriaBuilder.upper((Expression)root.get("apellidos")), "%"+filtro.toUpperCase()+"%");

@@ -17,6 +17,9 @@
 	    </transition>
 	    <transition on="visualizarEvento" to="view">
 	        <evaluate expression="eventoController.obtenerEvento(requestParameters.id)" result="eventoBean.evento"></evaluate>
+	         <evaluate
+				expression="eventoController.componerEvento(eventoBean)"
+				result="eventoBean" />
 	    </transition>
 	    <transition on="editarEvento" to="fin"/>
 	        <transition on="registrar" to="registrar"/>

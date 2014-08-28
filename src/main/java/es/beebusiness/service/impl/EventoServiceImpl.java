@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.beebusiness.dao.IEventoDAO;
+import es.beebusiness.domain.Empresa;
 import es.beebusiness.domain.Evento;
 import es.beebusiness.domain.Perfil;
 import es.beebusiness.domain.Sector;
@@ -107,26 +108,22 @@ public class EventoServiceImpl implements IEventoService {
 
 	@Override
 	public List<Perfil> getPerfiles(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getPerfiles(id);
 	}
 
 	@Override
 	public List<Sector> getSectores(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getSectores(id);
 	}
 
 	@Override
 	public List<Sector> getTematicas(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getTematicas(id);
 	}
 
 	@Override
-	public List<Sector> getEmpresas(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Empresa> getEmpresas(Long id) {
+		return dao.getEmpresas(id);
 	}
 
 	@Override

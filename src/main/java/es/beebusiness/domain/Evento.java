@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,7 +27,11 @@ import org.hibernate.annotations.ForeignKey;
 @Table(name = "BB_EVENTO")
 @NamedQueries(value = {
 		@NamedQuery(name = "getEventoAll", query = "SELECT e FROM Evento e ORDER BY e.fechaInicio ASC"),
-		@NamedQuery(name = "getEventoSize", query = "SELECT COUNT(e) FROM Evento e")
+		@NamedQuery(name = "getEventoSize", query = "SELECT COUNT(e) FROM Evento e"),
+		@NamedQuery(name = "getEmpresasEvento", query = "SELECT e.empresas FROM Evento e WHERE e.id=?"),
+		@NamedQuery(name = "getPerfilesEvento", query = "SELECT e.perfiles FROM Evento e WHERE e.id=?"),
+		@NamedQuery(name = "getSectoresEvento", query = "SELECT e.sectores FROM Evento e WHERE e.id=?"),
+		@NamedQuery(name = "getTematicaEvento", query = "SELECT e.tematicas FROM Evento e WHERE e.id=?")
 		})
 public class Evento extends Auditoria implements Serializable {
 
@@ -36,6 +39,10 @@ public class Evento extends Auditoria implements Serializable {
 	private static final long serialVersionUID = 6657727355936858994L;
 	public static final String QUERY_GETALL="getEventoAll";
 	public static final String QUERY_GETTOTAL="getEventoSize";
+	public static final String QUERY_GETEMPRESAS="getEmpresasEvento";
+	public static final String QUERY_GETPERFILES="getPerfilesEvento";
+	public static final String QUERY_GETSECTORES="getSectoresEvento";
+	public static final String QUERY_GETTEMATICAS="getTematicaEvento";
 	
 	private Long id;
 	private String nombre;
@@ -46,7 +53,8 @@ public class Evento extends Auditoria implements Serializable {
 	private Date fechaFin;
 	private TipoEvento tipoEvento;
 	private Set<Empresa> empresas;
-	private Direccion direccion;
+	private String direccion;
+	private Provincia provincia;
 	private Set<Perfil> perfiles;
 	private Set<Sector> sectores;
 	private Set<Sector> tematicas;
@@ -110,7 +118,7 @@ public class Evento extends Auditoria implements Serializable {
 		this.fechaFin = fechaFin;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY,optional=false)
+	@ManyToOne(fetch=FetchType.EAGER,optional=false)
 	@JoinColumn(name="tipo")
 	@ForeignKey(name="FK_EVENTO_TIPO")
 	public TipoEvento getTipoEvento() {
@@ -119,6 +127,16 @@ public class Evento extends Auditoria implements Serializable {
 
 	public void setTipoEvento(TipoEvento tipoEvento) {
 		this.tipoEvento = tipoEvento;
+	}
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinTable(name="BB_EVEN_PROVINCIA",joinColumns={@JoinColumn(name="evento")},inverseJoinColumns={@JoinColumn(name="provincia")})
+	@ForeignKey(name="FK_EVENTO_EVENTO",inverseName="FK_EVENTO_PROVINCIA")
+	public Provincia getProvincia() {
+		return provincia;
+	}
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
 	}
 
 	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Empresa.class)
@@ -132,14 +150,10 @@ public class Evento extends Auditoria implements Serializable {
 		this.empresas = empresas;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY,optional=false,cascade=CascadeType.ALL)
-	@JoinColumn(name="direccion")
-	@ForeignKey(name="FK_EVENTO_DIRECCION")
-	public Direccion getDireccion() {
+	public String getDireccion() {
 		return direccion;
 	}
-
-	public void setDireccion(Direccion direccion) {
+	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
 

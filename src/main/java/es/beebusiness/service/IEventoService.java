@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import es.beebusiness.dao.IEventoDAO;
+import es.beebusiness.domain.Empresa;
 import es.beebusiness.domain.Evento;
 import es.beebusiness.domain.Perfil;
 import es.beebusiness.domain.Sector;
@@ -26,6 +27,6 @@ public interface IEventoService extends Serializable{
 	public List<Perfil> getPerfiles(Long id);
 	public List<Sector> getSectores(Long id);
 	public List<Sector> getTematicas(Long id);
-	public List<Sector> getEmpresas(Long id);
+	public List<Empresa> getEmpresas(Long id);
 	public List<Evento> getAll(Integer inicio, Integer total, String busqueda);
 }

@@ -1,6 +1,7 @@
 package es.beebusiness.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -9,6 +10,9 @@ import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import es.beebusiness.beans.EventoBean;
+import es.beebusiness.beans.ProfesionalBean;
+import es.beebusiness.domain.Empresa;
 import es.beebusiness.domain.Evento;
 import es.beebusiness.exception.BusinessException;
 import es.beebusiness.service.IEventoService;
@@ -68,6 +72,15 @@ public class EventoController implements Serializable {
 
 	public Evento obtenerEvento(String id) {
 		return eventoService.get(new Long(id));
+	}
+	
+	
+	public EventoBean componerEvento(EventoBean eventoBean){
+		eventoBean.setEmpresasSeleccionadas(eventoService.getEmpresas(eventoBean.getEvento().getId()));
+		eventoBean.setPerfilesSeleccionados(eventoService.getPerfiles(eventoBean.getEvento().getId()));
+		eventoBean.setSectoresSeleccionados(eventoService.getSectores(eventoBean.getEvento().getId()));
+		eventoBean.setTematicasSeleccionadas(eventoService.getTematicas(eventoBean.getEvento().getId()));
+		return eventoBean;
 	}
 
 

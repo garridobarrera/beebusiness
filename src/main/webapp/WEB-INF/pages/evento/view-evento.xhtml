@@ -13,7 +13,7 @@
 			<div class="col-lg-12">
 				<ol class="breadcrumb">
 					<li><a href="perfil-flow">Inicio</a></li>
-					<li class="active">Profesionales</li>
+					<li class="active">Eventos</li>
 				</ol>
 			</div>
 		</div>
@@ -42,44 +42,44 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<fieldset>
-									<legend>Información personal</legend>
 									<div class="row">
 										<label class="col-lg-3 control-label">Nombre</label>
 										<div class="col-lg-9">
-											<label class="resumen" id="nombre">#{profesionalBean.profesional.nombre}</label>
+											<label class="resumen" id="nombre">#{eventoBean.evento.nombre}</label>
 										</div>
 									</div>
 									<div class="row">
-										<label class="col-lg-3 control-label">Apellidos</label>
+										<label class="col-lg-3 control-label">Tipo</label>
 										<div class="col-lg-9">
-											<label class="resumen" id="apellidos">#{profesionalBean.profesional.apellidos}</label>
+											<label class="resumen" id="nombre">#{eventoBean.evento.tipoEvento.nombre}</label>
 										</div>
 									</div>
 									<div class="row">
-										<label class="col-lg-3 control-label">F. Nacimiento</label>
+										<label class="col-lg-3 control-label">Descripción</label>
 										<div class="col-lg-9">
-											<h:outputText id="fechaNacimiento" styleClass="resumen"
-												value="#{profesionalBean.profesional.fechaNacimiento}">
-												<f:convertDateTime pattern="dd/MM/yyyy" />
-											</h:outputText>
+											<label class="resumen" id="apellidos">#{eventoBean.evento.descripcion}</label>
 										</div>
 									</div>
 									<div class="row">
 										<label class="col-lg-3 control-label">Dirección</label>
 										<div class="col-lg-9">
-											<label class="resumen" id="direccion">#{profesionalBean.profesional.direccion}</label>
+											<label class="resumen" id="direccion">#{eventoBean.evento.direccion}</label>
 										</div>
 									</div>
 									<div class="row">
-										<label class="col-lg-3 control-label">Imagen</label>
+										<label class="col-lg-3 control-label">Asistentes</label>
 										<div class="col-lg-9">
-											<h:form>
-												<p:commandButton value="Descargar" ajax="false"
-													rendered="#{profesionalBean.profesional.nombreImagen != null}"
-													icon="ui-icon-arrowthick-1-s">
-													<p:fileDownload value="#{profesionalBean.download}" />
-												</p:commandButton>
-											</h:form>
+											<label class="resumen" id="asistentes">#{eventoBean.evento.asistentes}</label>
+										</div>
+									</div>
+									<div class="row">
+										<label class="col-lg-3 control-label">Inscripción</label>
+										<div class="col-lg-9">
+											<h:outputText value="#{eventoBean.evento.precio}" rendered="#{eventoBean.evento.precio!=null}">
+												<f:convertNumber pattern="#0.00 €"/>
+											</h:outputText>
+											<p:outputLabel styleClass="resumen" id="precio"
+												rendered="#{eventoBean.evento.precio==null}">GRATIS</p:outputLabel>
 										</div>
 									</div>
 
@@ -87,11 +87,10 @@
 							</div>
 							<div class="col-lg-6">
 								<fieldset>
-									<legend>Información laboral</legend>
 									<div class="row">
-										<label class="col-lg-2 control-label">Empresa</label>
-										<div class="col-lg-10 resumen">
-											<p:dataList value="#{profesionalBean.empresasSeleccionadas}"
+										<label class="col-lg-3 control-label">Empresas</label>
+										<div class="col-lg-9 resumen">
+											<p:dataList value="#{eventoBean.empresasSeleccionadas}"
 												var="empresa" emptyMessage="No hay empresas" type="ordered"
 												itemType="1" styleClass="resumen">  
     											#{empresa}
@@ -99,9 +98,19 @@
 										</div>
 									</div>
 									<div class="row">
-										<label class="col-lg-2 control-label">Email de empresa</label>
-										<div class="col-lg-10">
-											<label class="resumen" id="emailempresa">#{profesionalBean.profesional.emailProfesional}</label>
+										<label class="col-lg-3 control-label">Fecha Inicio</label>
+										<div class="col-lg-9 resumen">
+											<h:outputText value="#{eventoBean.evento.fechaInicio}">
+												<f:convertDateTime pattern="dd/MM/yyyy HH:mm"></f:convertDateTime>
+											</h:outputText>
+										</div>
+									</div>
+									<div class="row">
+										<label class="col-lg-3 control-label">Fecha Fin</label>
+										<div class="col-lg-9 resumen">
+											<h:outputText value="#{eventoBean.evento.fechaFin}">
+												<f:convertDateTime pattern="dd/MM/yyyy HH:mm"></f:convertDateTime>
+											</h:outputText>
 										</div>
 									</div>
 								</fieldset>
@@ -110,11 +119,11 @@
 						<div class="row padding-top">
 							<div class="col-lg-12">
 								<fieldset>
-									<legend>Preferencias</legend>
+									<legend></legend>
 									<div class="row">
 										<label class="col-lg-1 control-label">Perfiles</label>
 										<div class="col-lg-3">
-											<p:dataList value="#{profesionalBean.perfilesSeleccionados}"
+											<p:dataList value="#{eventoBean.perfilesSeleccionados}"
 												var="perfil" emptyMessage="No hay perfiles" type="ordered"
 												itemType="1" styleClass="resumen">  
     											#{perfil.nombre}
@@ -122,7 +131,7 @@
 										</div>
 										<label class="col-lg-1 control-label">Sectores</label>
 										<div class="col-lg-3">
-											<p:dataList value="#{profesionalBean.sectoresSeleccionados}"
+											<p:dataList value="#{eventoBean.sectoresSeleccionados}"
 												var="sector" emptyMessage="No hay sectores" type="ordered"
 												itemType="1" styleClass="resumen">  
     											#{sector.nombre}
@@ -130,7 +139,7 @@
 										</div>
 										<label class="col-lg-1 control-label">Temática</label>
 										<div class="col-lg-3">
-											<p:dataList value="#{profesionalBean.tematicasSeleccionadas}"
+											<p:dataList value="#{eventoBean.tematicasSeleccionadas}"
 												var="sector" emptyMessage="No hay tematicas" type="ordered"
 												itemType="1" styleClass="resumen">  
     											#{sector.nombre}
@@ -139,30 +148,6 @@
 									</div>
 								</fieldset>
 							</div>
-						</div>
-						<div class="row padding-top">
-							<div class="col-lg-12">
-								<fieldset>
-									<legend>Credenciales de acceso</legend>
-									<div class="row">
-										<label class="col-lg-2 control-label">Email</label>
-										<div class="col-lg-10">
-											<label class="resumen" id="username">#{profesionalBean.profesional.username}</label>
-										</div>
-									</div>
-
-									<div class="row">
-
-										<label class="col-lg-2 control-label">Password</label>
-										<div class="col-lg-10">
-											<label class="resumen security" id="username">************************</label>
-										</div>
-									</div>
-								</fieldset>
-							</div>
-							<!-- /.col-lg-6 (nested) -->
-
-							<!-- /.col-lg-6 (nested) -->
 						</div>
 						<div class="row">
 							<h:form>

@@ -112,6 +112,14 @@ public class ProfesionalServiceImpl implements IProfesionalService {
 		else
 			return dao.getAll(inicio, total, busqueda);
 	}
+	
+	@Override
+	public List<Profesional> getAllSoloListado(Integer inicio, Integer total, String busqueda) {
+		if(busqueda==null || "".equals(busqueda))
+			return dao.getAllSoloListado(inicio, total);
+		else
+			return dao.getAllSoloListado(inicio, total, busqueda);
+	}
 
 	@Override
 	public int getSizeAll(String filtro) {
