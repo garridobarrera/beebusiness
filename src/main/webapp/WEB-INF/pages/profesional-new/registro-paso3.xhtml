@@ -113,6 +113,12 @@
 											<label class="resumen" id="emailempresa">#{profesionalBean.profesional.emailProfesional}</label>
 										</div>
 									</div>
+									<div class="row">
+										<label class="col-lg-2 control-label">Cargo</label>
+										<div class="col-lg-10">
+											<label class="resumen" id="cargo">#{profesionalBean.profesional.cargo}</label>
+										</div>
+									</div>
 								</fieldset>
 							</div>
 						</div>
@@ -146,6 +152,11 @@
     											#{sector.nombre}
 											</p:dataList>
 										</div>
+									</div>
+									<div class="row">
+									<label class="col-lg-1 control-label">Visiblidad</label>
+									<div class="col-lg-3"><h:outputText class="resumen" id="visibilidad-publica" value="(perfil público)" rendered="#{profesionalBean.profesional.visibilidad == true}"></h:outputText>
+											<h:outputText class="resumen" id="visibilidad-privada" value="(perfil privado)" rendered="#{profesionalBean.profesional.visibilidad == false}"></h:outputText></div>
 									</div>
 								</fieldset>
 							</div>

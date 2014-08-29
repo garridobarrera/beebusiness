@@ -152,6 +152,11 @@
 											</p:dataList>
 										</div>
 									</div>
+									<div class="row">
+									<label class="col-lg-1 control-label">Visiblidad</label>
+									<div class="col-lg-3"><h:outputText class="resumen" id="visibilidad-publica" value="(perfil público)" rendered="#{profesionalBean.profesional.visibilidad == true}"></h:outputText>
+											<h:outputText class="resumen" id="visibilidad-privada" value="(perfil privado)" rendered="#{profesionalBean.profesional.visibilidad == false}"></h:outputText></div>
+									</div>
 								</fieldset>
 							</div>
 						</div>

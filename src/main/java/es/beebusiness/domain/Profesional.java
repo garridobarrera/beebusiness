@@ -75,6 +75,8 @@ public class Profesional extends Auditoria implements Serializable{
 	@JsonIgnore
 	private String nombreImagen;
 	
+	private boolean visibilidad;
+	
 	public Profesional(){
 	}
 	
@@ -228,6 +230,14 @@ public class Profesional extends Auditoria implements Serializable{
 		this.nombreImagen = nombreImagen;
 	}
 	
+	public boolean isVisibilidad() {
+		return visibilidad;
+	}
+
+	public void setVisibilidad(boolean visibilidad) {
+		this.visibilidad = visibilidad;
+	}
+
 	/**
 	 * Metodo para copiar datos basicos de un profesional a otro, excluyendo los campos: password, sectores, tematicas y perfiles.
 	 * @param profesional Profesional a copiar
