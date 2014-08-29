@@ -59,6 +59,8 @@ public class Evento extends Auditoria implements Serializable {
 	private Set<Sector> sectores;
 	private Set<Sector> tematicas;
 	private Set<Programa> programas;
+	private float latitud;
+	private float longitud;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -201,6 +203,22 @@ public class Evento extends Auditoria implements Serializable {
 		this.tematicas = tematicas;
 	}
 	
+	public float getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(float latitud) {
+		this.latitud = latitud;
+	}
+
+	public float getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(float longitud) {
+		this.longitud = longitud;
+	}
+
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy HH:mm");
