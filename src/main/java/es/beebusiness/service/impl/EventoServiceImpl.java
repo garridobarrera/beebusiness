@@ -1,5 +1,6 @@
 package es.beebusiness.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -132,6 +133,11 @@ public class EventoServiceImpl implements IEventoService {
 			return dao.getAll(inicio, total);
 		else
 			return dao.getAll(inicio, total, busqueda);
+	}
+
+	@Override
+	public List<Evento> getAll(Integer inicio, Integer total, Date fechaInicio) {
+		return dao.getAll(inicio, total, fechaInicio);
 	}
 
 	

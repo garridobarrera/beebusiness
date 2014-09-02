@@ -1,5 +1,6 @@
 package es.beebusiness.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -111,6 +112,23 @@ public class EventoDAOImpl extends AbstractBaseGenericDAOImpl<Evento, Long> impl
 	public List<Empresa> getEmpresas(Long id) {
 		Query query=em.createNamedQuery(Evento.QUERY_GETEMPRESAS);
 		query.setParameter(1, id);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Evento> getAll(Integer inicio, Integer total, Date fechaInicio) {
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		 CriteriaQuery<Evento> criteriaQuery = criteriaBuilder.createQuery(Evento.class);
+		 Root<Evento> root=criteriaQuery.from(Evento.class);
+		 if(fechaInicio!=null){
+			 Predicate predicadoFechaInicio=criteriaBuilder.greaterThanOrEqualTo(root.<Date>get("fechaInicio"), fechaInicio);
+			 criteriaQuery.where(predicadoFechaInicio);
+		 }
+		 TypedQuery<Evento> query = em.createQuery(criteriaQuery);
+		 if(inicio!=null && total!=null){
+				query.setFirstResult(inicio);
+				query.setMaxResults(total);
+			}
 		return query.getResultList();
 	}
 

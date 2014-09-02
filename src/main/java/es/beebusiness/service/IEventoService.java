@@ -1,6 +1,7 @@
 package es.beebusiness.service;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import es.beebusiness.dao.IEventoDAO;
@@ -29,4 +30,6 @@ public interface IEventoService extends Serializable{
 	public List<Sector> getTematicas(Long id);
 	public List<Empresa> getEmpresas(Long id);
 	public List<Evento> getAll(Integer inicio, Integer total, String busqueda);
+	
+	public List<Evento> getAll(Integer inicio,Integer total,Date fechaInicio);
 }

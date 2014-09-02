@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
@@ -52,12 +53,17 @@ public class Evento extends Auditoria implements Serializable {
 	private Date fechaInicio;
 	private Date fechaFin;
 	private TipoEvento tipoEvento;
+	@JsonIgnore
 	private Set<Empresa> empresas;
 	private String direccion;
 	private Provincia provincia;
+	@JsonIgnore
 	private Set<Perfil> perfiles;
+	@JsonIgnore
 	private Set<Sector> sectores;
+	@JsonIgnore
 	private Set<Sector> tematicas;
+	@JsonIgnore
 	private Set<Programa> programas;
 	private Float latitud;
 	private Float longitud;

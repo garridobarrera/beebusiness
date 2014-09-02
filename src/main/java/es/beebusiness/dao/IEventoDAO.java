@@ -1,5 +1,6 @@
 package es.beebusiness.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import es.beebusiness.domain.Empresa;
@@ -19,4 +20,5 @@ public interface IEventoDAO extends IBaseGenericDAO<Evento, Long> {
 	public List<Sector> getSectores(Long id);
 	public List<Sector> getTematicas(Long id);
 	public List<Empresa> getEmpresas(Long id);
+	public List<Evento> getAll(Integer inicio,Integer total,Date fechaInicio);
 }
