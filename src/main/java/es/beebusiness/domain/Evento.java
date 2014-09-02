@@ -16,7 +16,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,7 +31,8 @@ import org.hibernate.annotations.ForeignKey;
 		@NamedQuery(name = "getEmpresasEvento", query = "SELECT e.empresas FROM Evento e WHERE e.id=?"),
 		@NamedQuery(name = "getPerfilesEvento", query = "SELECT e.perfiles FROM Evento e WHERE e.id=?"),
 		@NamedQuery(name = "getSectoresEvento", query = "SELECT e.sectores FROM Evento e WHERE e.id=?"),
-		@NamedQuery(name = "getTematicaEvento", query = "SELECT e.tematicas FROM Evento e WHERE e.id=?")
+		@NamedQuery(name = "getTematicaEvento", query = "SELECT e.tematicas FROM Evento e WHERE e.id=?"),
+		@NamedQuery(name = "getPonentesEvento", query = "SELECT e.ponentes FROM Evento e WHERE e.id=?"),
 		})
 public class Evento extends Auditoria implements Serializable {
 
@@ -44,6 +44,7 @@ public class Evento extends Auditoria implements Serializable {
 	public static final String QUERY_GETPERFILES="getPerfilesEvento";
 	public static final String QUERY_GETSECTORES="getSectoresEvento";
 	public static final String QUERY_GETTEMATICAS="getTematicaEvento";
+	public static final String QUERY_GETPONENTES="getPonentesEvento";
 	
 	private Long id;
 	private String nombre;
@@ -63,11 +64,11 @@ public class Evento extends Auditoria implements Serializable {
 	private Set<Sector> sectores;
 	@JsonIgnore
 	private Set<Sector> tematicas;
-	@JsonIgnore
-	private Set<Programa> programas;
 	private Float latitud;
 	private Float longitud;
 	private Integer  aforo;
+	@JsonIgnore
+	private Set<Ponente> ponentes;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -188,16 +189,6 @@ public class Evento extends Auditoria implements Serializable {
 		this.sectores = sectores;
 	}
 
-	@OneToMany(fetch=FetchType.LAZY,targetEntity=Programa.class)	
-	@JoinTable(name="BB_EVEN_PROGRAMA",joinColumns={@JoinColumn(name="evento")},inverseJoinColumns={@JoinColumn(name="programa")})
-	@ForeignKey(name="FK_EVENTO_EVENTO",inverseName="FK_EVENTO_PROGRAMA")
-	public Set<Programa> getProgramas() {
-		return programas;
-	}
-
-	public void setProgramas(Set<Programa> programas) {
-		this.programas = programas;
-	}
 
 	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Sector.class)
 	@JoinTable(name="BB_EVEN_TEM",joinColumns={@JoinColumn(name="evento")},inverseJoinColumns={@JoinColumn(name="tema")})
@@ -232,6 +223,16 @@ public class Evento extends Auditoria implements Serializable {
 
 	public void setAforo(Integer aforo) {
 		this.aforo = aforo;
+	}
+	
+	@ManyToMany(fetch=FetchType.LAZY,targetEntity=Ponente.class)
+	@JoinTable(name="BB_EVENTO_PONENTE",joinColumns={@JoinColumn(name="evento")},inverseJoinColumns={@JoinColumn(name="ponente")})
+	@ForeignKey(name="FK_EVENTO_EVENTO",inverseName="FK_EVENTO_PONENTE")
+	public Set<Ponente> getPonentes() {
+		return ponentes;
+	}
+	public void setPonentes(Set<Ponente> ponentes) {
+		this.ponentes = ponentes;
 	}
 
 	@Override

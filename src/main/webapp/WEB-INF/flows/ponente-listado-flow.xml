@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+	start-state="listado">
+	<secured attributes="ROLE_USER" />
+	<var name="ponenteBean" class="es.beebusiness.beans.PonenteBean"/>
+	<var name="lazy" class="es.beebusiness.controller.lazy.PonenteLazyDataModel"/>
+	<var name="id" class="string"/>
+	<on-start>
+		<evaluate expression="new es.beebusiness.domain.Ponente()"
+		result="ponenteBean.ponente" />
+		<evaluate expression="ponenteBean.setLazy(lazy)"/>
+	</on-start>
+	<view-state id="listado" view="../pages/ponente/listado.xhtml">
+	    <transition on="filtrar"/>
+	    <transition on="limpiar">
+	        <evaluate expression="ponenteBean.getLazy().setBusqueda(null)"/>
+	    </transition>
+		<transition on="altaPonente">
+			<evaluate expression="ponenteController.altaPonente(ponenteBean.ponente)" />
+			<evaluate expression="new es.beebusiness.domain.Ponente()"
+			result="ponenteBean.ponente" />
+		</transition>
+		
+		<transition on="eliminarImagen">
+		   <evaluate expression="ponenteBean.getPonente().setImageFile(null)"/>
+		   <evaluate expression="ponenteBean.getPonente().setMimeType(null)"/>
+		   <evaluate expression="ponenteBean.getPonente().setNombreImagen(null)"/>
+		</transition>
+		
+		<transition on="confirmacion" to="borrar">
+	       <set name="id" value="requestParameters.id" type="string" />
+		</transition>
+		
+		<transition on="eliminarPonente">
+			<evaluate expression="ponenteController.eliminarPonente(requestParameters.id)"></evaluate>
+		</transition>
+		
+		<transition on="obtenerPonente">
+			<evaluate expression="ponenteController.obtenerPonente(requestParameters.id)" result="ponenteBean.ponente"></evaluate>
+		</transition>
+	</view-state>
+	
+	<view-state id="borrar" view="../pages/comun/borrar-entidad.xhtml">
+	    <transition on="confirmar" to="listado">
+	        <evaluate expression="ponenteController.eliminarPonente(id)"></evaluate>
+	    </transition>
+	     <transition on="deshacer" to="listado"/>
+	</view-state>
+
+
+	<end-state id="fin" view="final">
+	</end-state>
+</flow>

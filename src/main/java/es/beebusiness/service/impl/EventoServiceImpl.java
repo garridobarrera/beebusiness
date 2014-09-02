@@ -14,6 +14,7 @@ import es.beebusiness.dao.IEventoDAO;
 import es.beebusiness.domain.Empresa;
 import es.beebusiness.domain.Evento;
 import es.beebusiness.domain.Perfil;
+import es.beebusiness.domain.Ponente;
 import es.beebusiness.domain.Sector;
 import es.beebusiness.exception.BusinessException;
 import es.beebusiness.service.IEventoService;
@@ -126,6 +127,11 @@ public class EventoServiceImpl implements IEventoService {
 	public List<Empresa> getEmpresas(Long id) {
 		return dao.getEmpresas(id);
 	}
+	
+	@Override
+	public List<Ponente> getPonentes(Long id) {
+		return dao.getPonentes(id);
+	}
 
 	@Override
 	public List<Evento> getAll(Integer inicio, Integer total, String busqueda) {
@@ -139,6 +145,8 @@ public class EventoServiceImpl implements IEventoService {
 	public List<Evento> getAll(Integer inicio, Integer total, Date fechaInicio) {
 		return dao.getAll(inicio, total, fechaInicio);
 	}
+
+	
 
 	
 

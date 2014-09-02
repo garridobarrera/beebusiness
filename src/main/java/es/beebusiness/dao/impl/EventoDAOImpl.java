@@ -17,6 +17,7 @@ import es.beebusiness.dao.IEventoDAO;
 import es.beebusiness.domain.Empresa;
 import es.beebusiness.domain.Evento;
 import es.beebusiness.domain.Perfil;
+import es.beebusiness.domain.Ponente;
 import es.beebusiness.domain.Sector;
 
 @Repository
@@ -114,6 +115,13 @@ public class EventoDAOImpl extends AbstractBaseGenericDAOImpl<Evento, Long> impl
 		query.setParameter(1, id);
 		return query.getResultList();
 	}
+	
+	@Override
+	public List<Ponente> getPonentes(Long id) {
+		Query query=em.createNamedQuery(Evento.QUERY_GETPONENTES);
+		query.setParameter(1, id);
+		return query.getResultList();
+	}
 
 	@Override
 	public List<Evento> getAll(Integer inicio, Integer total, Date fechaInicio) {
@@ -131,5 +139,7 @@ public class EventoDAOImpl extends AbstractBaseGenericDAOImpl<Evento, Long> impl
 			}
 		return query.getResultList();
 	}
+
+	
 
 }
