@@ -73,6 +73,15 @@
 										</div>
 									</div>
 									<div class="row">
+										<label class="col-lg-3 control-label">Aforo</label>
+										<div class="col-lg-9">
+											<h:outputText value="#{eventoBean.evento.aforo}" rendered="#{eventoBean.evento.aforo!=null}">
+											</h:outputText>
+											<p:outputLabel styleClass="resumen" id="aforo"
+												rendered="#{eventoBean.evento.aforo==null}">SIN LÍMITE</p:outputLabel>
+										</div>
+									</div>
+									<div class="row">
 										<label class="col-lg-3 control-label">Inscripción</label>
 										<div class="col-lg-9">
 											<h:outputText value="#{eventoBean.evento.precio}" rendered="#{eventoBean.evento.precio!=null}">
