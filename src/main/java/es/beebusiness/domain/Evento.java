@@ -59,8 +59,9 @@ public class Evento extends Auditoria implements Serializable {
 	private Set<Sector> sectores;
 	private Set<Sector> tematicas;
 	private Set<Programa> programas;
-	private float latitud;
-	private float longitud;
+	private Float latitud;
+	private Float longitud;
+	private Integer  aforo;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -203,20 +204,28 @@ public class Evento extends Auditoria implements Serializable {
 		this.tematicas = tematicas;
 	}
 	
-	public float getLatitud() {
+	public Float getLatitud() {
 		return latitud;
 	}
 
-	public void setLatitud(float latitud) {
+	public void setLatitud(Float latitud) {
 		this.latitud = latitud;
 	}
 
-	public float getLongitud() {
+	public Float getLongitud() {
 		return longitud;
 	}
 
-	public void setLongitud(float longitud) {
+	public void setLongitud(Float longitud) {
 		this.longitud = longitud;
+	}
+
+	public Integer getAforo() {
+		return aforo;
+	}
+
+	public void setAforo(Integer aforo) {
+		this.aforo = aforo;
 	}
 
 	@Override
