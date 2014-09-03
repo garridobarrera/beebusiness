@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import es.beebusiness.domain.Empresa;
 import es.beebusiness.domain.Evento;
 import es.beebusiness.domain.Perfil;
 import es.beebusiness.domain.Ponente;
@@ -67,6 +68,13 @@ public class EventoRESTController {
 	public ResponseEntity<List<Perfil>> getPerfiles(@PathVariable("id") long id){
 		List<Perfil> perfiles=eventoService.getPerfiles(id);
 		return new ResponseEntity<List<Perfil>>(perfiles,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/{id}/empresas",method = RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<Empresa>> getEmpresas(@PathVariable("id") long id){
+		List<Empresa> empresas=eventoService.getEmpresas(id);
+		return new ResponseEntity<List<Empresa>>(empresas,HttpStatus.OK);
 	}
 	
 }
