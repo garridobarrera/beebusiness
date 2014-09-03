@@ -2,10 +2,13 @@ package es.beebusiness.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -78,6 +81,9 @@ public class Ponente extends Auditoria implements Serializable{
 	public void setMimeType(String mimeType) {
 		this.mimeType = mimeType;
 	}
+	
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
 	public byte[] getImageFile() {
 		return imageFile;
 	}
