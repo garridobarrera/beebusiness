@@ -55,6 +55,8 @@ public class Evento extends Auditoria implements Serializable {
 	private Date fechaFin;
 	private TipoEvento tipoEvento;
 	@JsonIgnore
+	private Empresa promotora;
+	@JsonIgnore
 	private Set<Empresa> empresas;
 	private String direccion;
 	private Provincia provincia;
@@ -69,6 +71,7 @@ public class Evento extends Auditoria implements Serializable {
 	private Integer  aforo;
 	@JsonIgnore
 	private Set<Ponente> ponentes;
+	private String estado;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -139,6 +142,17 @@ public class Evento extends Auditoria implements Serializable {
 		this.tipoEvento = tipoEvento;
 	}
 	
+	@ManyToOne(fetch=FetchType.LAZY,optional=false)
+	@JoinColumn(name="promotora")
+	@ForeignKey(name="FK_EVENTO_PROMOTORA")
+	public Empresa getPromotora() {
+		return promotora;
+	}
+
+	public void setPromotora(Empresa promotora) {
+		this.promotora = promotora;
+	}
+
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinTable(name="BB_EVEN_PROVINCIA",joinColumns={@JoinColumn(name="evento")},inverseJoinColumns={@JoinColumn(name="provincia")})
 	@ForeignKey(name="FK_EVENTO_EVENTO",inverseName="FK_EVENTO_PROVINCIA")
@@ -233,6 +247,14 @@ public class Evento extends Auditoria implements Serializable {
 	}
 	public void setPonentes(Set<Ponente> ponentes) {
 		this.ponentes = ponentes;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	@Override

@@ -156,9 +156,10 @@ public class ProfesionalRESTController {
 			StandardPBEStringEncryptor jasypt = new StandardPBEStringEncryptor();
 			jasypt.setPassword(ConstantesAutenticator.PASS);
 			String encrypt = jasypt.encrypt(key);
-			prof.setPassword(encode.encode(encrypt.substring(0,5)));
+			String nuevaPassword=encrypt.substring(0,5);
+			prof.setPassword(encode.encode(nuevaPassword));
 			profesionalService.actualizar(prof);
-			emailService.enviarCredenciales(profesional.getUsername(), encrypt,
+			emailService.enviarCredenciales(profesional.getUsername(), nuevaPassword,
 					"");
 		} catch (BusinessException e) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
