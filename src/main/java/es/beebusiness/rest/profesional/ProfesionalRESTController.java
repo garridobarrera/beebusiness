@@ -87,7 +87,8 @@ public class ProfesionalRESTController {
 		try {
 			profesionalService.crear(registro.getProfesional());
 		} catch (BusinessException e) {
-			return new ResponseEntity<Token>(HttpStatus.BAD_GATEWAY);
+			Token t=new Token(e.getMessage());
+			return new ResponseEntity<Token>(t,HttpStatus.OK);
 		}
 		String key = UUID.randomUUID().toString().toUpperCase() + "&&"
 				+ registro.getProfesional().getUsername() + "&&" + System.currentTimeMillis();
@@ -126,13 +127,14 @@ public class ProfesionalRESTController {
 		profesional.copiarDatosBasicos(registro.getProfesional(), true);
 		
 		//4.- Seteamos la password si viene indicada
-		if(StringUtils.isEmpty(registro.getProfesional().getPassword())){
+		if(!StringUtils.isEmpty(registro.getProfesional().getPassword())){
 			profesional.setPassword(encode.encode(registro.getProfesional().getPassword()));
 		}
 		try {
 			profesionalService.actualizar(profesional);
 		} catch (BusinessException e) {
-			return new ResponseEntity<Token>(HttpStatus.BAD_GATEWAY);
+			Token t=new Token(e.getMessage());
+			return new ResponseEntity<Token>(t,HttpStatus.OK);
 		}
 		String key = UUID.randomUUID().toString().toUpperCase() + "&&"
 				+ registro.getProfesional().getUsername() + "&&" + System.currentTimeMillis();
